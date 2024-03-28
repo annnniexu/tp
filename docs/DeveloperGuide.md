@@ -30,6 +30,24 @@ of that travel activity.
 
 The sequence diagram below shows how an update operation goes through the parser component:
 ![img.png](img.png)
+
+[Proposed] Track feature
+
+Proposed Implementation
+
+The proposed track feature is carried out by `ExpenseTracker`. It stores objects with class `Expense` in an array called `expenseList`
+and each `Expense` class object contains a description, category, and cost. The `ExpenseTracker` also contains the following method:
+* `ExpenseTracker#trackExpense(description, cost, category)`-- Creates an instance of the `Expense` class and stores it in the `expenseList`
+
+Given below is an example usage scenario and how the track expense mechanism behaves at each step
+
+Step 1. The user launches the application for the first time. A new `ExpenseTracker` will be initialized.
+
+Step 2. To track an expense, the user can execute `track lunch /cost 12 /category food` command to track the expense.
+The `track` command calls the `Parser#trackCommand(line, list)` which then calls `ExpenseTracker#trackExpense(description, cost, category)`.
+
+
+
 ## Product scope
 ### Target user profile
 
