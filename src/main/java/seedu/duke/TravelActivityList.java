@@ -41,10 +41,17 @@ public class TravelActivityList {
             }
             String checked = activity.getActivityStatus()? "[X]" : "[ ]";
             activityCount++;
-            if(activity.getTag()==null || activity.getTag().isEmpty()){
-                System.out.println(checked + " " + activityCount +". " + activity);
+            if((activity.getTag() == null || activity.getTag().isEmpty()) &&
+                    (activity.getExpense() == null || activity.getExpense().isEmpty())){
+                System.out.println(checked + " " + activityCount + ". " + activity);
+            } else if (!(activity.getTag() == null || activity.getTag().isEmpty())) {
+                System.out.println(checked + " " + activityCount + ". " + activity  + " (" + activity.getTag() + ")");
+            } else if (!(activity.getExpense() == null || activity.getExpense().isEmpty())) {
+                System.out.println(checked + " " + activityCount + ". " + activity
+                        + " (" + activity.getExpense() + ")");
             } else {
-                System.out.println(checked + " " + activityCount + ". " + activity  + " (" + activity.getTag() + ")" );
+                System.out.println(checked + " " + activityCount + ". " + activity
+                        + " (" + activity.getTag() + ")" + " (" + activity.getExpense() + ")");
             }
         }
         int finalactivityCount = noOfActivities;
@@ -101,7 +108,7 @@ public class TravelActivityList {
         int foundCounter = 0;
         for (int iterator = 0; iterator < travelActivities.size(); iterator += 1){
             if(travelActivities.get(iterator).getPlan().contains(activityName) &&
-                    !travelActivities.get(iterator).getTag().isEmpty()){
+                    !travelActivities.get(iterator).getPlan().isEmpty()){
                 isFound = true;
                 foundCounter += 1;
                 if (isFound && foundCounter == 1) {
@@ -115,7 +122,7 @@ public class TravelActivityList {
                 }
             }
         }
-        if (foundCounter == 0 || isFound == false) {
+        if (foundCounter == 0) {
             System.out.println("Sorry I could not find what you are looking for.");
         }
     }
@@ -291,6 +298,7 @@ public class TravelActivityList {
                     System.out.println("Here are what you are looking for:");
                 }
                 if (travelActivities.get(iterator).getTag() == "") {
+
                     System.out.println(foundCounter + ". " + travelActivities.get(iterator).toString());
                 } else {
                     System.out.println(foundCounter + ". " + travelActivities.get(iterator).toString() +
@@ -302,5 +310,39 @@ public class TravelActivityList {
             System.out.println("Sorry I could not find what you are looking for.");
         }
     }
+
+    /**
+     * Adds expense to travel activity
+     * @param taskNumber The travel activity number on the list
+     * @param expense  The expense of travel activity
+     */
+    public void expenseActivity(int taskNumber, String expense) throws OmniException {
+        assert taskNumber != 0 : "There is no tasks in the list";
+        if (taskNumber > travelActivities.size()) {
+            throw new OmniException("Travel activity cannot be found");
+        }
+        int indexOfTask = taskNumber - 1;
+        TravelActivity task = travelActivities.get(indexOfTask);
+        task.setExpense(expense);
+        System.out.println("I have added expense for this task:");
+        System.out.println(task + " (" + expense + ")");
+    }
+
+    /**
+     * Removes the expense on a travel activity
+     * @param taskNumber The travel activity number on the list
+     */
+    public void removeExpense(int taskNumber) throws OmniException {
+        assert taskNumber != 0 : "There is no task in the list";
+        if (taskNumber > travelActivities.size()) {
+            throw new OmniException("Travel activity cannot be found");
+        }
+        int indexOfTask = taskNumber - 1;
+        TravelActivity task = travelActivities.get(indexOfTask);
+        task.removeExpense();
+        System.out.println("Expense removed from the task:");
+        System.out.println(task);
+    }
+
 
 }

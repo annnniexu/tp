@@ -9,9 +9,7 @@ import java.util.logging.Logger;
 public class Duke {
 
     public static void main(String[] args) {
-
         Logger logger = Logger.getLogger("Main");
-
         Ui.printGreeting();
         boolean userSaysBye = false;
         FileSave file = new FileSave("omni.txt");
@@ -120,6 +118,18 @@ public class Duke {
                 case "findtype":
                     Ui.printLine();
                     Parser.findTypeCommand(line, list);
+                    Ui.printLine();
+                    break;
+
+                case "expense":
+                    Ui.printLine();
+                    Parser.expenseCommand(line, list);
+                    Ui.printLine();
+                    break;
+
+                case "removeexpense":
+                    Ui.printLine();
+                    Parser.removeExpenseCommand(command, list);
                     Ui.printLine();
                     break;
 

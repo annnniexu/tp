@@ -162,7 +162,6 @@ class DukeTest {
             travelActivityListNew.addTravelActivity(travelActivityNew2);
             travelActivityListNew.addTravelActivity(travelActivityNew3);
             String[] command1 = new String[]{"find", "mala"};
-
             String findExpectedOutput = "Here are what you are looking for:" + System.lineSeparator() +
                     "1. Food: utown mala :19 Jun 2019 :2 hours (spicy)" + System.lineSeparator() +
                     "2. Food: pgpr mala :7 Jul 2012 :1 hours (spicy)"  + System.lineSeparator();
@@ -171,8 +170,6 @@ class DukeTest {
         } catch (OmniException exception) {
             Ui.printException(exception);
         }
-
-
     }
 
     @Test
@@ -277,6 +274,33 @@ class DukeTest {
         assertEquals("10 Dec 2020",
                 travelActivity1.getDate().format(DateTimeFormatter.ofPattern("dd MMM yyyy")));
         assertEquals("3hours", travelActivity1.getDuration());
+    }
+
+    @Test
+    public void testExpenseActivity() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(new TravelActivity("visit museum",
+                LocalDate.parse("2019-05-12"),"2hours", "Sightseeing"));
+        assertEquals("visit museum", list.getDescription("visit museum"));
+        // adding expense to existing task
+        list.expenseActivity(1, "$50");
+        TravelActivity travelActivity = list.getTravelActivities().get(0);
+        assertEquals("$50", travelActivity.getExpense());
+    }
+
+    @Test
+    public void testRemoveExpense() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(new TravelActivity("visit museum",
+                LocalDate.parse("2019-05-12"),"2hours", "Sightseeing"));
+        assertEquals("visit museum", list.getDescription("visit museum"));
+        // adding expense to existing task
+        list.expenseActivity(1, "$50");
+        TravelActivity travelActivity = list.getTravelActivities().get(0);
+        assertEquals("$50", travelActivity.getExpense());
+        // Remove an existing expense
+        list.removeExpense(1);
+        assertEquals("visit museum", list.getDescription("visit museum"));
     }
 
 
