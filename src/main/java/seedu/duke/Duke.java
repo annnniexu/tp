@@ -68,56 +68,57 @@ public class Duke {
     private static void invokeCommand(String[] command, String line, TravelActivityList list) throws OmniException, IOException {
         Ui.printLine();
         switch (command[0].toLowerCase()) {
-            case "delete":
-                Parser.deleteCommand(command, list);
-                break;
-            case "check":
-                Parser.checkCommand(command, list);
-                break;
-            case "uncheck":
-                Parser.uncheckCommand(command, list);
-                break;
-            case "find":
-                Parser.findCommand(command, list);
-                break;
-            case "tag":
-                Parser.tagCommand(line, list);
-                break;
-            case "untag":
-                Parser.removeTagCommand(command, list);
-                break;
-            case "update":
-                Parser.updateCommand(line, list);
-                break;
-            case "findtag":
-                Parser.findTagCommand(line, list);
-                break;
-            case "findtype":
-                Parser.findTypeCommand(line, list);
-                break;
-            case "expense":
-                Parser.expenseCommand(line, list);
-                break;
-            case "removeexpense":
-                Parser.removeExpenseCommand(command, list);
-                break;
-            default:
-                throw new OmniException("Invalid command");
+        case "delete":
+            Parser.deleteCommand(command, list);
+            break;
+        case "check":
+            Parser.checkCommand(command, list);
+            break;
+        case "uncheck":
+            Parser.uncheckCommand(command, list);
+            break;
+        case "find":
+            Parser.findCommand(command, list);
+            break;
+        case "tag":
+            Parser.tagCommand(line, list);
+            break;
+        case "untag":
+            Parser.removeTagCommand(command, list);
+            break;
+        case "update":
+            Parser.updateCommand(line, list);
+            break;
+        case "findtag":
+            Parser.findTagCommand(line, list);
+            break;
+        case "findtype":
+            Parser.findTypeCommand(line, list);
+            break;
+        case "expense":
+            Parser.expenseCommand(line, list);
+            break;
+        case "removeexpense":
+            Parser.removeExpenseCommand(command, list);
+            break;
+        default:
+            throw new OmniException("Invalid command");
         }
         Ui.printLine();
     }
 
     private static void handleException(Exception exception) {
-        if (exception instanceof OmniException)
+        if (exception instanceof OmniException) {
             Ui.printException((OmniException) exception);
-        else if (exception instanceof NoSuchElementException)
+        } else if (exception instanceof NoSuchElementException) {
             Ui.printNoSuchElementException((NoSuchElementException) exception);
-        else if (exception instanceof NumberFormatException)
+        } else if (exception instanceof NumberFormatException) {
             Ui.printNumberTooLargeException((NumberFormatException) exception);
-        else if (exception instanceof DateTimeException)
+        } else if (exception instanceof DateTimeException) {
             Ui.printDateTimeExceptionError();
-        else if (exception instanceof IOException)
+        } else if (exception instanceof IOException) {
             Ui.printSavingError();
+        }
     }
 }
 
