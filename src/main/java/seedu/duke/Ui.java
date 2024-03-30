@@ -58,9 +58,24 @@ public class Ui {
     public static void helpCommand(){
         printLine();
         System.out.println("These are the available commands!");
-        System.out.println("1. list\n2. add <insert travel activity>\n3. delete <insert activity number>\n" +
-                           "4. find <insert keyword>\n5. help\n6. bye\n");
-        printLine();
+        System.out.println("1. list\n" +
+                "2. help\n" +
+                "3. bye\n" +
+                "4. add <travel activity> <date> <duration> <tag>\n" +
+                "5. accommodation <travel activity> <date> <duration> <tag>\n" +
+                "6. food <travel activity> <date> <duration> <tag>\n" +
+                "7. landmark <travel activity> <date> <duration> <tag>\n" +
+                "8. delete <activity number>\n" +
+                "9. find <keyword>\n" +
+                "10. check <activity number>\n" +
+                "11. uncheck <activity number>\n" +
+                "12. tag <activity number> <tag name>\n" +
+                "13. untag <activity number>\n" +
+                "14. update <update> <date> <duration> <tag>\n" +
+                "15. findtag <tag name>\n" +
+                "16. findtype <type>\n" +
+                "17. expense <activity number> <expense amount>\n" +
+                "18. removeexpense <activity number>\n");
     }
 
     public static void printDateTimeExceptionError(){

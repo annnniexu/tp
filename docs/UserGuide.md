@@ -15,19 +15,61 @@
 
 {Give detailed description of each feature}
 
-### Adding a todo: `todo`
-Adds a new item to the list of todo items.
+### Display Commands : `help`
+Displays the features of OmniTravel
 
-Format: `todo n/TODO_NAME d/DEADLINE`
+Format: `help`
 
-* The `DEADLINE` can be in a natural language format.
-* The `TODO_NAME` cannot contain punctuation.  
+Example of usage:
+
+`help`
+
+
+### Adding a tag: `tag`
+Adds a new tag to an existing travel activity.
+
+Format: `tag n/ACTIVITY_NUMBER d/TAG_NAME`
+
+* The `ACTIVITY_NUMBER` must be a valid activity number.
 
 Example of usage: 
 
-`todo n/Write the rest of the User Guide d/next week`
+`tag n/1 d/activity 1`
 
-`todo n/Refactor the User Guide to remove passive voice d/13/04/2020`
+### Removing a tag: `untag`
+Removes a tag from an existing travel activity.
+
+Format: `untag n/ACTIVITY_NUMBER`
+
+* The `ACTIVITY_NUMBER` must be a valid activity number.
+
+Example of usage:
+
+`untag n/1 `
+
+### Adding an expense amount: `expense`
+Adds an expense amount to an existing travel activity.
+
+Format: `expense n/ACTIVITY_NUMBER d/EXPENSE_AMOUNT`
+
+* The `ACTIVITY_NUMBER` must be a valid activity number
+* The `EXPENSE_AMOUNT` can include the currency of the expense.
+
+Example of usage:
+
+`expense n/1 d/$50`
+
+### Removing an expense amount: `removeexpense`
+Removes an expense amount to an existing travel activity.
+
+Format: `removeexpense n/ACTIVITY_NUMBER`
+
+* The `ACTIVITY_NUMBER` must be a valid activity number.
+
+Example of usage:
+
+`removeexpense n/2`
+
 
 ## FAQ
 
@@ -39,4 +81,8 @@ Example of usage:
 
 {Give a 'cheat sheet' of commands here}
 
-* Add todo `todo n/TODO_NAME d/DEADLINE`
+* Get commands `help`
+* Add tag `tag n/ACTIVITY_NUMBER d/TAG_NAME`
+* Remove tag `untag n/ACTIVITY_NUMBER`
+* Add expense `expense n/ACTIVITY_NUMBER d/EXPENSE_AMOUNT`
+* Remove expense `removeexpense n/ACTIVITY_NUMBER`
