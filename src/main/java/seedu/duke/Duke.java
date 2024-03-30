@@ -65,7 +65,8 @@ public class Duke {
             }
         }
     }
-    private static void invokeCommand(String[] command, String line, TravelActivityList list) throws OmniException, IOException {
+    private static void invokeCommand(String[] command,
+                                      String line, TravelActivityList list) throws OmniException, IOException {
         Ui.printLine();
         switch (command[0].toLowerCase()) {
         case "delete":
