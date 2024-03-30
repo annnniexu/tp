@@ -21,60 +21,31 @@ public class FileSave {
         Scanner s = new Scanner(f);
         while (s.hasNext()){
             String[] line = s.nextLine().split(" / ");
-            switch (line[0].toLowerCase()){
+            String type = line[0].toLowerCase();
+            String description = line[2];
+            LocalDate date = LocalDate.parse(line[3]);
+            String duration = line[4];
+            String tag = (line.length == 6) ? line[5].trim() : "";
+            TravelActivity activity;
+            switch (type) {
             case "accommodation":
-                TravelActivity accommodation;
-                if (line.length == 6) {
-                    accommodation = new Accommodation(line[2], LocalDate.parse(line[3]), line[4], line[5].trim());
-                } else {
-                    accommodation = new Accommodation(line[2], LocalDate.parse(line[3]), line[4], "");
-                }
-                list.addTravelActivity(accommodation);
-                if(line[1].equals("1")){
-                    accommodation.setActivityStatus(true);
-                }
+                activity = new Accommodation(description, date, duration, tag);
                 break;
             case "food":
-                TravelActivity food;
-                if (line.length == 6) {
-                    food = new Food(line[2], LocalDate.parse(line[3]), line[4], line[5].trim());
-                } else {
-                    food = new Food(line[2], LocalDate.parse(line[3]), line[4], "");
-                }
-
-                list.addTravelActivity(food);
-                if(line[1].equals("1")){
-                    food.setActivityStatus(true);
-                }
+                activity = new Food(description, date, duration, tag);
                 break;
             case "landmark":
-                TravelActivity landmark;
-                if (line.length == 6) {
-                    landmark = new Landmark(line[2], LocalDate.parse(line[3]), line[4], line[5].trim());
-                } else {
-                    landmark = new Landmark(line[2], LocalDate.parse(line[3]), line[4], "");
-                }
-                list.addTravelActivity(landmark);
-                if(line[1].equals("1")){
-                    landmark.setActivityStatus(true);
-                }
+                activity = new Landmark(description, date, duration, tag);
                 break;
             case "general":
-                TravelActivity newActivity;
-                if (line.length == 6) {
-                    newActivity = new TravelActivity(line[2], LocalDate.parse(line[3]),
-                            line[4], line[5].trim());
-                } else {
-                    newActivity = new TravelActivity(line[2], LocalDate.parse(line[3]),
-                            line[4], "");
-                }
-                list.addTravelActivity(newActivity);
-                if(line[1].equals("1")){
-                    newActivity.setActivityStatus(true);
-                }
+                activity = new TravelActivity(description, date, duration, tag);
                 break;
             default:
                 throw new FileNotFoundException("File is corrupted or has invalid format");
+            }
+            list.addTravelActivity(activity);
+            if (line[1].equals("1")) {
+                activity.setActivityStatus(true);
             }
         }
     }
