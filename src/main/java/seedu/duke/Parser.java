@@ -64,20 +64,20 @@ public class Parser {
         }
         TravelActivity activity;
         switch (command[0]) {
-            case "accommodation":
-                activity = new Accommodation(description, date, duration, tag);
-                System.out.println("I added a new accommodation");
-                break;
-            case "food":
-                activity = new Food(description, date, duration, tag);
-                System.out.println("I added a new restaurant");
-                break;
-            case "landmark":
-                activity = new Landmark(description, date, duration, tag);
-                System.out.println("I added a new landmark");
-                break;
-            default:
-                throw new OmniException("Unknown activity type");
+        case "accommodation":
+            activity = new Accommodation(description, date, duration, tag);
+            System.out.println("I added a new accommodation");
+            break;
+        case "food":
+            activity = new Food(description, date, duration, tag);
+            System.out.println("I added a new restaurant");
+            break;
+        case "landmark":
+            activity = new Landmark(description, date, duration, tag);
+            System.out.println("I added a new landmark");
+            break;
+        default:
+            throw new OmniException("Unknown activity type");
         }
         list.addTravelActivity(activity);
         System.out.println(activity);
