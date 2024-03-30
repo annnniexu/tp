@@ -45,8 +45,24 @@ Step 3. The method will then find the travel activity with the corresponding tra
 of that travel activity.
 
 The sequence diagram below shows how an update operation goes through the parser component:
+![img.png](img.png)
 
-![img_1.png](img_1.png)
+#[Proposed] Total Expense feature
+
+Proposed Implementation
+
+The proposed total expense feature is mainly carried out by `TravelActivityList`. It stores objects with class `TravelActivity`in an array called `travelActivities`
+and each `TravelActivity` class object contains an expense associated with it. The `TravelAcivityList` also contains the following method:
+* `TravelActivityList#totalExpense()`-- Returns the total expense of all activities in the list.
+
+Step 1. When the user launched the app for the first time, there will be no objects of type `TravelActivity` in `travelActivities`.
+Thus any attempts to call the command `total expense`
+will result in an output of `0`.
+
+Step 2. After the user has added new travel activities into the `travelActivityList`, the user can execute
+`total expense` command to get the total expense for the activities in the list. The `total expense` command calls the  `Parser#totalExpenseCommand(line, list)` which then calls the `TravelActivityList#totalExpense()`
+
+Step 3. The method will loop through each activity in `travelActivities` and add up all the expenses.
 
 ## Product scope
 ### Target user profile
