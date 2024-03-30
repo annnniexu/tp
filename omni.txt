@@ -1,4 +1,4 @@
-accommodation / 1 / nus rvrc / 2007-12-12 / 5 years / campus stay
+accommodation / 1 / nus rvrc / 2019-12-12 / 5 years / 
 accommodation / 0 / nus pgpr / 2017-10-12 / 5 years / campus stay
 accommodation / 0 / nus utr / 2007-09-12 / 5 years / campus stay
 landmark / 0 / berlin wall / 2009-12-15 / 5 hours / historic site

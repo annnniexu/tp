@@ -240,12 +240,10 @@ public class Parser {
             throw new OmniException("The duration cannot be empty!");
         } else if(command.length >= 5 && command[4].isBlank()){
             throw new OmniException("The tag cannot be empty!");
-        } else if (command.length >= 5 && line.contains("/tag")) {
+        } else if (command.length >= 4 && !command[3].contains("/tag")) {
+            String tag = (line.contains("/tag") && command.length == 5)? command[4] : "";
             list.updateTravelActivity(Integer.parseInt(command[1]), LocalDate.parse(command[2]), command[3],
-                    command[4]);
-        } else if (command.length >= 4 && !line.contains("/tag")){
-            list.updateTravelActivity(Integer.parseInt(command[1]), LocalDate.parse(command[2]), command[3],
-                    "");
+                    tag);
         } else {
             throw new OmniException("Please check that your update command is in this format: update INDEX " +
                     "/date YYYY-MM-DD /duration DURATION"
