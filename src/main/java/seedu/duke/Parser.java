@@ -27,12 +27,14 @@ public class Parser {
      * @param list List of travel activities.
      */
     public static void getList(String[] command, TravelActivityList list) throws OmniException{
+        Ui.printLine();
         if (command.length == 1) {
             System.out.println("Here are the travel activities in your list:");
             list.listTravelActivities();
         } else {
             throw new OmniException("Do you mean the command list?");
         }
+        Ui.printLine();
     }
 
     /**
@@ -42,65 +44,44 @@ public class Parser {
      * @param list List of travel activities
      * @throws OmniException if command.length < 2
      */
-    public static void activityCommand(String line, TravelActivityList list) throws OmniException{
-        //logger.log(Level.INFO, "activityCommand");
+    public static void activityCommand(String line, TravelActivityList list) throws OmniException {
+        Ui.printLine();
         String[] command = line.split(" ");
         String delimiter = command[0] + "| /date | /duration | /tag ";
         String[] input = line.split(delimiter);
-        //logger.log(Level.INFO, input[0] + " // " +  input[1] + " // " +  input[2] + " // " +  input[3]);
-        if (input.length >= 4 && input[1].isBlank()) {
+        String description = input[1].trim();
+        LocalDate date = LocalDate.parse(input[2]);
+        String duration = input[3].trim();
+        String tag = (input.length > 4 && !input[4].isBlank()) ? input[4].trim() : "";
+        if (input[1].isBlank()) {
             throw new OmniException("The description of accommodation cannot be empty!");
-        } else if(input.length >= 4 && input[2].isBlank()){
+        } else if (input[2].isBlank()) {
             throw new OmniException("The date cannot be empty!");
-        } else if (input.length >= 4 && input[3].isBlank()){
+        } else if (input[3].isBlank()) {
             throw new OmniException("The duration cannot be empty!");
-        } else if (input.length >= 5 && input[4].isBlank()){
+        } else if (input.length >= 5 && input[4].isBlank()) {
             throw new OmniException("The tag cannot be empty!");
-        }else if (input.length >= 4 && !line.contains("/tag") ) {
-            if (command[0].equals("accommodation")) {
-                Accommodation newActivity = new Accommodation(input[1].trim(), LocalDate.parse(input[2]),
-                        input[3].trim(), "");
-                list.addTravelActivity(newActivity);
-                System.out.println("I added a new accommodation");
-                System.out.println(newActivity);
-            } else if (command[0].equals("food")) {
-                Food newActivity = new Food(input[1].trim(), LocalDate.parse(input[2]),
-                        input[3].trim(), "");
-                list.addTravelActivity(newActivity);
-                System.out.println("I added a new restaurant");
-                System.out.println(newActivity);
-            } else if (command[0].equals("landmark")) {
-                Landmark newActivity = new Landmark(input[1].trim(), LocalDate.parse(input[2]),
-                        input[3].trim(), "");
-                list.addTravelActivity(newActivity);
-                System.out.println("I added a new landmark");
-                System.out.println(newActivity);
-            }
-        } else if(input.length >= 5 && line.contains("/tag") ){
-            if (command[0].equals("accommodation")) {
-                Accommodation newActivity = new Accommodation(input[1].trim(), LocalDate.parse(input[2]),
-                        input[3].trim(), input[4].trim());
-                list.addTravelActivity(newActivity);
-                System.out.println("I added a new accommodation");
-                System.out.println(newActivity);
-            } else if (command[0].equals("food")) {
-                Food newActivity = new Food(input[1].trim(), LocalDate.parse(input[2]),
-                        input[3].trim(), input[4].trim());
-                list.addTravelActivity(newActivity);
-                System.out.println("I added a new restaurant");
-                System.out.println(newActivity);
-            } else if (command[0].equals("landmark")) {
-                Landmark newActivity = new Landmark(input[1].trim(), LocalDate.parse(input[2]),
-                        input[3].trim(), input[4].trim());
-                list.addTravelActivity(newActivity);
-                System.out.println("I added a new landmark");
-                System.out.println(newActivity);
-            }
-        } else {
-            throw new OmniException("Please check that your command is in this format: accomodation DESCRIPTION " +
-                    "/date YYYY-MM-DD /duration DURATION /tag TAG" + System.lineSeparator()
-                    + "or accomodation DESCRIPTION /date YYYY-MM-DD /duration DURATION");
         }
+        TravelActivity activity;
+        switch (command[0]) {
+            case "accommodation":
+                activity = new Accommodation(description, date, duration, tag);
+                System.out.println("I added a new accommodation");
+                break;
+            case "food":
+                activity = new Food(description, date, duration, tag);
+                System.out.println("I added a new restaurant");
+                break;
+            case "landmark":
+                activity = new Landmark(description, date, duration, tag);
+                System.out.println("I added a new landmark");
+                break;
+            default:
+                throw new OmniException("Unknown activity type");
+        }
+        list.addTravelActivity(activity);
+        System.out.println(activity);
+        Ui.printLine();
     }
 
     /**
@@ -111,31 +92,26 @@ public class Parser {
      * @throws OmniException if command.length < 2
      */
     public static void addCommand(String line, TravelActivityList list) throws OmniException{
+        Ui.printLine();
         String[] command = line.split("add | /date | /duration | /tag ");
+        String description = command[1].trim();
+        LocalDate date = LocalDate.parse(command[2]);
+        String duration = command[3].trim();
+        String tag = (command.length > 4 && !command[4].isBlank()) ? command[4].trim() : "";
         logger.log(Level.INFO, command[0] + " // " +  command[1]);
-        if (command.length >= 4 && command[1].isBlank()) {
+        if (command[1].isBlank()) {
             throw new OmniException("The description of add cannot be empty!");
-        } else if(command.length >= 4 && command[2].isBlank()){
+        } else if(command[2].isBlank()){
             throw new OmniException("The date cannot be empty!");
-        } else if (command.length >= 4 && command[3].isBlank()){
+        } else if (command[3].isBlank()){
             throw new OmniException("The duration cannot be empty!");
-        } else if (command.length >= 4 && !line.contains("/tag") ) {
-            TravelActivity newActivity = new TravelActivity(command[1].trim(), LocalDate.parse(command[2]),
-                    command[3].trim(), "");
-            list.addTravelActivity(newActivity);
-            System.out.println("I added a new travel activity");
-            System.out.println(newActivity);
-        } else if(command.length >= 5 && line.contains("/tag")){
-            TravelActivity newActivity = new TravelActivity(command[1].trim(), LocalDate.parse(command[2]),
-                    command[3].trim(), command[4].trim());
-            list.addTravelActivity(newActivity);
-            System.out.println("I added a new travel activity");
-            System.out.println(newActivity);
-        } else{
-            throw new OmniException("Please check that your add command is in this format: add DESCRIPTION " +
-                                    "/date YYYY-MM-DD /duration DURATION"
-                                    + " or add DESCRIPTION /date YYYY-MM-DD /duration DURATION /tag TAG");
         }
+        TravelActivity newActivity = new TravelActivity(description, date, duration, tag);
+        list.addTravelActivity(newActivity);
+        System.out.println("I added a new travel activity");
+        System.out.println(newActivity);
+
+        Ui.printLine();
     }
 
     /**
