@@ -64,6 +64,14 @@ Step 2. After the user has added new travel activities into the `travelActivityL
 
 Step 3. The method will loop through each activity in `travelActivities` and add up all the expenses.
 
+### Tag feature
+
+The tag feature is implemented through the tagCommand method, which allows users to add tags to specific travel activities stored in the system.
+
+The sequence diagram depicts the interaction between the user, the tagCommand method, the TravelActivityList instance, and the OmniException instance.
+
+![TagSequenceDiagram.png](TagSequenceDiagram.png)
+
 ## Product scope
 ### Target user profile
 
