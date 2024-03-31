@@ -49,19 +49,22 @@ public class Parser {
         String[] command = line.split(" ");
         String delimiter = command[0] + "| /date | /duration | /tag ";
         String[] input = line.split(delimiter);
-        String description = input[1].trim();
-        LocalDate date = LocalDate.parse(input[2]);
-        String duration = input[3].trim();
-        String tag = (input.length > 4 && !input[4].isBlank()) ? input[4].trim() : "";
-        if (input[1].isBlank()) {
+        //String tag = (input.length > 4 && !input[4].isBlank()) ? input[4].trim() : "";
+        if (input.length >= 4 && input[1].isBlank()) {
             throw new OmniException("The description of accommodation cannot be empty!");
-        } else if (input[2].isBlank()) {
+        } else if (input.length >= 4 && input[2].isBlank()) {
             throw new OmniException("The date cannot be empty!");
-        } else if (input[3].isBlank()) {
+        } else if (input.length >= 4 && input[3].isBlank()) {
             throw new OmniException("The duration cannot be empty!");
         } else if (input.length >= 5 && input[4].isBlank()) {
             throw new OmniException("The tag cannot be empty!");
+        } else if (input.length < 4 || input[3].contains("/tag")){
+            throw new OmniException("Wrong format");
         }
+        String description = input[1].trim();
+        LocalDate date = LocalDate.parse(input[2]);
+        String duration = input[3].trim();
+        String tag = (line.contains("/tag") && input.length == 5) ? input[4].trim() : "";
         TravelActivity activity;
         switch (command[0]) {
         case "accommodation":
@@ -94,23 +97,26 @@ public class Parser {
     public static void addCommand(String line, TravelActivityList list) throws OmniException{
         Ui.printLine();
         String[] command = line.split("add | /date | /duration | /tag ");
-        String description = command[1].trim();
-        LocalDate date = LocalDate.parse(command[2]);
-        String duration = command[3].trim();
-        String tag = (command.length > 4 && !command[4].isBlank()) ? command[4].trim() : "";
+        //String tag = (command.length > 4 && !command[4].isBlank()) ? command[4].trim() : "";
         logger.log(Level.INFO, command[0] + " // " +  command[1]);
-        if (command[1].isBlank()) {
+        if (command.length >= 4 && command[1].isBlank()) {
             throw new OmniException("The description of add cannot be empty!");
-        } else if(command[2].isBlank()){
+        } else if(command.length >= 4 && command[2].isBlank()){
             throw new OmniException("The date cannot be empty!");
-        } else if (command[3].isBlank()){
+        } else if (command.length >= 4 && command[3].isBlank()){
             throw new OmniException("The duration cannot be empty!");
+        } else if (command.length >= 4 && !command[3].contains("/tag")){
+            String description = command[1].trim();
+            LocalDate date = LocalDate.parse(command[2]);
+            String duration = command[3].trim();
+            String tag = (line.contains("/tag") && command.length == 5) ? command[4].trim() : "";
+            TravelActivity newActivity = new TravelActivity(description, date, duration, tag);
+            list.addTravelActivity(newActivity);
+            System.out.println("I added a new travel activity");
+            System.out.println(newActivity);
+        } else {
+            throw new OmniException("Wrong format");
         }
-        TravelActivity newActivity = new TravelActivity(description, date, duration, tag);
-        list.addTravelActivity(newActivity);
-        System.out.println("I added a new travel activity");
-        System.out.println(newActivity);
-
         Ui.printLine();
     }
 
@@ -217,8 +223,8 @@ public class Parser {
         } else if(command.length >= 5 && command[4].isBlank()){
             throw new OmniException("The tag cannot be empty!");
         } else if (command.length >= 4 && !command[3].contains("/tag")) {
-            String tag = (line.contains("/tag") && command.length == 5)? command[4] : "";
-            list.updateTravelActivity(Integer.parseInt(command[1]), LocalDate.parse(command[2]), command[3],
+            String tag = (line.contains("/tag") && command.length == 5)? command[4].trim() : "";
+            list.updateTravelActivity(Integer.parseInt(command[1]), LocalDate.parse(command[2]), command[3].trim(),
                     tag);
         } else {
             throw new OmniException("Please check that your update command is in this format: update INDEX " +

@@ -45,7 +45,7 @@ Step 3. The method will then find the travel activity with the corresponding tra
 of that travel activity.
 
 The sequence diagram below shows how an update operation goes through the parser component:
-![img.png](img.png)
+![img_1.png](img_1.png)
 
 #[Proposed] Total Expense feature
 
