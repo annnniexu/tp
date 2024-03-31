@@ -56,6 +56,7 @@ public class Ui {
     }
 
     public static void helpCommand(){
+        printLine();
         System.out.println("These are the available commands!");
         System.out.println("1. list\n" +
                 "2. help\n" +
