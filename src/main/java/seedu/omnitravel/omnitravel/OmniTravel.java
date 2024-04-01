@@ -20,12 +20,7 @@ public class OmniTravel {
 
     public static void main(String[] args) throws IOException {
         Logger logger = Logger.getLogger("Main");
-        FileHandler filehandler = new FileHandler("mylog.txt");
-        SimpleFormatter formatter = new SimpleFormatter();
-        filehandler.setFormatter(formatter);
-        logger.addHandler(filehandler);
-        LogManager.getLogManager().reset();
-        logger.setLevel(java.util.logging.Level.OFF);
+        initialiseLogger(logger);
         Ui.printGreeting();
         FileSave file = new FileSave("omni.txt");
         TravelActivityList list = new TravelActivityList();
@@ -37,7 +32,6 @@ public class OmniTravel {
                 assert line != null :"Input does not exist!";
                 String[] command = line.split(" ");
                 logger.log(Level.INFO, command[0]);
-
                 switch (command[0].toLowerCase()) {
                 case "list":
                     Parser.getList(command, list);
@@ -131,6 +125,14 @@ public class OmniTravel {
             throw new OmniException("Invalid command");
         }
         Ui.printLine();
+    }
+    private static void initialiseLogger(Logger logger) throws IOException{
+        FileHandler filehandler = new FileHandler("mylog.txt");
+        SimpleFormatter formatter = new SimpleFormatter();
+        filehandler.setFormatter(formatter);
+        logger.addHandler(filehandler);
+        LogManager.getLogManager().reset();
+        logger.setLevel(java.util.logging.Level.OFF);
     }
 }
 

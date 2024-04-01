@@ -31,8 +31,8 @@ public class FileSave {
             String description = line[2];
             LocalDate date = LocalDate.parse(line[3]);
             String duration = line[4];
-            String tag = (line.length == 6) ? line[5].trim() : "";
-            String expense = (line.length == 7) ? line[6].trim() : "";
+            String tag =line[5].trim();
+            String expense =line[6].trim();
             TravelActivity activity;
             switch (type) {
             case "accommodation":
