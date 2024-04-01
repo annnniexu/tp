@@ -1,10 +1,12 @@
-package seedu.duke;
+package seedu.omnitravel.error_handlers;
+
+import seedu.omnitravel.ui.Ui;
 
 import java.io.IOException;
 import java.time.DateTimeException;
 import java.util.NoSuchElementException;
 
-import static seedu.duke.Parser.isNumeric;
+import static seedu.omnitravel.parser.Parser.isNumeric;
 
 public class CheckParameters {
 

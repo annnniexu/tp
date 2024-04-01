@@ -1,4 +1,10 @@
-package seedu.duke;
+package seedu.omnitravel.storage;
+import seedu.omnitravel.travel_activity_types.TravelActivityList;
+import seedu.omnitravel.travel_activity_types.Accommodation;
+import seedu.omnitravel.travel_activity_types.Food;
+import seedu.omnitravel.travel_activity_types.Landmark;
+import seedu.omnitravel.travel_activity_types.TravelActivity;
+
 import java.io.FileWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;

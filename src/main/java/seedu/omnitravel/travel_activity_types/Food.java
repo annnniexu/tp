@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.omnitravel.travel_activity_types;
 
 import java.time.LocalDate;
 

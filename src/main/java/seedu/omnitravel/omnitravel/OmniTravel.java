@@ -1,4 +1,11 @@
-package seedu.duke;
+package seedu.omnitravel.omnitravel;
+import seedu.omnitravel.parser.Parser;
+import seedu.omnitravel.travel_activity_types.TravelActivityList;
+import seedu.omnitravel.ui.Ui;
+import seedu.omnitravel.error_handlers.CheckParameters;
+import seedu.omnitravel.error_handlers.OmniException;
+import seedu.omnitravel.storage.FileSave;
+
 import java.io.IOException;
 import java.time.DateTimeException;
 import java.util.NoSuchElementException;
@@ -9,7 +16,7 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import java.util.logging.LogManager;
 
-public class Duke {
+public class OmniTravel {
 
     public static void main(String[] args) throws IOException {
         Logger logger = Logger.getLogger("Main");

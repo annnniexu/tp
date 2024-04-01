@@ -1,4 +1,13 @@
-package seedu.duke;
+package seedu.omnitravel.parser;
+import seedu.omnitravel.travel_activity_types.TravelActivityList;
+import seedu.omnitravel.error_handlers.CheckParameters;
+import seedu.omnitravel.error_handlers.OmniException;
+import seedu.omnitravel.travel_activity_types.Accommodation;
+import seedu.omnitravel.travel_activity_types.Food;
+import seedu.omnitravel.travel_activity_types.Landmark;
+import seedu.omnitravel.travel_activity_types.TravelActivity;
+import seedu.omnitravel.ui.Ui;
+
 import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,7 +35,7 @@ public class Parser {
      *
      * @param list List of travel activities.
      */
-    public static void getList(String[] command, TravelActivityList list) throws OmniException{
+    public static void getList(String[] command, TravelActivityList list) throws OmniException {
         Ui.printLine();
         if (command.length == 1) {
             System.out.println("Here are the travel activities in your list:");

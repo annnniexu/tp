@@ -1,4 +1,7 @@
-package seedu.duke;
+package seedu.omnitravel.travel_activity_types;
+import seedu.omnitravel.error_handlers.OmniException;
+import seedu.omnitravel.ui.Ui;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -57,7 +60,7 @@ public class TravelActivityList {
      * Removes travel activity from the travel activity list
      * @param activityNumber The travel activity number on the list
      */
-    public void removeTravelActivity(int activityNumber) throws OmniException{
+    public void removeTravelActivity(int activityNumber) throws OmniException {
         assert activityNumber != 0  :"There is not activities in the list";
         if(activityNumber > travelActivities.size() || (activityNumber <= 0)){
             throw new OmniException("Travel activity cannot be found!");
