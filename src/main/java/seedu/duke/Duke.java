@@ -3,125 +3,122 @@ import java.io.IOException;
 import java.time.DateTimeException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Duke {
 
     public static void main(String[] args) {
-        assert false : "dummy assertion set to fail.";
+        Logger logger = Logger.getLogger("Main");
         Ui.printGreeting();
-        boolean userSaysBye = false;
         FileSave file = new FileSave("omni.txt");
         TravelActivityList list = new TravelActivityList();
         file.readFile(list);
-        String line;
         Scanner in = new Scanner(System.in);
-        while (!userSaysBye) {
+        while (true) {
             try {
-                line = in.nextLine();
+                String line = in.nextLine();
                 assert line != null :"Input does not exist!";
                 String[] command = line.split(" ");
+                logger.log(Level.INFO, command[0]);
+
                 switch (command[0].toLowerCase()) {
-
                 case "list":
-                    Ui.printLine();
                     Parser.getList(command, list);
-                    Ui.printLine();
                     break;
-
                 case "add":
-                    Ui.printLine();
                     Parser.addCommand(line, list);
-                    Ui.printLine();
                     break;
-
                 case "accommodation":
-                    Ui.printLine();
-                    Parser.activityCommand(line, list);
-                    Ui.printLine();
-                    break;
-
                 case "food":
-                    Ui.printLine();
-                    Parser.activityCommand(line, list);
-                    Ui.printLine();
-                    break;
-
                 case "landmark":
-                    Ui.printLine();
                     Parser.activityCommand(line, list);
-                    Ui.printLine();
                     break;
-
                 case "delete":
-                    Ui.printLine();
-                    Parser.deleteCommand(command, list);
-                    Ui.printLine();
-                    break;
-
                 case "check":
-                    Ui.printLine();
-                    Parser.checkCommand(command, list);
-                    Ui.printLine();
-                    break;
-
                 case "uncheck":
-                    Ui.printLine();
-                    Parser.uncheckCommand(command, list);
-                    Ui.printLine();
-                    break;
-
                 case "find":
-                    Ui.printLine();
-                    Parser.findCommand(command, list);
-                    Ui.printLine();
-                    break;
-
                 case "tag":
-                    Ui.printLine();
-                    Parser.tagCommand(line, list);
-                    Ui.printLine();
-                    break;
-
                 case "untag":
-                    Ui.printLine();
-                    Parser.removeTagCommand(command, list);
-                    Ui.printLine();
+                case "update":
+                case "findtag":
+                case "findtype":
+                case "expense":
+                case "removeexpense":
+                    invokeCommand(command, line, list);
                     break;
-
                 case "help":
-                    Ui.printLine();
                     Ui.helpCommand();
-                    Ui.printLine();
                     break;
-
                 case "bye":
                     Ui.printBye();
-                    userSaysBye = true;
-                    break;
-
-                case "update":
-                    Ui.printLine();
-                    Parser.updateCommand(line, list);
-                    Ui.printLine();
-                    break;
-
+                    return;
                 default:
                     Ui.printLine();
                     System.out.println("This is not a valid command");
                     Ui.printLine();
                 }
                 file.saveActivityList(list);
-            } catch (OmniException exception){
-                Ui.printException(exception);
-            } catch (NoSuchElementException exception){
-                Ui.printNoSuchElementException(exception);
-            } catch (NumberFormatException exception) {
-                Ui.printNumberTooLargeException(exception);
-            } catch (DateTimeException exception){
-                Ui.printDateTimeExceptionError();
-            } catch (IOException exception){
-                Ui.printSavingError();
+            } catch (OmniException | NoSuchElementException | NumberFormatException | DateTimeException
+                     | IOException exception) {
+                handleException(exception);
             }
+        }
+    }
+    private static void invokeCommand(String[] command,
+                                      String line, TravelActivityList list) throws OmniException, IOException {
+        Ui.printLine();
+        switch (command[0].toLowerCase()) {
+        case "delete":
+            Parser.deleteCommand(command, list);
+            break;
+        case "check":
+            Parser.checkCommand(command, list);
+            break;
+        case "uncheck":
+            Parser.uncheckCommand(command, list);
+            break;
+        case "find":
+            Parser.findCommand(command, list);
+            break;
+        case "tag":
+            Parser.tagCommand(line, list);
+            break;
+        case "untag":
+            Parser.removeTagCommand(command, list);
+            break;
+        case "update":
+            Parser.updateCommand(line, list);
+            break;
+        case "findtag":
+            Parser.findTagCommand(line, list);
+            break;
+        case "findtype":
+            Parser.findTypeCommand(line, list);
+            break;
+        case "expense":
+            Parser.expenseCommand(line, list);
+            break;
+        case "removeexpense":
+            Parser.removeExpenseCommand(command, list);
+            break;
+        default:
+            throw new OmniException("Invalid command");
+        }
+        Ui.printLine();
+    }
+
+    private static void handleException(Exception exception) {
+        if (exception instanceof OmniException) {
+            Ui.printException((OmniException) exception);
+        } else if (exception instanceof NoSuchElementException) {
+            Ui.printNoSuchElementException((NoSuchElementException) exception);
+        } else if (exception instanceof NumberFormatException) {
+            Ui.printNumberTooLargeException((NumberFormatException) exception);
+        } else if (exception instanceof DateTimeException) {
+            Ui.printDateTimeExceptionError();
+        } else if (exception instanceof IOException) {
+            Ui.printSavingError();
         }
     }
 }
