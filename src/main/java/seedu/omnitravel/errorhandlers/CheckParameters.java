@@ -12,7 +12,6 @@ public class CheckParameters {
 
     /**
      * Checks for all possible input errors that users may make and throws the corresponding exceptions
-     *
      * @param input Input array that users placed into the chatbot
      * @throws OmniException when any of the corresponding input format is wrong
      */
