@@ -31,94 +31,175 @@ list via a Command Line Interface**.
 
 {Give detailed description of each feature}
 
-### Display Commands : `help`
+### `help` - Display the commands
 Displays the features of OmniTravel
-
-Format: `help`
 
 Example of usage:
 
 `help`
 
-### Adding a general travel activity : `add` 
-Adds a general travel activity into the travel activity list
+Expected outcome:
 
-Format: `add DESCRIPTION /date YYYY-MM-DD /duration DURATION [/tag TAG]`
+```
+____________________________________________________________
+These are the available commands!
+1. list
+2. help
+3. bye
+4. add <travel activity> <date> <duration> <tag>
+5. accommodation <travel activity> <date> <duration> <tag>
+6. food <travel activity> <date> <duration> <tag>
+7. landmark <travel activity> <date> <duration> <tag>
+8. delete <activity number>
+9. find <keyword>
+10. check <activity number>
+11. uncheck <activity number>
+12. tag <activity number> <tag name>
+13. untag <activity number>
+14. update <update> <date> <duration> <tag>
+15. findtag <tag name>
+16. findtype <type>
+17. expense <activity number> <expense amount>
+18. removeexpense <activity number>
+____________________________________________________________
+```
+### `list` - Lists out the current activity list
 
-Examples of usage: 
-* `add Go to Japan /date 2024-03-14 /duration 7 hours`
-* `add Go to Hong Kong /date 2024-08-25 /duration 6 hours /tag with family`
-
-### Deleting a travel activity : `delete`
-Deletes a travel activity from the travel activity list
-
-Format: `delete INDEX`
-* `INDEX` has to be a number that is shown in the list of travel activities
-
-Examples of usage: `delete 1`
-
-### Listing all the travel activities : `list`
-Shows all the travel activities including their tags and expenses
-
-Format: `list`
-
-Examples of usage: `list`
-
-### Updating a travel activity : `update`
-Updates the date, duration and tag of a travel activity
-
-Format: `update INDEX /date YYYY-MM-DD /duration DURATION [/tag TAG]`
-* `INDEX` has to be a number that is shown in the list of travel activities
-
-Examples of usage:
-* `update 1 /date 2019-12-14 /duration 2 hours`
-* `update 2 /date 2018-12-12 /duration 3 hours /tag Important`
-
-### Adding a tag: `tag`
-Adds a new tag to an existing travel activity.
-
-Format: `tag n/ACTIVITY_NUMBER d/TAG_NAME`
-
-* The `ACTIVITY_NUMBER` must be a valid activity number.
-
-Example of usage: 
-
-`tag n/1 d/activity 1`
-
-### Removing a tag: `untag`
-Removes a tag from an existing travel activity.
-
-Format: `untag n/ACTIVITY_NUMBER`
-
-* The `ACTIVITY_NUMBER` must be a valid activity number.
+After you type `list`, the chatbot will output the current activity list
 
 Example of usage:
 
-`untag n/1 `
+`list`
 
-### Adding an expense amount: `expense`
-Adds an expense amount to an existing travel activity.
+Expected outcome:
 
-Format: `expense n/ACTIVITY_NUMBER d/EXPENSE_AMOUNT`
+```
+____________________________________________________________
+Here are the travel activities in your list:
+[ ] 1. paris :12 Dec 2023 :1 (hello) ($50)
+[ ] 2. japan :12 Dec 2023 :now ($100)
+____________________________________________________________
+```
 
-* The `ACTIVITY_NUMBER` must be a valid activity number
-* The `EXPENSE_AMOUNT` can include the currency of the expense.
+### `add` - add a general activity into the list
 
-Example of usage:
-
-`expense n/1 d/$50`
-
-### Removing an expense amount: `removeexpense`
-Removes an expense amount to an existing travel activity.
-
-Format: `removeexpense n/ACTIVITY_NUMBER`
-
-* The `ACTIVITY_NUMBER` must be a valid activity number.
+After you type `add DESCRIPTION /date YYYY-MM-DD /duration DURATION [/tag TAG]`, the chatbot will input your general
+activity into the activity list
 
 Example of usage:
 
-`removeexpense n/2`
+Without tags
 
+`add visit paris /date 2024-12-12 /duration 2 weeks`
+
+With tags
+
+`add visit paris /date 2024-12-12 /duration 2 weeks /tag first country`
+
+Expected outcome:
+
+```
+____________________________________________________________
+I added a new travel activity
+visit paris :12 Dec 2024 :2 weeks
+____________________________________________________________
+```
+
+### `accommodation` - add an accommodation activity type into the list
+
+After you type `accommodation`, adds an accommodation activity into the list
+
+Example of usage:
+
+Without tags
+
+`accommodation four seasons hotel /date 2024-12-12 /duration 2 weeks`
+
+With tags
+
+`add four seasons hotel /date 2024-12-12 /duration 2 weeks /tag first hotel`
+
+Expected outcome:
+
+```
+____________________________________________________________
+I added a new accommodation
+Accommodation: four seasons hotel :12 Dec 2024 :2 weeks
+____________________________________________________________
+
+```
+
+### `food` - add a food activity type into the list
+
+After you type `food`, adds a food activity into the list
+
+Example of usage:
+
+Without tags
+
+`food Hells Kitchen /date 2024-12-12 /duration 2 hours`
+
+With tags
+
+`add Hells Kitchen /date 2024-12-12 /duration 2 hours /tag Meet Gordon Ramsay`
+
+Expected outcome:
+
+```
+____________________________________________________________
+I added a new restaurant
+Food: Hells Kitchen :12 Dec 2024 :2 hours
+____________________________________________________________
+
+```
+### `landmark` - add a landmark activity type into the list
+
+After you type `landmark`, adds a landmark activity into the list
+
+Example of usage:
+
+Without tags
+
+`landmark Eiffel Tower /date 2024-12-12 /duration 2 hours`
+
+With tags
+
+`landmark Eiffel Tower /date 2024-12-12 /duration 2 hours /tag go up tower`
+
+Expected outcome:
+
+```
+____________________________________________________________
+I added a new landmark
+Landmark: Eiffel Tower :12 Dec 2024 :2 hours
+____________________________________________________________
+
+```
+
+### `find` - find an activity in the list using a keyword
+
+
+### `delete` - delete an existing activity from the list
+
+### `check` - check an activity from the list to mark as done
+
+### `uncheck` - uncheck an activity from the list to mark as not done
+
+### `update` - update an existing activity in the list
+
+### `tag` - add a tag to an existing activity in the list
+
+### `untag` - remove a tag from an existing activity in the list
+
+### `findtag` - find an activity through its tag
+
+### `findtype` - find all activities of the same type
+
+### `expense` - add an expense to an activity in the list
+
+### `removeexpense` - remove an expense from an activity in the list
+
+### `bye` - exits the chatbot
 
 ## FAQ
 
