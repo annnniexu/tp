@@ -1,4 +1,0 @@
-general / 1 / germany / 2019-12-12 / now /  / $50
-food / 1 / mala / 2023-12-12 / now /  / 
-accommodation / 0 / hotel / 2023-12-12 / now /  / 
-landmark / 0 / statue of liberty / 2023-12-12 / now /  / 
