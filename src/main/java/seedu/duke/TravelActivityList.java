@@ -211,28 +211,18 @@ public class TravelActivityList {
      */
 
     public void findTag(String tag){
-        boolean isFound = false;
         int foundCounter = 0;
-        for (int iterator = 0; iterator < travelActivities.size(); iterator += 1){
-            if(travelActivities.get(iterator).getTag().contains(tag) &&
-                    !travelActivities.get(iterator).getTag().isEmpty()){
-                isFound = true;
+        for (TravelActivity travelActivity : travelActivities) {
+            if (travelActivity.getTag().contains(tag) &&
+                    !travelActivity.getTag().isEmpty()) {
                 foundCounter += 1;
                 if (foundCounter == 1) {
                     System.out.println("Here are what you are looking for:");
                 }
-                Ui.printActivity(travelActivities.get(iterator), foundCounter);
-                /*
-                if (travelActivities.get(iterator).getTag() == "") {
-                    System.out.println(foundCounter + ". " + travelActivities.get(iterator).toString());
-                } else {
-                    System.out.println(foundCounter + ". " + travelActivities.get(iterator).toString() +
-                            " (" + travelActivities.get(iterator).getTag() + ")");
-                }
-                 */
+                Ui.printActivity(travelActivity, foundCounter);
             }
         }
-        if (foundCounter == 0 || isFound == false) {
+        if (foundCounter == 0) {
             System.out.println("Sorry I could not find what you are looking for.");
         }
     }
@@ -244,12 +234,10 @@ public class TravelActivityList {
      */
 
     public void findType(String type){
-        boolean isFound = false;
         int foundCounter = 0;
 
         for (TravelActivity activity: travelActivities){
             if(activity.getClass().getSimpleName().equals(type)){
-                isFound = true;
                 foundCounter += 1;
                 if (foundCounter == 1) {
                     System.out.println("Here are what you are looking for:");
@@ -257,7 +245,7 @@ public class TravelActivityList {
                 Ui.printActivity(activity, foundCounter);
             }
         }
-        if (foundCounter == 0 || isFound == false) {
+        if (foundCounter == 0) {
             System.out.println("Sorry I could not find what you are looking for.");
         }
     }
