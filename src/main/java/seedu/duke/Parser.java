@@ -49,18 +49,7 @@ public class Parser {
         String[] command = line.split(" ");
         String delimiter = command[0] + "| /date | /duration | /tag ";
         String[] input = line.split(delimiter);
-        //String tag = (input.length > 4 && !input[4].isBlank()) ? input[4].trim() : "";
-        if (input.length >= 4 && input[1].isBlank()) {
-            throw new OmniException("The description of accommodation cannot be empty!");
-        } else if (input.length >= 4 && input[2].isBlank()) {
-            throw new OmniException("The date cannot be empty!");
-        } else if (input.length >= 4 && input[3].isBlank()) {
-            throw new OmniException("The duration cannot be empty!");
-        } else if (input.length >= 5 && input[4].isBlank()) {
-            throw new OmniException("The tag cannot be empty!");
-        } else if (input.length < 4 || input[3].contains("/tag")){
-            throw new OmniException("Wrong format");
-        }
+        CheckParameters.addExceptions(input);
         String description = input[1].trim();
         LocalDate date = LocalDate.parse(input[2]);
         String duration = input[3].trim();
@@ -92,31 +81,21 @@ public class Parser {
      *
      * @param line Line that the user inputs into the chatbot
      * @param list List of travel activities
-     * @throws OmniException if command.length < 2
+     * @throws OmniException if any of the conditions are not met in the addExceptions() method
      */
     public static void addCommand(String line, TravelActivityList list) throws OmniException{
         Ui.printLine();
         String[] command = line.split("add | /date | /duration | /tag ");
-        //String tag = (command.length > 4 && !command[4].isBlank()) ? command[4].trim() : "";
         logger.log(Level.INFO, command[0] + " // " +  command[1]);
-        if (command.length >= 4 && command[1].isBlank()) {
-            throw new OmniException("The description of add cannot be empty!");
-        } else if(command.length >= 4 && command[2].isBlank()){
-            throw new OmniException("The date cannot be empty!");
-        } else if (command.length >= 4 && command[3].isBlank()){
-            throw new OmniException("The duration cannot be empty!");
-        } else if (command.length >= 4 && !command[3].contains("/tag")){
-            String description = command[1].trim();
-            LocalDate date = LocalDate.parse(command[2]);
-            String duration = command[3].trim();
-            String tag = (line.contains("/tag") && command.length == 5) ? command[4].trim() : "";
-            TravelActivity newActivity = new TravelActivity(description, date, duration, tag);
-            list.addTravelActivity(newActivity);
-            System.out.println("I added a new travel activity");
-            System.out.println(newActivity);
-        } else {
-            throw new OmniException("Wrong format");
-        }
+        CheckParameters.addExceptions(command);
+        String description = command[1].trim();
+        LocalDate date = LocalDate.parse(command[2]);
+        String duration = command[3].trim();
+        String tag = (line.contains("/tag") && command.length == 5) ? command[4].trim() : "";
+        TravelActivity newActivity = new TravelActivity(description, date, duration, tag);
+        list.addTravelActivity(newActivity);
+        System.out.println("I added a new travel activity");
+        System.out.println(newActivity);
         Ui.printLine();
     }
 
@@ -131,7 +110,6 @@ public class Parser {
         if (command.length == 2 && isNumeric(command[1])){
             int listNumber = Integer.parseInt(command[1]);
             list.removeTravelActivity(listNumber);
-
         } else {
             throw new OmniException("Please specify which activity to delete");
         }
@@ -179,9 +157,12 @@ public class Parser {
      */
     public static void tagCommand(String line, TravelActivityList list) throws OmniException {
         String[] command = line.split(" ");
-        if (command.length == 3 && isNumeric(command[1])){
-            int listNumber = Integer.parseInt(command[1]);
-            String tag = command[2];
+        String index = command[1];
+        String[] tagSplit = line.split(index);
+        String tag = tagSplit[1].trim();
+        System.out.println(tag);
+        if (command.length >= 3 && isNumeric(command[1])){
+            int listNumber = Integer.parseInt(index);
             list.tagActivity(listNumber, tag);
         } else if (command.length == 2) {
             throw new OmniException("Please specify a tag name");
@@ -214,23 +195,9 @@ public class Parser {
      */
     public static void updateCommand(String line, TravelActivityList list) throws OmniException {
         String[] command = line.split("update | /date | /duration | /tag ");
-        if (command.length >= 4 && (command[1].isBlank() || !isNumeric(command[1]))) {
-            throw new OmniException("The update index cannot be empty or non numerical!");
-        } else if (command.length >= 4 && command[2].isBlank()) {
-            throw new OmniException("The date cannot be empty!");
-        } else if (command.length >= 4 && command[3].isBlank()) {
-            throw new OmniException("The duration cannot be empty!");
-        } else if(command.length >= 5 && command[4].isBlank()){
-            throw new OmniException("The tag cannot be empty!");
-        } else if (command.length >= 4 && !command[3].contains("/tag")) {
-            String tag = (line.contains("/tag") && command.length == 5)? command[4].trim() : "";
-            list.updateTravelActivity(Integer.parseInt(command[1]), LocalDate.parse(command[2]), command[3].trim(),
-                    tag);
-        } else {
-            throw new OmniException("Please check that your update command is in this format: update INDEX " +
-                    "/date YYYY-MM-DD /duration DURATION"
-                    + " or update INDEX /date YYYY-MM-DD /duration DURATION /tag TAG");
-        }
+        String tag = (line.contains("/tag") && command.length == 5)? command[4].trim() : "";
+        list.updateTravelActivity(Integer.parseInt(command[1]), LocalDate.parse(command[2]), command[3].trim(),
+                tag);
     }
 
     /**
@@ -254,7 +221,7 @@ public class Parser {
      * Handles the case where the findtype command is given as input
      *
      * @param line User's input into Omnitravel
-     * @param list list List of travel activities
+     * @param list List of travel activities
      * @throws OmniException if command.length < 1
      */
 
