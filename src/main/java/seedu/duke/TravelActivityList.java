@@ -71,7 +71,7 @@ public class TravelActivityList {
      */
     public void removeTravelActivity(int activityNumber) throws OmniException{
         assert activityNumber != 0  :"There is not activities in the list";
-        if(activityNumber > travelActivities.size()){
+        if(activityNumber > travelActivities.size() || (activityNumber <= 0)){
             throw new OmniException("Travel activity cannot be found!");
         }
         int indexOfActivity = activityNumber - 1;
@@ -134,7 +134,7 @@ public class TravelActivityList {
     public void checkTravelActivity(int activityNumber) throws OmniException{
 
         assert activityNumber != 0 : "There is not activities in the list";
-        if (activityNumber > travelActivities.size()) {
+        if (activityNumber > travelActivities.size() || (activityNumber <= 0)) {
             throw new OmniException("Travel activity cannot be found");
         }
         int indexOfActivity = activityNumber - 1;
@@ -150,7 +150,7 @@ public class TravelActivityList {
      */
     public void uncheckTravelActivity(int activityNumber) throws OmniException{
         assert activityNumber != 0 : "There is not activities in the list";
-        if (activityNumber > travelActivities.size()) {
+        if (activityNumber > travelActivities.size() || (activityNumber <= 0)) {
             throw new OmniException("Travel activity cannot be found");
         }
         int indexOfActivity = activityNumber - 1;
@@ -168,7 +168,7 @@ public class TravelActivityList {
      */
     public void tagActivity(int taskNumber, String tag) throws OmniException {
         assert taskNumber != 0 : "There is no tasks in the list";
-        if (taskNumber > travelActivities.size()) {
+        if (taskNumber > travelActivities.size() || (taskNumber <= 0)) {
             throw new OmniException("Travel activity cannot be found");
         }
         int indexOfTask = taskNumber - 1;
@@ -184,7 +184,7 @@ public class TravelActivityList {
      */
     public void removeTag(int taskNumber) throws OmniException {
         assert taskNumber != 0 : "There is no task in the list";
-        if (taskNumber > travelActivities.size()) {
+        if (taskNumber > travelActivities.size() || (taskNumber <= 0)) {
             throw new OmniException("Travel activity cannot be found");
         }
         int indexOfTask = taskNumber - 1;
@@ -204,8 +204,7 @@ public class TravelActivityList {
      */
     public void updateTravelActivity(int travelActivityNumber, LocalDate date, String duration, String tag)
             throws OmniException{
-        if (travelActivityNumber > travelActivities.size() || (travelActivityNumber==0 && travelActivities.isEmpty())
-            || travelActivityNumber < 0){
+        if (travelActivityNumber > travelActivities.size() || (travelActivityNumber <= 0)){
             throw new OmniException("Travel activity cannot be found");
         }
         int indexOfTravelActivity = travelActivityNumber-1;
@@ -318,7 +317,7 @@ public class TravelActivityList {
      */
     public void expenseActivity(int taskNumber, String expense) throws OmniException {
         assert taskNumber != 0 : "There is no tasks in the list";
-        if (taskNumber > travelActivities.size()) {
+        if (taskNumber > travelActivities.size() || (taskNumber <= 0)) {
             throw new OmniException("Travel activity cannot be found");
         }
         int indexOfTask = taskNumber - 1;
@@ -334,7 +333,7 @@ public class TravelActivityList {
      */
     public void removeExpense(int taskNumber) throws OmniException {
         assert taskNumber != 0 : "There is no task in the list";
-        if (taskNumber > travelActivities.size()) {
+        if (taskNumber > travelActivities.size() || (taskNumber <= 0)) {
             throw new OmniException("Travel activity cannot be found");
         }
         int indexOfTask = taskNumber - 1;
