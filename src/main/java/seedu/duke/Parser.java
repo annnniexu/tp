@@ -51,7 +51,7 @@ public class Parser {
         String[] input = line.split(delimiter);
         //String tag = (input.length > 4 && !input[4].isBlank()) ? input[4].trim() : "";
         if (input.length >= 4 && input[1].isBlank()) {
-            throw new OmniException("The description of accommodation cannot be empty!");
+            throw new OmniException("The description cannot be empty!");
         } else if (input.length >= 4 && input[2].isBlank()) {
             throw new OmniException("The date cannot be empty!");
         } else if (input.length >= 4 && input[3].isBlank()) {
@@ -97,10 +97,9 @@ public class Parser {
     public static void addCommand(String line, TravelActivityList list) throws OmniException{
         Ui.printLine();
         String[] command = line.split("add | /date | /duration | /tag ");
-        //String tag = (command.length > 4 && !command[4].isBlank()) ? command[4].trim() : "";
         logger.log(Level.INFO, command[0] + " // " +  command[1]);
         if (command.length >= 4 && command[1].isBlank()) {
-            throw new OmniException("The description of add cannot be empty!");
+            throw new OmniException("The description cannot be empty!");
         } else if(command.length >= 4 && command[2].isBlank()){
             throw new OmniException("The date cannot be empty!");
         } else if (command.length >= 4 && command[3].isBlank()){
