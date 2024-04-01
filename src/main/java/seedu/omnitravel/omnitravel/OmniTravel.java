@@ -1,9 +1,9 @@
 package seedu.omnitravel.omnitravel;
 import seedu.omnitravel.parser.Parser;
-import seedu.omnitravel.travel_activity_types.TravelActivityList;
+import seedu.omnitravel.travelactivitytypes.TravelActivityList;
 import seedu.omnitravel.ui.Ui;
-import seedu.omnitravel.error_handlers.CheckParameters;
-import seedu.omnitravel.error_handlers.OmniException;
+import seedu.omnitravel.errorhandlers.CheckParameters;
+import seedu.omnitravel.errorhandlers.OmniException;
 import seedu.omnitravel.storage.FileSave;
 
 import java.io.IOException;

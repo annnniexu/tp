@@ -1,11 +1,11 @@
 package seedu.omnitravel.parser;
-import seedu.omnitravel.travel_activity_types.TravelActivityList;
-import seedu.omnitravel.error_handlers.CheckParameters;
-import seedu.omnitravel.error_handlers.OmniException;
-import seedu.omnitravel.travel_activity_types.Accommodation;
-import seedu.omnitravel.travel_activity_types.Food;
-import seedu.omnitravel.travel_activity_types.Landmark;
-import seedu.omnitravel.travel_activity_types.TravelActivity;
+import seedu.omnitravel.travelactivitytypes.TravelActivityList;
+import seedu.omnitravel.errorhandlers.CheckParameters;
+import seedu.omnitravel.errorhandlers.OmniException;
+import seedu.omnitravel.travelactivitytypes.Accommodation;
+import seedu.omnitravel.travelactivitytypes.Food;
+import seedu.omnitravel.travelactivitytypes.Landmark;
+import seedu.omnitravel.travelactivitytypes.TravelActivity;
 import seedu.omnitravel.ui.Ui;
 
 import java.time.LocalDate;

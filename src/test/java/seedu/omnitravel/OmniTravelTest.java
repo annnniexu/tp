@@ -4,9 +4,13 @@ package seedu.omnitravel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-import seedu.omnitravel.error_handlers.OmniException;
+import seedu.omnitravel.errorhandlers.OmniException;
 import seedu.omnitravel.parser.Parser;
-import seedu.omnitravel.travel_activity_types.*;
+import seedu.omnitravel.travelactivitytypes.Food;
+import seedu.omnitravel.travelactivitytypes.TravelActivity;
+import seedu.omnitravel.travelactivitytypes.TravelActivityList;
+import seedu.omnitravel.travelactivitytypes.Accommodation;
+import seedu.omnitravel.travelactivitytypes.Landmark;
 import seedu.omnitravel.ui.Ui;
 
 import java.time.LocalDate;

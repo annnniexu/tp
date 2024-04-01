@@ -1,8 +1,8 @@
 package seedu.omnitravel.ui;
 
 
-import seedu.omnitravel.error_handlers.OmniException;
-import seedu.omnitravel.travel_activity_types.TravelActivity;
+import seedu.omnitravel.errorhandlers.OmniException;
+import seedu.omnitravel.travelactivitytypes.TravelActivity;
 
 import java.util.NoSuchElementException;
 
