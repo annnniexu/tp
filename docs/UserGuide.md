@@ -7,10 +7,17 @@ list via a Command Line Interface**.
 
 ## Quick Start
 
-{Give steps to get started quickly}
+1. Ensure you have Java 11 or above installed in your Computer.
 
-1. Ensure that you have Java 11 or above installed.
-1. Down the latest version of `Duke` from [here](http://link.to/duke).
+2. Download the latest omni.jar from here.
+
+3. Copy the file to the folder you want to use as the home folder for your chatbot.
+
+4. Open a command terminal, cd into the folder you put the jar file in
+
+5. Use the java -jar omni.jar command to run the application.
+
+6. A GUI similar to the below should appear in a few seconds.
 
 ## Features 
 > 📒 Notes about the command format :
@@ -123,12 +130,21 @@ Example of usage:
 
 {Give a 'cheat sheet' of commands here}
 
+* Get activity list `list`
 * Get commands `help`
+* Exit chatbot `bye`
 * Add general travel activity `add DESCRIPTION /date YYYY-MM-DD /duration DURATION [/tag TAG]`
+* Add accommodation type `accommodation DESCRIPTION /date YYYY-MM-DD /duration DURATION [/tag TAG]`
+* Add Food type `food DESCRIPTION /date YYYY-MM-DD /duration DURATION [/tag TAG]`
+* Add Landmark type `landmark DESCRIPTION /date YYYY-MM-DD /duration DURATION [/tag TAG]`
+* Find keyword in list `find KEYWORD`
 * Delete travel activity `delete INDEX`
-* List travel activities `list`
+* Check activity as done `check INDEX`
+* Uncheck activity as not done `uncheck INDEX`
 * Update travel activity `update INDEX /date YYYY-MM-DD /duration DURATION [/tag TAG]`
-* Add tag `tag n/ACTIVITY_NUMBER d/TAG_NAME`
-* Remove tag `untag n/ACTIVITY_NUMBER`
+* Add tag `tag INDEX TAGNAME`
+* Remove tag `untag INDEX`
+* Find tag `findtag TAGNAME`
+* Find type `findtype TYPENAME`
 * Add expense `expense n/ACTIVITY_NUMBER d/EXPENSE_AMOUNT`
 * Remove expense `removeexpense n/ACTIVITY_NUMBER`
