@@ -86,9 +86,14 @@ public class Ui {
         System.out.println("Something went wrong when saving the file");
     }
 
-    public static void printActivity(TravelActivity activity, int foundCounter) {
+    /**
+     * Prints out the activity in a list
+     * @param activity The travel activity
+     * @param activityIndex The index of the activity
+     */
+    public static void printActivity(TravelActivity activity, int activityIndex) {
         String checked = activity.getActivityStatus()? "[X]" : "[ ]";
-        System.out.print(checked + " " + foundCounter + ". " + activity);
+        System.out.print(checked + " " + activityIndex + ". " + activity);
         if(activity.getTag() != null && !activity.getTag().isEmpty()){
             System.out.print(" (" + activity.getTag() + ")");
         }
