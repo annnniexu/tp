@@ -3,13 +3,18 @@ import java.io.IOException;
 import java.time.DateTimeException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.logging.*;
 
 public class Duke {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Logger logger = Logger.getLogger("Main");
+        FileHandler filehandler = new FileHandler("mylog.txt");
+        SimpleFormatter formatter = new SimpleFormatter();
+        filehandler.setFormatter(formatter);
+        logger.addHandler(filehandler);
+        LogManager.getLogManager().reset();
+        logger.setLevel(java.util.logging.Level.OFF);
         Ui.printGreeting();
         FileSave file = new FileSave("omni.txt");
         TravelActivityList list = new TravelActivityList();
@@ -61,12 +66,21 @@ public class Duke {
                 file.saveActivityList(list);
             } catch (OmniException | NoSuchElementException | NumberFormatException | DateTimeException
                      | IOException exception) {
-                handleException(exception);
+                CheckParameters.handleException(exception);
             }
         }
     }
+
+    /**
+     * Handles the respective command inputs used by the user
+     *
+     * @param command Command array of the input without spaces
+     * @param line Line arry of the full input
+     * @param list List of travel activities
+     * @throws OmniException when any input format is wrong
+     */
     private static void invokeCommand(String[] command,
-                                      String line, TravelActivityList list) throws OmniException, IOException {
+                                      String line, TravelActivityList list) throws OmniException {
         Ui.printLine();
         switch (command[0].toLowerCase()) {
         case "delete":
@@ -106,20 +120,6 @@ public class Duke {
             throw new OmniException("Invalid command");
         }
         Ui.printLine();
-    }
-
-    private static void handleException(Exception exception) {
-        if (exception instanceof OmniException) {
-            Ui.printException((OmniException) exception);
-        } else if (exception instanceof NoSuchElementException) {
-            Ui.printNoSuchElementException((NoSuchElementException) exception);
-        } else if (exception instanceof NumberFormatException) {
-            Ui.printNumberTooLargeException((NumberFormatException) exception);
-        } else if (exception instanceof DateTimeException) {
-            Ui.printDateTimeExceptionError();
-        } else if (exception instanceof IOException) {
-            Ui.printSavingError();
-        }
     }
 }
 
