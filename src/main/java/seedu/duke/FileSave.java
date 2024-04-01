@@ -26,19 +26,20 @@ public class FileSave {
             LocalDate date = LocalDate.parse(line[3]);
             String duration = line[4];
             String tag = (line.length == 6) ? line[5].trim() : "";
+            String expense = (line.length == 7) ? line[6].trim() : "";
             TravelActivity activity;
             switch (type) {
             case "accommodation":
-                activity = new Accommodation(description, date, duration, tag);
+                activity = new Accommodation(description, date, duration, tag, expense);
                 break;
             case "food":
-                activity = new Food(description, date, duration, tag);
+                activity = new Food(description, date, duration, tag, expense);
                 break;
             case "landmark":
-                activity = new Landmark(description, date, duration, tag);
+                activity = new Landmark(description, date, duration, tag, expense);
                 break;
             case "general":
-                activity = new TravelActivity(description, date, duration, tag);
+                activity = new TravelActivity(description, date, duration, tag, expense);
                 break;
             default:
                 throw new FileNotFoundException("File is corrupted or has invalid format");
@@ -67,6 +68,7 @@ public class FileSave {
                     + " / " + travelActivity.getDate()
                     + " / " + travelActivity.getDuration()
                     + " / " + travelActivity.getTag()
+                    + " / " + travelActivity.getExpense()
                     + System.lineSeparator());
         }
         fw.close();

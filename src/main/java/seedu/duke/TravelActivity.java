@@ -18,11 +18,12 @@ public class TravelActivity {
     private String expense;
 
 
-    public TravelActivity(String description, LocalDate date, String duration, String tag){
+    public TravelActivity(String description, LocalDate date, String duration, String tag, String expense){
         travelActivity = description;
         this.date = date;
         this.duration = duration;
         this.tag = tag;
+        this.expense = expense;
     }
 
     @Override

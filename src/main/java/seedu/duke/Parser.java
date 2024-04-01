@@ -57,15 +57,15 @@ public class Parser {
         TravelActivity activity;
         switch (command[0]) {
         case "accommodation":
-            activity = new Accommodation(description, date, duration, tag);
+            activity = new Accommodation(description, date, duration, tag, "");
             System.out.println("I added a new accommodation");
             break;
         case "food":
-            activity = new Food(description, date, duration, tag);
+            activity = new Food(description, date, duration, tag, "");
             System.out.println("I added a new restaurant");
             break;
         case "landmark":
-            activity = new Landmark(description, date, duration, tag);
+            activity = new Landmark(description, date, duration, tag, "");
             System.out.println("I added a new landmark");
             break;
         default:
@@ -92,7 +92,7 @@ public class Parser {
         LocalDate date = LocalDate.parse(command[2]);
         String duration = command[3].trim();
         String tag = (line.contains("/tag") && command.length == 5) ? command[4].trim() : "";
-        TravelActivity newActivity = new TravelActivity(description, date, duration, tag);
+        TravelActivity newActivity = new TravelActivity(description, date, duration, tag, "");
         list.addTravelActivity(newActivity);
         System.out.println("I added a new travel activity");
         System.out.println(newActivity);
