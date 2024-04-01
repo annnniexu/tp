@@ -1,9 +1,18 @@
-package seedu.duke;
+package seedu.omnitravel;
 
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import seedu.omnitravel.errorhandlers.OmniException;
+import seedu.omnitravel.parser.Parser;
+import seedu.omnitravel.travelactivitytypes.Food;
+import seedu.omnitravel.travelactivitytypes.TravelActivity;
+import seedu.omnitravel.travelactivitytypes.TravelActivityList;
+import seedu.omnitravel.travelactivitytypes.Accommodation;
+import seedu.omnitravel.travelactivitytypes.Landmark;
+import seedu.omnitravel.ui.Ui;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -15,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-class DukeTest {
+class OmniTravelTest {
 
     Accommodation accommodationNew1 = new Accommodation("nus rvrc", LocalDate.parse("2007-12-12"),
             "5 years", "campus stay", "");
