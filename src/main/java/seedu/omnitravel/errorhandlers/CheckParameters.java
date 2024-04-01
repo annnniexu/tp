@@ -46,7 +46,7 @@ public class CheckParameters {
             throw new OmniException("The duration cannot be empty!");
         } else if(command.length >= 5 && command[4].isBlank()){
             throw new OmniException("The tag cannot be empty!");
-        } else if (command.length >= 4 && !command[3].contains("/tag")) {
+        } else if (command.length < 4 || command[3].contains("/tag")) {
             throw new OmniException("Please check that your update command is in this format: update INDEX " +
                     "/date YYYY-MM-DD /duration DURATION"
                     + " or update INDEX /date YYYY-MM-DD /duration DURATION /tag TAG");
