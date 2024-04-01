@@ -97,10 +97,11 @@ public class TravelActivityList {
             if (travelActivity.getPlan().contains(activityName) &&
                     !travelActivity.getPlan().isEmpty()) {
                 foundCounter += 1;
-                Ui.printActivity(travelActivity, foundCounter);
                 if (foundCounter == 1) {
                     System.out.println("Here are what you are looking for:");
                 }
+                Ui.printActivity(travelActivity, foundCounter);
+
             }
         }
         if (foundCounter == 0) {
@@ -259,7 +260,7 @@ public class TravelActivityList {
         if (foundCounter == 0 || isFound == false) {
             System.out.println("Sorry I could not find what you are looking for.");
         }
-        }
+    }
 
 
 

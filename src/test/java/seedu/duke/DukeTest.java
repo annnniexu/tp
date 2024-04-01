@@ -18,29 +18,29 @@ import java.io.PrintStream;
 class DukeTest {
 
     Accommodation accommodationNew1 = new Accommodation("nus rvrc", LocalDate.parse("2007-12-12"),
-            "5 years", "campus stay", "$5");
+            "5 years", "campus stay", "");
     Accommodation accommodationNew2 = new Accommodation("nus pgpr", LocalDate.parse("2017-10-12"),
-            "5 years", "campus stay", "$5");
+            "5 years", "campus stay", "");
     Accommodation accommodationNew3 = new Accommodation("nus utr", LocalDate.parse("2007-09-12"),
-            "5 years", "campus stay", "$50");
+            "5 years", "campus stay", "");
     Landmark landmarkNew1 = new Landmark("berlin wall", LocalDate.parse("2009-12-15"), "5 hours",
-            "historic site", "$100");
+            "historic site", "");
     Landmark landmarkNew2 = new Landmark("utown", LocalDate.parse("2016-08-14"), "10 hours",
-            "recreational centre", "$50");
+            "recreational centre", "");
     Landmark landmarkNew3 = new Landmark("supper stretch", LocalDate.parse("2021-08-18"), "2 hours",
-            "tourist hotspot", "$200");
+            "tourist hotspot", "");
     Food foodNew1 = new Food("utown mala", LocalDate.parse("2019-06-19"), "2 hours",
-            "spicy", "$400");
+            "spicy", "");
     Food foodNew2 = new Food("pgpr mala", LocalDate.parse("2012-07-07"), "1 hours",
             "spicy", "");
     Food foodNew3 = new Food("pgpr waffle", LocalDate.parse("2006-03-09"), "0.5 hours",
-            "non-spicy", "$40");
+            "non-spicy", "");
     TravelActivity travelActivityNew1 = new TravelActivity("esplanade", LocalDate.parse("2016-03-19"),
-            "3 hours", "concert", "$50");
+            "3 hours", "concert", "");
     TravelActivity travelActivityNew2 = new TravelActivity("merlion", LocalDate.parse("2018-04-07"),
-            "2 hours", "sightseeing", "$40");
+            "2 hours", "sightseeing", "");
     TravelActivity travelActivityNew3 = new TravelActivity("chinatown", LocalDate.parse("2015-02-21"),
-            "5 hours", "sightseeing", "$60");
+            "5 hours", "sightseeing", "");
 
     private final PrintStream printedText = System.out;
     private final ByteArrayOutputStream capturedOutputStream = new ByteArrayOutputStream();
@@ -163,8 +163,8 @@ class DukeTest {
             travelActivityListNew.addTravelActivity(travelActivityNew3);
             String[] command1 = new String[]{"find", "mala"};
             String findExpectedOutput = "Here are what you are looking for:" + System.lineSeparator() +
-                    "1. Food: utown mala :19 Jun 2019 :2 hours (spicy)" + System.lineSeparator() +
-                    "2. Food: pgpr mala :7 Jul 2012 :1 hours (spicy)"  + System.lineSeparator();
+                    "[ ] 1. Food: utown mala :19 Jun 2019 :2 hours (spicy)" + System.lineSeparator() +
+                    "[ ] 2. Food: pgpr mala :7 Jul 2012 :1 hours (spicy)"  + System.lineSeparator();
             Parser.findCommand(command1, travelActivityListNew);
             assertEquals(capturedOutputStream.toString(), findExpectedOutput);
         } catch (OmniException exception) {
@@ -191,8 +191,8 @@ class DukeTest {
             travelActivityListNew.addTravelActivity(travelActivityNew3);
 
             String findExpectedOutput2 = "Here are what you are looking for:" + System.lineSeparator() +
-                    "1. merlion :7 Apr 2018 :2 hours (sightseeing)" + System.lineSeparator() +
-                    "2. chinatown :21 Feb 2015 :5 hours (sightseeing)" + System.lineSeparator();
+                    "[ ] 1. merlion :7 Apr 2018 :2 hours (sightseeing)" + System.lineSeparator() +
+                    "[ ] 2. chinatown :21 Feb 2015 :5 hours (sightseeing)" + System.lineSeparator();
             Parser.findTagCommand("findtag sightseeing", travelActivityListNew);
             assertEquals(capturedOutputStream.toString(), findExpectedOutput2);
 
@@ -220,9 +220,9 @@ class DukeTest {
             travelActivityListNew.addTravelActivity(travelActivityNew3);
 
             String findExpectedOutput3 = "Here are what you are looking for:" + System.lineSeparator() +
-                    "1. Accommodation: nus rvrc :12 Dec 2007 :5 years (campus stay)" + System.lineSeparator() +
-                    "2. Accommodation: nus pgpr :12 Oct 2017 :5 years (campus stay)" + System.lineSeparator() +
-                    "3. Accommodation: nus utr :12 Sep 2007 :5 years (campus stay)" + System.lineSeparator();
+                    "[ ] 1. Accommodation: nus rvrc :12 Dec 2007 :5 years (campus stay)" + System.lineSeparator() +
+                    "[ ] 2. Accommodation: nus pgpr :12 Oct 2017 :5 years (campus stay)" + System.lineSeparator() +
+                    "[ ] 3. Accommodation: nus utr :12 Sep 2007 :5 years (campus stay)" + System.lineSeparator();
             Parser.findTypeCommand("findtype Accommodation", travelActivityListNew);
             assertEquals(capturedOutputStream.toString(), findExpectedOutput3);
             Parser.findTypeCommand("findtype Accommodation", travelActivityListNew);
