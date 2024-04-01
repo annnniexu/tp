@@ -85,4 +85,16 @@ public class Ui {
     public static void printSavingError(){
         System.out.println("Something went wrong when saving the file");
     }
+
+    public static void printActivity(TravelActivity activity, int foundCounter) {
+        String checked = activity.getActivityStatus()? "[X]" : "[ ]";
+        System.out.print(checked + " " + foundCounter + ". " + activity);
+        if(activity.getTag() != null && !activity.getTag().isEmpty()){
+            System.out.print(" (" + activity.getTag() + ")");
+        }
+        if(activity.getExpense() != null && !activity.getExpense().isEmpty()){
+            System.out.print(" (" + activity.getExpense() + ")");
+        }
+        System.out.println();
+    }
 }

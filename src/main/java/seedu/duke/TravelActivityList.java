@@ -39,20 +39,8 @@ public class TravelActivityList {
             if (activity == null) {
                 break;
             }
-            String checked = activity.getActivityStatus()? "[X]" : "[ ]";
             activityCount++;
-            if((activity.getTag() == null || activity.getTag().isEmpty()) &&
-                    (activity.getExpense() == null || activity.getExpense().isEmpty())){
-                System.out.println(checked + " " + activityCount + ". " + activity);
-            } else if (!(activity.getTag() == null || activity.getTag().isEmpty())) {
-                System.out.println(checked + " " + activityCount + ". " + activity  + " (" + activity.getTag() + ")");
-            } else if (!(activity.getExpense() == null || activity.getExpense().isEmpty())) {
-                System.out.println(checked + " " + activityCount + ". " + activity
-                        + " (" + activity.getExpense() + ")");
-            } else {
-                System.out.println(checked + " " + activityCount + ". " + activity
-                        + " (" + activity.getTag() + ")" + " (" + activity.getExpense() + ")");
-            }
+            Ui.printActivity(activity, activityCount);
         }
         int finalactivityCount = noOfActivities;
         assert finalactivityCount == activityCount : "Index out of bounds while listing activities";
@@ -104,21 +92,14 @@ public class TravelActivityList {
      */
 
     public void searchKeyword (String activityName) {
-        boolean isFound = false;
         int foundCounter = 0;
-        for (int iterator = 0; iterator < travelActivities.size(); iterator += 1){
-            if(travelActivities.get(iterator).getPlan().contains(activityName) &&
-                    !travelActivities.get(iterator).getPlan().isEmpty()){
-                isFound = true;
+        for (TravelActivity travelActivity : travelActivities) {
+            if (travelActivity.getPlan().contains(activityName) &&
+                    !travelActivity.getPlan().isEmpty()) {
                 foundCounter += 1;
-                if (isFound && foundCounter == 1) {
+                Ui.printActivity(travelActivity, foundCounter);
+                if (foundCounter == 1) {
                     System.out.println("Here are what you are looking for:");
-                }
-                if (travelActivities.get(iterator).getTag() == "") {
-                    System.out.println(foundCounter + ". " + travelActivities.get(iterator).toString());
-                } else {
-                    System.out.println(foundCounter + ". " + travelActivities.get(iterator).toString() +
-                            " (" + travelActivities.get(iterator).getTag() + ")");
                 }
             }
         }
@@ -236,15 +217,18 @@ public class TravelActivityList {
                     !travelActivities.get(iterator).getTag().isEmpty()){
                 isFound = true;
                 foundCounter += 1;
-                if (isFound && foundCounter == 1) {
+                if (foundCounter == 1) {
                     System.out.println("Here are what you are looking for:");
                 }
+                Ui.printActivity(travelActivities.get(iterator), foundCounter);
+                /*
                 if (travelActivities.get(iterator).getTag() == "") {
                     System.out.println(foundCounter + ". " + travelActivities.get(iterator).toString());
                 } else {
                     System.out.println(foundCounter + ". " + travelActivities.get(iterator).toString() +
                             " (" + travelActivities.get(iterator).getTag() + ")");
                 }
+                 */
             }
         }
         if (foundCounter == 0 || isFound == false) {
@@ -262,53 +246,22 @@ public class TravelActivityList {
         boolean isFound = false;
         int foundCounter = 0;
 
-        for (int iterator = 0; iterator < travelActivities.size(); iterator += 1){
-            if(type.equals("Food") && travelActivities.get(iterator) instanceof Food &&
-                    !travelActivities.get(iterator).toString().isEmpty()){
+        for (TravelActivity activity: travelActivities){
+            if(activity.getClass().getSimpleName().equals(type)){
                 isFound = true;
                 foundCounter += 1;
-                if (isFound && foundCounter == 1) {
+                if (foundCounter == 1) {
                     System.out.println("Here are what you are looking for:");
                 }
-                if (travelActivities.get(iterator).getTag() == "") {
-                    System.out.println(foundCounter + ". " + travelActivities.get(iterator).toString());
-                } else {
-                    System.out.println(foundCounter + ". " + travelActivities.get(iterator).toString() +
-                            " (" + travelActivities.get(iterator).getTag() + ")");
-                }
-            } else if (type.equals("Landmark") && travelActivities.get(iterator) instanceof Landmark &&
-                    !travelActivities.get(iterator).toString().isEmpty()) {
-                isFound = true;
-                foundCounter += 1;
-                if (isFound && foundCounter == 1) {
-                    System.out.println("Here are what you are looking for:");
-                }
-                if (travelActivities.get(iterator).getTag() == "") {
-                    System.out.println(foundCounter + ". " + travelActivities.get(iterator).toString());
-                } else {
-                    System.out.println(foundCounter + ". " + travelActivities.get(iterator).toString() +
-                            " (" + travelActivities.get(iterator).getTag() + ")");
-                }
-            } else if (type.equals("Accommodation") && travelActivities.get(iterator) instanceof Accommodation &&
-                    !travelActivities.get(iterator).toString().isEmpty()) {
-                isFound = true;
-                foundCounter += 1;
-                if (isFound && foundCounter == 1) {
-                    System.out.println("Here are what you are looking for:");
-                }
-                if (travelActivities.get(iterator).getTag() == "") {
-
-                    System.out.println(foundCounter + ". " + travelActivities.get(iterator).toString());
-                } else {
-                    System.out.println(foundCounter + ". " + travelActivities.get(iterator).toString() +
-                            " (" + travelActivities.get(iterator).getTag() + ")");
-                }
+                Ui.printActivity(activity, foundCounter);
             }
         }
         if (foundCounter == 0 || isFound == false) {
             System.out.println("Sorry I could not find what you are looking for.");
         }
-    }
+        }
+
+
 
     /**
      * Adds expense to travel activity
