@@ -7,6 +7,10 @@
 ## Design & implementation
 {Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
 
+### Overview
+![Overview.png](Overview.png)
+Given above is a overview of how each classes interact with one another in our software.
+
 ### Save feature
 
 The save feature is facilitated by `FileSave`. It makes calls to the subclasses `Accommodation`, `Food` and `Landmark`
@@ -74,11 +78,11 @@ The sequence diagram depicts the interaction between the user, the tagCommand me
 
 ## Product scope
 ### Target user profile
+* Needs to manage multiple travel plans
+* Prefers typing to GUI
 
-{Describe the target user profile}
 
 ### Value proposition
-
 Tourists may have many plans during their holiday. Omnitravel aims to be a one-stop-shop for all travel plans.
 Omnitravels stores the user's travel plans and enable them to quickly retrieve their travel plans using the search 
 functions.

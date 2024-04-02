@@ -1,4 +1,0 @@
-general / 0 / visit paris / 2023-12-12 / 2 weeks /  / 
-general / 0 / visit Paris / 2024-12-12 / 2 weeks /  / 
-general / 0 / hotel / 2024-12-12 / one night /  / 
-food / 0 / prata / 2024-12-12 / 1 hour /  / 

@@ -1,0 +1,42 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+hide class members
+class OmniTravel
+class TravelActivityList
+class TravelActivity
+class FileSave
+class Food
+class Landmark
+class Accomodation
+class Ui
+class Parser
+class CheckParameter
+class OmniException
+class Exception
+
+OmniException -|> Exception
+TravelActivity <|- Accomodation
+Food -|> TravelActivity
+Landmark --|> TravelActivity
+OmniTravel --> "1" FileSave
+FileSave --> "*" Landmark
+FileSave --> "*" Food
+FileSave --> "*" Accomodation
+TravelActivityList"1" <- OmniTravel
+TravelActivityList --> "*" TravelActivity
+OmniTravel .> Ui
+Ui .> OmniException
+TravelActivityList .> Ui
+Ui <.. Parser
+Parser .> CheckParameter
+CheckParameter ..> Exception
+Parser ..> TravelActivityList
+Parser --> "*" Accomodation
+Parser --> "*" Food
+Parser --> "*" Landmark
+Parser --> "*" TravelActivity
+Ui ..> TravelActivity
+
+
+@enduml
