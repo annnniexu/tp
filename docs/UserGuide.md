@@ -27,6 +27,7 @@ list via a Command Line Interface**.
 > e.g. `help 123` will just be intepreted as `help`.
 > * Words that are in square brackets such as `[/tag TAG]` indicates that it is
 > optional to include in the command.
+> * Users should not use any `/` into their input descriptions unless using 
  
 
 {Give detailed description of each feature}

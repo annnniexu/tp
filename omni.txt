@@ -1,7 +1,4 @@
-general / 0 / visit paris / 2024-12-12 / 2 weeks /  / 
-general / 0 / visit paris / 2024-12-12 / 2 weeks / first / 
-general / 0 / visit paris / 2024-12-12 / 2 weeks / first country / 
-general / 0 / visit paris / 2024-12-12 / 2 weeks / first country / 
-accommodation / 0 / four seasons hotel / 2024-12-12 / 2 weeks /  / 
-food / 0 / Hells Kitchen / 2024-12-12 / 2 hours /  / 
-landmark / 0 / Eiffel Tower / 2024-12-12 / 2 hours /  / 
+general / 0 / visit paris / 2023-12-12 / 2 weeks /  / 
+general / 0 / visit Paris / 2024-12-12 / 2 weeks /  / 
+general / 0 / hotel / 2024-12-12 / one night /  / 
+food / 0 / prata / 2024-12-12 / 1 hour /  / 
