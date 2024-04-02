@@ -27,6 +27,7 @@ list via a Command Line Interface**.
 > e.g. `help 123` will just be intepreted as `help`.
 > * Words that are in square brackets such as `[/tag TAG]` indicates that it is
 > optional to include in the command.
+> * Users should not use any `/` into their input descriptions unless using 
  
 
 {Give detailed description of each feature}
@@ -40,14 +41,44 @@ Example of usage:
 
 `help`
 
-### Adding a general travel activity : `add` 
+### Adding a general travel activity : `add`
 Adds a general travel activity into the travel activity list
 
 Format: `add DESCRIPTION /date YYYY-MM-DD /duration DURATION [/tag TAG]`
 
-Examples of usage: 
+Examples of usage:
 * `add Go to Japan /date 2024-03-14 /duration 7 hours`
 * `add Go to Hong Kong /date 2024-08-25 /duration 6 hours /tag with family`
+
+### Add an accommodation activity type into the list : `accommodation`
+Adds an accommodation type travel activity into the travel activity list
+
+Format: `accommodation DESCRIPTION /date YYYY-MM-DD /duration DURATION [/tag TAG]`
+
+Examples of usage:
+* `accommodation Four Seasons Hotel /date 2024-03-14 /duration 2 weeks`
+* `accommodation Four Seasons Hotel /date 2024-08-25 /duration 2 weeks /tag first hotel`
+
+### Add a food activity type into the list : `food`
+Adds a food type travel activity into the travel activity list
+
+Format: `food DESCRIPTION /date YYYY-MM-DD /duration DURATION [/tag TAG]`
+
+Examples of usage:
+* `food Mala Hotpot /date 2024-03-14 /duration 2 hours`
+* `food Mala Hotpot /date 2024-03-14 /duration 2 hours /tag very spicy`
+
+### Add a landmark activity type into the list : `landmark`
+Adds a landmark type travel activity into the travel activity list
+
+Format: `landmark DESCRIPTION /date YYYY-MM-DD /duration DURATION [/tag TAG]`
+
+Examples of usage:
+* `landmark Eiffel Tower /date 2024-03-14 /duration 2 hours`
+* `landmark Eiffel Tower /date 2024-03-14 /duration 2 hours /tag go up tower`
+
+### Find keyword in the list : `find`
+
 
 ### Deleting a travel activity : `delete`
 Deletes a travel activity from the travel activity list
@@ -63,6 +94,14 @@ Shows all the travel activities including their tags and expenses
 Format: `list`
 
 Examples of usage: `list`
+
+### Check a travel activity : `check`
+
+
+
+### Uncheck a travel activity : `uncheck`
+
+
 
 ### Updating a travel activity : `update`
 Updates the date, duration and tag of a travel activity
@@ -81,7 +120,7 @@ Format: `tag n/ACTIVITY_NUMBER d/TAG_NAME`
 
 * The `ACTIVITY_NUMBER` must be a valid activity number.
 
-Example of usage: 
+Example of usage:
 
 `tag n/1 d/activity 1`
 
@@ -95,6 +134,14 @@ Format: `untag n/ACTIVITY_NUMBER`
 Example of usage:
 
 `untag n/1 `
+
+### Finding a tag: `findtag`
+
+
+
+### Finding an activity type: `findtype`
+
+
 
 ### Adding an expense amount: `expense`
 Adds an expense amount to an existing travel activity.
@@ -118,7 +165,6 @@ Format: `removeexpense n/ACTIVITY_NUMBER`
 Example of usage:
 
 `removeexpense n/2`
-
 
 ## FAQ
 

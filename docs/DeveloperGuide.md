@@ -89,10 +89,22 @@ functions.
 
 ## User Stories
 
-|Version| As a ... | I want to ... | So that I can ...|
-|--------|----------|---------------|------------------|
-|v1.0|new user|see usage instructions|refer to them when I forget how to use the application|
-|v2.0|user|find a to-do item by name|locate a to-do without having to go through the entire list|
+| Version | As a ... | I want to ...                                                  | So that I can ...                                                                         |
+|---------|----------|----------------------------------------------------------------|-------------------------------------------------------------------------------------------|
+| v1.0    | new user | see a list of my travel plans                                  | refer and know what activities I have planned for the day                                 |
+| v1.0    | user     | be able to label my destinations                               | identify the type of activity easily                                                      |
+| v1.0    | user     | be able to add and remove activities from my planner           | easily make changes to my current activity list                                           | 
+| v1.0    | user     | be able to add tags or categories to my activities             | organise them based on my preferences                                                     |
+| v1.0    | user     | be able to check and uncheck my travel activities              | easily mark the activities that I have done if I do not follow the sequence of activities |
+| v1.0    | user     | have a help option                                             | easily identify all the commands in the chatbot                                           |
+| v1.0    | user     | be able to search for an activity already recorded in the list | easily retrieve exisiting plans and not have double inputs                                |
+| v2.0    | user     | maintain my expense records                                    | make travel plans according to my budget                                                  |
+| v2.0    | user     | be able to see the travel durations                            | plan my activities more efficiently                                                       |
+| v2.0    | user     | be able to search for an activity based on its type or tag     | find specific places in my list more efficiently                                          |
+| v2.0    | user     | be able to delete a destination from my records                | remove redundant records that I do not need                                               |
+| v2.0    | user     | be able to edit and update existing plans                      | efficiently update exisiting plans without having to delete and add plans                 |
+| v2.0    | user     | have some form of QOL considerations like warning messages     | know what are the errors that I have made in the inputs                                   |
+
 
 ## Non-Functional Requirements
 
@@ -106,9 +118,51 @@ functions.
 
 {Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
 
+- To add a general travel activity into the list
+
+Example: `add visit Paris /date 2024-12-12 /duration 2 weeks`
+
+Expected: A new general activity is added
+
+- To add an accommodation activity into the list
+
+Example: `accommodation hotel /date 2024-12-12 /duration one night`
+
+Expected: A new accommodation activity type is added
+
+- To add a food activity into the list
+
+Example: `food prata /date 2024-12-12 /duration 1 hour`
+
+Expected: A new food activity type is added
+
+- To add a landmark activity into the list
+
+Example: `landmark Eiffel Tower /date 2024-12-12 /duration 2 hour`
+
+Expected: A new landmark activity type is added
+
+- To delete an activity from the list
+
+Example: `delete 1`
+
+Expected: The general activity "visit Paris" should be deleted
+
+- To update an existing activity date and duration in the list
+
+Example: `update 1 /date 2024-12-13 /duration two nights`
+
+Expected: The accommodation activity hotel would be on 13th Dec 2024 instead of 12th Dec 2024 and be for two nights instead of one 
+
+- To list out the current activity list
+
+Example: `list`
+
+Expected: The current activity list will be shown by the chatbot
+
 - To find all travel plans with the same keyword
 
-Example: find rvrc
+Example: `find rvrc`
 
 Result:
 ____________________________________________________________
