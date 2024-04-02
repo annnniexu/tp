@@ -221,7 +221,7 @@ public class Parser {
     public static void findTagCommand(String line, TravelActivityList list) throws OmniException {
         String[] command = line.split("findtag");
         if (command.length < 1) {
-            throw new OmniException("Please check that your update command is in this format: findtag <task tag>");
+            throw new OmniException("Please check that your update command is in this format: findtag <tag>");
         } else {
             list.findTag(command[1].trim());
         }
@@ -238,7 +238,7 @@ public class Parser {
     public static void findTypeCommand(String line, TravelActivityList list) throws OmniException {
         String[] command = line.split("findtype");
         if (command.length < 1) {
-            throw new OmniException("Please check that your find type command is in this format: findtype <task type>");
+            throw new OmniException("Please check that your find type command is in this format: findtype <type>");
         } else {
             list.findType(command[1].trim());
         }
@@ -256,7 +256,7 @@ public class Parser {
             String keyword = command[1];
             list.searchKeyword(keyword);
         } else {
-            throw new OmniException("Please specify an appropriate keyword you want to find!");
+            throw new OmniException("Please check that your find type command is in this format: find <description>");
         }
     }
 

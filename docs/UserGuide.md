@@ -77,8 +77,13 @@ Examples of usage:
 * `landmark Eiffel Tower /date 2024-03-14 /duration 2 hours`
 * `landmark Eiffel Tower /date 2024-03-14 /duration 2 hours /tag go up tower`
 
-### Find keyword in the list : `find`
+### Find activity from the list using activity description : `find`
+Find an activity based on their description. All activities with the given description will be listed out.
 
+Format: `find DESCRIPTION`
+* `DESCRIPTION` has to match the activity description exactly to find the activity
+
+Examples of usage: `find saizeriya`
 
 ### Deleting a travel activity : `delete`
 Deletes a travel activity from the travel activity list
@@ -135,13 +140,23 @@ Example of usage:
 
 `untag n/1 `
 
-### Finding a tag: `findtag`
+### Find activity from the list using activity tag: `findtag`
 
+Find an activity based on their tag. All activities with the given tag will be listed out.
 
+Format: `findtag TAG`
+* `TAG` has to match the activity tag exactly to find the activity
 
-### Finding an activity type: `findtype`
+Examples of usage: `findtag sightseeing`
 
+### Find activity from the list using activity type : `findtype`
 
+Find an activity based on their type. All activities with the given type will be listed out.
+
+Format: `findtype TYPE`
+* `TYPE` has to match the activity type exactly to find the activity
+
+Examples of usage: `findtype TravelActivity`
 
 ### Adding an expense amount: `expense`
 Adds an expense amount to an existing travel activity.
@@ -183,14 +198,14 @@ Example of usage:
 * Add accommodation type `accommodation DESCRIPTION /date YYYY-MM-DD /duration DURATION [/tag TAG]`
 * Add Food type `food DESCRIPTION /date YYYY-MM-DD /duration DURATION [/tag TAG]`
 * Add Landmark type `landmark DESCRIPTION /date YYYY-MM-DD /duration DURATION [/tag TAG]`
-* Find keyword in list `find KEYWORD`
+* Find activity using activity description `find DESCRIPTION`
 * Delete travel activity `delete INDEX`
 * Check activity as done `check INDEX`
 * Uncheck activity as not done `uncheck INDEX`
 * Update travel activity `update INDEX /date YYYY-MM-DD /duration DURATION [/tag TAG]`
 * Add tag `tag INDEX TAGNAME`
 * Remove tag `untag INDEX`
-* Find tag `findtag TAGNAME`
-* Find type `findtype TYPENAME`
+* Find activity using activity tag `findtag TAG`
+* Find activity using activity type `findtype TYPE`
 * Add expense `expense n/ACTIVITY_NUMBER d/EXPENSE_AMOUNT`
 * Remove expense `removeexpense n/ACTIVITY_NUMBER`
