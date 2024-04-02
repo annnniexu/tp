@@ -110,11 +110,18 @@ public class Duke {
                     Parser.updateCommand(line, list);
                     Ui.printLine();
                     break;
+
                 case "findtag":
                     Ui.printLine();
                     Parser.findTagCommand(line, list);
                     Ui.printLine();
-                break;
+                    break;
+
+                case "findtype":
+                    Ui.printLine();
+                    Parser.findTypeCommand(line, list);
+                    Ui.printLine();
+                    break;
 
                 default:
                     Ui.printLine();

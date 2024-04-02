@@ -8,44 +8,78 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class FileSave {
-
+    private static Logger logger = Logger.getLogger("LoadFileLogger");
     private static String filePath;
 
     public FileSave(String path) {
         this.filePath = path;
     }
 
-    private static Logger logger = Logger.getLogger("LoadFileLogger");
-
     public void loadFileContents(TravelActivityList list) throws FileNotFoundException {
+        logger.log(Level.INFO, "loadFileContents");
         java.io.File f = new java.io.File(filePath);
         Scanner s = new Scanner(f);
         while (s.hasNext()){
             String[] line = s.nextLine().split(" / ");
-            //logger.log(Level.INFO, line[0] + "/ /" + line[1] + "/ /" + line[2] + "/ /" + line[3] + "/ /" + line[4] + "/ /" + line[5]);
-
             switch (line[0].toLowerCase()){
             case "accommodation":
-                TravelActivity accommodation = new Accommodation(line[2], LocalDate.parse(line[3]), line[4], line[5].trim());
+                TravelActivity accommodation;
+                if (line.length == 6) {
+                    accommodation = new Accommodation(line[2], LocalDate.parse(line[3]), line[4], line[5].trim());
+                } else {
+                    accommodation = new Accommodation(line[2], LocalDate.parse(line[3]), line[4], "");
+                }
                 list.addTravelActivity(accommodation);
                 if(line[1].equals(" 1 ")){
                     accommodation.setActivityStatus(true);
                 }
                 break;
             case "food":
-                TravelActivity food = new Food(line[2], LocalDate.parse(line[3]), line[4], line[5].trim());
+                TravelActivity food;
+                if (line.length == 6) {
+                    food = new Food(line[2], LocalDate.parse(line[3]), line[4], line[5].trim());
+                } else {
+                    food = new Food(line[2], LocalDate.parse(line[3]), line[4], "");
+                }
+
                 list.addTravelActivity(food);
                 if(line[1].equals(" 1 ")){
                     food.setActivityStatus(true);
                 }
                 break;
             case "landmark":
-                TravelActivity landmark = new Landmark(line[2], LocalDate.parse(line[3]), line[4], line[5].trim());
+                TravelActivity landmark;
+                if (line.length == 6) {
+                    landmark = new Landmark(line[2], LocalDate.parse(line[3]), line[4], line[5].trim());
+                } else {
+                    landmark = new Landmark(line[2], LocalDate.parse(line[3]), line[4], "");
+                }
                 list.addTravelActivity(landmark);
                 if(line[1].equals(" 1 ")){
                     landmark.setActivityStatus(true);
                 }
                 break;
+            case "1":
+                TravelActivity generic1;
+                if (line.length == 5) {
+                    generic1 = new TravelActivity(line[1], LocalDate.parse(line[2]), line[3], line[4].trim());
+                } else {
+                    generic1 = new TravelActivity(line[1], LocalDate.parse(line[2]), line[3], "");
+                }
+                list.addTravelActivity(generic1);
+                generic1.setActivityStatus(true);
+                break;
+            case "0":
+                TravelActivity generic0;
+                if (line.length == 5) {
+                    generic0 = new TravelActivity(line[1], LocalDate.parse(line[2]), line[3], line[4].trim());
+                } else {
+                    generic0 = new TravelActivity(line[1], LocalDate.parse(line[2]), line[3], "");
+                }
+                list.addTravelActivity(generic0);
+                generic0.setActivityStatus(false);
+                break;
+
             default:
                 throw new FileNotFoundException("File is corrupted or has invalid format");
             }
@@ -53,6 +87,7 @@ public class FileSave {
     }
 
     public void saveActivityList(TravelActivityList list) throws IOException {
+        logger.log(Level.INFO, "saveActivityList");
         FileWriter fw = new FileWriter(filePath);
         for (TravelActivity travelActivity: list.getTravelActivities()) {
             if (travelActivity instanceof Accommodation) {
@@ -72,6 +107,7 @@ public class FileSave {
     }
 
     public void readFile(TravelActivityList list) {
+        logger.log(Level.INFO, "readFile");
         try {
             loadFileContents(list);
         } catch (FileNotFoundException e) {
