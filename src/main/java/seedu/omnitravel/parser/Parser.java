@@ -298,4 +298,26 @@ public class Parser {
         }
     }
 
+    /**
+     * Handles the case where totalexpense command is given as input
+     *
+     * @param line User's input into Omnitravel
+     * @param list List of travel activities
+     * @throws OmniException
+     */
+    public static void totalExpenseCommand(String line, TravelActivityList list) throws OmniException {
+        String[] command = line.split("/type");
+        if (command.length < 1 || command.length > 2) {
+            throw new OmniException("Please check your command is in the format totalexpense [/tag TYPE]");
+        }
+        if (command.length == 1) {
+            if(!command[0].trim().equals("totalexpense")) {
+                throw new OmniException("Please check your command is in the format totalexpense [/tag TYPE]");
+            }
+            list.totalExpense("all");
+        } else {
+            list.totalExpense(command[1].trim());
+        }
+    }
+
 }

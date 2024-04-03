@@ -291,5 +291,30 @@ public class TravelActivityList {
         System.out.println(task);
     }
 
+    /**
+     * Calculates the total expense for the given type.
+     * @param type The type of tasks that the user wants to find
+     */
+
+    public void totalExpense(String type) throws OmniException {
+        if (!(type.equalsIgnoreCase("food") || type.equalsIgnoreCase("accommodation")
+                || type.equalsIgnoreCase("landmark") || type.equalsIgnoreCase("all"))) {
+            throw new OmniException("Not a valid TYPE");
+        }
+
+        double tot = 0.0;
+        for (TravelActivity activity : travelActivities) {
+            if (type.equals("all") || activity.getClass().getSimpleName().equalsIgnoreCase(type)) {
+                String expense = activity.getExpense();
+                if (!expense.equals("")) {
+                    if (expense.startsWith("$")) {
+                        expense = expense.substring(1);
+                    }
+                    tot += Double.parseDouble(expense);
+                }
+            }
+        }
+        System.out.println("The total expense for " + type + " travel activities is: " + tot);
+    }
 
 }
