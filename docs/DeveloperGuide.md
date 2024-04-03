@@ -11,13 +11,20 @@
 ![Overview.png](Overview.png)
 Given above is a overview of how each classes interact with one another in our software.
 
-### Save feature
+#[Proposed] Save feature
 
 The save feature is facilitated by `FileSave`. It makes calls to the subclasses `Accommodation`, `Food` and `Landmark`
 which are subclasses of the `TravelActivity` class to add each activity saved in the text file.
 
 `addTravelActivity` is called everytime there is a valid-stored data in the text file that is read to upload the
 activity back into the array list.
+
+Step 1. When the user launches the app for the first time, it will check if the text file `omni.txt` exist.
+
+Step 2. Once it is found that the text file exists, the `readFile()` method will call `loadFileContents(list)`.
+
+Step 3. In the `loadFileContents(list)`, `Scanner(f)` would read the text file line by line and insert each line into
+the respective activity types and its contents with `/` as the delimiter.
 
 The Sequence Diagram below shows how the save file feature is being implemented when the user re-enters the chatbot
 after using the bye command.
