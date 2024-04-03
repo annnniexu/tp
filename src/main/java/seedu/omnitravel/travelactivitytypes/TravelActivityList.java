@@ -97,6 +97,7 @@ public class TravelActivityList {
     public void searchKeyword (String activityName) {
         int foundCounter = 0;
         for (TravelActivity travelActivity : travelActivities) {
+            assert !(foundCounter > travelActivities.size()) : "Error: There is more activities found than possible";
             if (travelActivity.getPlan().contains(activityName) &&
                     !travelActivity.getPlan().isEmpty()) {
                 foundCounter += 1;
@@ -216,6 +217,7 @@ public class TravelActivityList {
     public void findTag(String tag){
         int foundCounter = 0;
         for (TravelActivity travelActivity : travelActivities) {
+            assert !(foundCounter > travelActivities.size()) : "Error: There is more activities found than possible";
             if (travelActivity.getTag().contains(tag) &&
                     !travelActivity.getTag().isEmpty()) {
                 foundCounter += 1;
@@ -240,6 +242,7 @@ public class TravelActivityList {
         int foundCounter = 0;
 
         for (TravelActivity activity: travelActivities){
+            assert !(foundCounter > travelActivities.size()) : "Error: There is more activities found than possible";
             if(activity.getClass().getSimpleName().equals(type)){
                 foundCounter += 1;
                 if (foundCounter == 1) {
