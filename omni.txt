@@ -1,5 +1,5 @@
 food / 0 / takoyaki / 2019-12-12 / 2 hours /  / $50
-landmark / 0 / Eiffel Tower / 2024-12-12 / 2 hour /  / 
+landmark / 0 / Eiffel Tower / 2024-12-12 / 2 hour /  / 40
 food / 0 / prata / 2024-12-12 / 1 hour /  / 
-accommodation / 0 / hotel / 2024-12-12 / one night /  / 
+accommodation / 0 / hotel / 2024-12-12 / one night /  / 100
 general / 0 / visit Paris / 2024-12-12 / 2 weeks / leisure / 
