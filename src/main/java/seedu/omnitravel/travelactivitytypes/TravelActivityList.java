@@ -297,7 +297,8 @@ public class TravelActivityList {
      */
 
     public void totalExpense(String type) throws OmniException {
-        if (!(type.equalsIgnoreCase("food") || type.equalsIgnoreCase("accommodation") || type.equalsIgnoreCase("landmark") || type.equalsIgnoreCase("all"))) {
+        if (!(type.equalsIgnoreCase("food") || type.equalsIgnoreCase("accommodation")
+                || type.equalsIgnoreCase("landmark") || type.equalsIgnoreCase("all"))) {
             throw new OmniException("Not a valid TYPE");
         }
 

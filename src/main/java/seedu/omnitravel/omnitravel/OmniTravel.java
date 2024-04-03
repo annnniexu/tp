@@ -55,7 +55,7 @@ public class OmniTravel {
                 case "findtype":
                 case "expense":
                 case "removeexpense":
-                case "totalexpense" :
+                case "totalexpense":
                     invokeCommand(command, line, list);
                     break;
                 case "help":
