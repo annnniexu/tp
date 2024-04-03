@@ -166,11 +166,10 @@ public class Parser {
      */
     public static void tagCommand(String line, TravelActivityList list) throws OmniException {
         String[] command = line.split(" ");
-        String index = command[1];
-        String[] tagSplit = line.split(index);
-        String tag = tagSplit[1].trim();
-        System.out.println(tag);
         if (command.length >= 3 && isNumeric(command[1])){
+            String index = command[1];
+            String[] tagSplit = line.split(index);
+            String tag = tagSplit[1].trim();
             int listNumber = Integer.parseInt(index);
             list.tagActivity(listNumber, tag);
         } else if (command.length == 2) {
@@ -269,10 +268,12 @@ public class Parser {
      * @throws OmniException if command.length == 1
      */
     public static void expenseCommand(String line, TravelActivityList list) throws OmniException {
-        String[] command = line.split("expense |-");
+        String[] command = line.split(" ");
         if (command.length == 3 && isNumeric(command[1])){
+            String index = command[1];
+            String[] expenseSplit = line.split(index);
             int listNumber = Integer.parseInt(command[1]);
-            String expense = command[2];
+            String expense = expenseSplit[1].trim();
             list.expenseActivity(listNumber, expense);
         } else if (command.length == 2) {
             throw new OmniException("Please specify expense amount");

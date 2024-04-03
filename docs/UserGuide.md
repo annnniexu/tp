@@ -101,11 +101,21 @@ Format: `list`
 Examples of usage: `list`
 
 ### Check a travel activity : `check`
+Checks a travel activity as completed.
 
+Format: `check INDEX`
+* `INDEX` has to be a number that is shown in the list of travel activities
+
+Examples of usage: `check 1`
 
 
 ### Uncheck a travel activity : `uncheck`
+Unchecks travel activity and sets it to uncompleted.
 
+Format: `uncheck INDEX`
+* `INDEX` has to be a number that is shown in the list of travel activities
+
+Examples of usage: `uncheck 1`
 
 
 ### Updating a travel activity : `update`
@@ -121,24 +131,24 @@ Examples of usage:
 ### Adding a tag: `tag`
 Adds a new tag to an existing travel activity.
 
-Format: `tag n/ACTIVITY_NUMBER d/TAG_NAME`
+Format: `tag INDEX TAGNAME`
 
-* The `ACTIVITY_NUMBER` must be a valid activity number.
+* The `INDEX` must be a valid activity index.
 
 Example of usage:
 
-`tag n/1 d/activity 1`
+`tag 1 activity 1`
 
 ### Removing a tag: `untag`
 Removes a tag from an existing travel activity.
 
-Format: `untag n/ACTIVITY_NUMBER`
+Format: `untag INDEX`
 
-* The `ACTIVITY_NUMBER` must be a valid activity number.
+* The `INDEX` must be a valid activity index.
 
 Example of usage:
 
-`untag n/1 `
+`untag 1 `
 
 ### Find activity from the list using activity tag: `findtag`
 
@@ -161,25 +171,37 @@ Examples of usage: `findtype TravelActivity`
 ### Adding an expense amount: `expense`
 Adds an expense amount to an existing travel activity.
 
-Format: `expense n/ACTIVITY_NUMBER d/EXPENSE_AMOUNT`
+Format: `expense INDEX EXPENSE`
 
-* The `ACTIVITY_NUMBER` must be a valid activity number
-* The `EXPENSE_AMOUNT` can include the currency of the expense.
+* The `INDEX` must be a valid activity index
+* The `EXPENSE` can include the currency of the expense.
 
 Example of usage:
 
-`expense n/1 d/$50`
+`expense 2 $50`
 
 ### Removing an expense amount: `removeexpense`
 Removes an expense amount to an existing travel activity.
 
-Format: `removeexpense n/ACTIVITY_NUMBER`
+Format: `removeexpense INDEX`
 
-* The `ACTIVITY_NUMBER` must be a valid activity number.
+* The `INDEX` must be a valid activity index.
 
 Example of usage:
 
-`removeexpense n/2`
+`removeexpense 2`
+
+### Adding an expense amount: `totalexpense`
+Calculates the total expense for all activities of the given type in the travel activity list.
+
+Format: `totalexpense [/type TYPE]`
+
+* The `TYPE` must be a valid type (Accomodation, Food, Landmark, TravelActivity)
+
+Example of usage:
+
+`totalexpense /type food`
+`totalexpense`
 
 ## FAQ
 
@@ -207,5 +229,6 @@ Example of usage:
 * Remove tag `untag INDEX`
 * Find activity using activity tag `findtag TAG`
 * Find activity using activity type `findtype TYPE`
-* Add expense `expense n/ACTIVITY_NUMBER d/EXPENSE_AMOUNT`
-* Remove expense `removeexpense n/ACTIVITY_NUMBER`
+* Add expense `expense INDEX EXPENSE`
+* Remove expense `removeexpense INDEX`
+* Total expense `totalexpense [/type TYPE]`
