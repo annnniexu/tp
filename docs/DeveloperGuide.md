@@ -11,13 +11,20 @@
 ![Overview.png](Overview.png)
 Given above is a overview of how each classes interact with one another in our software.
 
-### Save feature
+#[Proposed] Save feature
 
 The save feature is facilitated by `FileSave`. It makes calls to the subclasses `Accommodation`, `Food` and `Landmark`
 which are subclasses of the `TravelActivity` class to add each activity saved in the text file.
 
 `addTravelActivity` is called everytime there is a valid-stored data in the text file that is read to upload the
 activity back into the array list.
+
+Step 1. When the user launches the app for the first time, it will check if the text file `omni.txt` exist.
+
+Step 2. Once it is found that the text file exists, the `readFile()` method will call `loadFileContents(list)`.
+
+Step 3. In the `loadFileContents(list)`, `Scanner(f)` would read the text file line by line and insert each line into
+the respective activity types and its contents with `/` as the delimiter.
 
 The Sequence Diagram below shows how the save file feature is being implemented when the user re-enters the chatbot
 after using the bye command.
@@ -57,16 +64,18 @@ Proposed Implementation
 
 The proposed total expense feature is mainly carried out by `TravelActivityList`. It stores objects with class `TravelActivity`in an array called `travelActivities`
 and each `TravelActivity` class object contains an expense associated with it. The `TravelAcivityList` also contains the following method:
-* `TravelActivityList#totalExpense()`-- Returns the total expense of all activities in the list.
+* `TravelActivityList#totalExpense(type)`-- Returns the total expense of activities in the list with given type.
 
 Step 1. When the user launched the app for the first time, there will be no objects of type `TravelActivity` in `travelActivities`.
 Thus any attempts to call the command `total expense`
 will result in an output of `0`.
 
 Step 2. After the user has added new travel activities into the `travelActivityList`, the user can execute
-`total expense` command to get the total expense for the activities in the list. The `total expense` command calls the  `Parser#totalExpenseCommand(line, list)` which then calls the `TravelActivityList#totalExpense()`
+`totalexpense [/type TYPE]` command to get the total expense for the activities in the list. The `total expense` command calls the  `Parser#totalExpenseCommand(line, list)` which then calls the `TravelActivityList#totalExpense(type)`.
 
-Step 3. The method will loop through each activity in `travelActivities` and add up all the expenses.
+Step 3. The method will loop through each activity in `travelActivities` and add up all the expenses for the given type. If no type is provided, it will default to TravelActivity type.
+
+![totalexpense.png](totalexpense.png)
 
 ### Tag feature
 

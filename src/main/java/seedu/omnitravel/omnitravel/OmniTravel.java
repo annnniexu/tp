@@ -55,6 +55,7 @@ public class OmniTravel {
                 case "findtype":
                 case "expense":
                 case "removeexpense":
+                case "totalexpense":
                     invokeCommand(command, line, list);
                     break;
                 case "help":
@@ -120,6 +121,9 @@ public class OmniTravel {
             break;
         case "removeexpense":
             Parser.removeExpenseCommand(command, list);
+            break;
+        case "totalexpense":
+            Parser.totalExpenseCommand(line, list);
             break;
         default:
             throw new OmniException("Invalid command");
