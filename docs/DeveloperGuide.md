@@ -5,7 +5,7 @@
 {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
 
 ## Design & implementation
-{Describe the design and implementation of the product. Use UML diagrams and short code snippets where applicable.}
+
 
 ### Overview
 ![Overview.png](Overview.png)
@@ -79,7 +79,7 @@ The sequence diagram depicts the interaction between the user, the tagCommand me
 ## Product scope
 ### Target user profile
 * Needs to manage multiple travel plans
-* Prefers typing to GUI
+* Prefers typing to clicking with mouse
 
 
 ### Value proposition
@@ -112,11 +112,11 @@ functions.
 
 ## Glossary
 
-* *glossary item* - Definition
+* Mainstream OS: Windows, Linux, MacOS
 
 ## Instructions for manual testing
 
-{Give instructions on how to do a manual product testing e.g., how to load sample data to be used for testing}
+
 
 - To add a general travel activity into the list
 
