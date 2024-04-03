@@ -101,11 +101,21 @@ Format: `list`
 Examples of usage: `list`
 
 ### Check a travel activity : `check`
+Checks a travel activity as completed.
 
+Format: `check INDEX`
+* `INDEX` has to be a number that is shown in the list of travel activities
+
+Examples of usage: `check 1`
 
 
 ### Uncheck a travel activity : `uncheck`
+Unchecks travel activity and sets it to uncompleted.
 
+Format: `uncheck INDEX`
+* `INDEX` has to be a number that is shown in the list of travel activities
+
+Examples of usage: `uncheck 1`
 
 
 ### Updating a travel activity : `update`
@@ -181,6 +191,18 @@ Example of usage:
 
 `removeexpense n/2`
 
+### Adding an expense amount: `totalexpense`
+Calculates the total expense for all activities of the given type in the travel activity list.
+
+Format: `totalexpense [/type TYPE]`
+
+* The `TYPE` must be a valid type (Accomodation, Food, Landmark, TravelActivity)
+
+Example of usage:
+
+`totalexpense /type food`
+`totalexpense`
+
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
@@ -209,3 +231,4 @@ Example of usage:
 * Find activity using activity type `findtype TYPE`
 * Add expense `expense n/ACTIVITY_NUMBER d/EXPENSE_AMOUNT`
 * Remove expense `removeexpense n/ACTIVITY_NUMBER`
+* Total expense `totalexpense [/type TYPE]`
