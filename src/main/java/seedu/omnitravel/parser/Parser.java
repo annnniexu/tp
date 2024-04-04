@@ -308,11 +308,11 @@ public class Parser {
     public static void totalExpenseCommand(String line, TravelActivityList list) throws OmniException {
         String[] command = line.split("/type");
         if (command.length < 1 || command.length > 2) {
-            throw new OmniException("Please check your command is in the format totalexpense [/tag TYPE]");
+            throw new OmniException("Please check your command is in the format totalexpense [/type TYPE]");
         }
         if (command.length == 1) {
             if(!command[0].trim().equals("totalexpense")) {
-                throw new OmniException("Please check your command is in the format totalexpense [/tag TYPE]");
+                throw new OmniException("Please check your command is in the format totalexpense [/type TYPE]");
             }
             list.totalExpense("all");
         } else {
