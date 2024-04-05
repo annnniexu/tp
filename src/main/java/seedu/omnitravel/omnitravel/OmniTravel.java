@@ -16,9 +16,38 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import java.util.logging.LogManager;
 
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
 public class OmniTravel {
 
     public static void main(String[] args) throws IOException {
+        try {
+            HttpClient client = HttpClient.newHttpClient();
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@2024-03-02/v1/currencies/eur.json"))
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            String jsonResponse = response.body();
+
+           int index = jsonResponse.indexOf("\"sgd\"");
+           String subResponse = jsonResponse.substring(index);
+           int comma = subResponse.indexOf(",");
+           System.out.println(subResponse.substring(0,comma));
+            // Now you can work with the parsed data
+
+            ;
+            // Print the JSON response
+
+        } catch(InterruptedException exception){
+            System.out.println("cool");
+        }
+
+
+
         Logger logger = Logger.getLogger("Main");
         initialiseLogger(logger);
         Ui.printGreeting();
@@ -71,7 +100,7 @@ public class OmniTravel {
                 }
                 file.saveActivityList(list);
             } catch (OmniException | NoSuchElementException | NumberFormatException | DateTimeException
-                     | IOException exception) {
+                     | IOException exception ) {
                 CheckParameters.handleException(exception);
             }
         }
