@@ -4,6 +4,8 @@ import seedu.omnitravel.ui.Ui;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.logging.Logger;
 
 
@@ -12,10 +14,14 @@ public class TravelActivityList {
     /** Array of travel activity */
     private ArrayList<TravelActivity> travelActivities;
 
+    /** Array of tags given to travel activities */
+    private ArrayList<String> travelActivityTags;
+
     /** Number of TravelActivities */
     private int noOfActivities = 0;
     public TravelActivityList() {
         travelActivities = new ArrayList<>();
+        travelActivityTags = new ArrayList<>();
     }
 
 
@@ -315,6 +321,30 @@ public class TravelActivityList {
             }
         }
         System.out.println("The total expense for " + type + " travel activities is: " + tot);
+    }
+
+    /**
+     * Lists out all the tags currently in the travel activity list
+     */
+    public void listTags(){
+        for (TravelActivity travelActivity: travelActivities){
+            if(travelActivity == null){
+                break;
+            }
+            String tag = travelActivity.getTag();
+            if(!travelActivityTags.contains(tag) && !tag.isBlank() ){
+                travelActivityTags.add(tag);
+            }
+        }
+        Collections.sort(travelActivityTags);
+        int tagCount = 1;
+        for (String tag: travelActivityTags){
+            if(tag == null){
+                break;
+            }
+            System.out.println(tagCount + ". " + tag);
+            tagCount++;
+        }
     }
 
 }

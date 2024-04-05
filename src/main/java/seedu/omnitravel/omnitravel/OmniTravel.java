@@ -36,6 +36,9 @@ public class OmniTravel {
                 case "list":
                     Parser.getList(command, list);
                     break;
+                case "listtags":
+                    Parser.listTagsCommand(command, list);
+                    break;
                 case "add":
                     Parser.addCommand(line, list);
                     break;

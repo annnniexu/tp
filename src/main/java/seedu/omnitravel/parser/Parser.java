@@ -320,4 +320,15 @@ public class Parser {
         }
     }
 
+    public static void listTagsCommand(String[] command, TravelActivityList list) throws OmniException{
+        Ui.printLine();
+        if (command.length == 1) {
+            System.out.println("These are the tags in your list: ");
+            list.listTags();
+        } else {
+            throw new OmniException("Do you mean the command listtags?");
+        }
+        Ui.printLine();
+    }
+
 }
