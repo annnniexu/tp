@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.time.DateTimeException;
 import java.util.NoSuchElementException;
 
-import static seedu.omnitravel.parser.Parser.isNumeric;
+
 
 public class CheckParameters {
 
@@ -16,6 +16,7 @@ public class CheckParameters {
      * @param commandType commandType of the four input commands that add new activities into the list
      * @throws OmniException when any of the corresponding input format is wrong
      */
+
     public static void addExceptions(String[] input, String commandType, String line) throws OmniException{
         String[] command = line.split("/");
         if (input.length >= 3 && input[0].substring(commandType.length()).isBlank()) {
@@ -32,6 +33,8 @@ public class CheckParameters {
                     "/date YYYY-MM-DD /duration DURATION"
                     + " or add DESCRIPTION /date YYYY-MM-DD /duration DURATION /tag TAG");
         }
+
+
     }
 
     /**
@@ -54,6 +57,57 @@ public class CheckParameters {
                     "/date YYYY-MM-DD /duration DURATION"
                     + " or update INDEX /date YYYY-MM-DD /duration DURATION /tag TAG");
         }
+    }
+
+    /**
+     * Checks if a string contains all the words
+     * @param input The input String
+     */
+    public static void containsWords(String input) throws OmniException{
+        String[] inputSplit = input.split(" ");
+        if (inputSplit.length == 2){
+            String[] durationKeyWords = {"day", "month", "year", "hour", "minute", "second"};
+            for(String word:durationKeyWords){
+                if(input.contains(word)){
+                    return;
+                }
+            }
+        }
+        throw new OmniException("Your duration is invalid. Please input in terms of \"1 " +
+                "day, month, year, hour, minutue or second\"");
+    }
+
+    /**
+     * Checks if the string is a number
+     *
+     * @param str The string that is to be defined as a number or sentence
+     * @return true or false
+     */
+    public static boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
+    }
+
+    /**
+     * Checks if the expense given is valid
+     * @param str
+     * @return True or false
+     * @throws OmniException Throws an exception when the expense given is less than $0
+     */
+    public static boolean isValidExpense(String str) throws OmniException{
+        if(isNumeric(str)){
+            int expense = Integer.parseInt(str);
+            if(expense <= 0){
+                throw new OmniException("Your expense cannot be less than $0");
+            }
+        } else{
+            return false;
+        }
+        return true;
     }
 
     /**

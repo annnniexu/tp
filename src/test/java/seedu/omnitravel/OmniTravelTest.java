@@ -4,6 +4,7 @@ package seedu.omnitravel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import seedu.omnitravel.errorhandlers.CheckParameters;
 import seedu.omnitravel.errorhandlers.OmniException;
 import seedu.omnitravel.parser.Parser;
 import seedu.omnitravel.travelactivitytypes.Food;
@@ -174,7 +175,7 @@ class OmniTravelTest {
             String findExpectedOutput = "Here are what you are looking for:" + System.lineSeparator() +
                     "[ ] 1. Food: utown mala :19 Jun 2019 :2 hours (spicy)" + System.lineSeparator() +
                     "[ ] 2. Food: pgpr mala :7 Jul 2012 :1 hours (spicy)"  + System.lineSeparator();
-            Parser.findCommand(command1, travelActivityListNew);
+            Parser.findCommand("find mala", travelActivityListNew);
             assertEquals(capturedOutputStream.toString(), findExpectedOutput);
         } catch (OmniException exception) {
             Ui.printException(exception);
@@ -200,8 +201,8 @@ class OmniTravelTest {
             travelActivityListNew.addTravelActivity(travelActivityNew3);
 
             String findExpectedOutput2 = "Here are what you are looking for:" + System.lineSeparator() +
-                    "[ ] 1. merlion :7 Apr 2018 :2 hours (sightseeing)" + System.lineSeparator() +
-                    "[ ] 2. chinatown :21 Feb 2015 :5 hours (sightseeing)" + System.lineSeparator();
+                    "[ ] 1. General: merlion :7 Apr 2018 :2 hours (sightseeing)" + System.lineSeparator() +
+                    "[ ] 2. General: chinatown :21 Feb 2015 :5 hours (sightseeing)" + System.lineSeparator();
             Parser.findTagCommand("findtag sightseeing", travelActivityListNew);
             assertEquals(capturedOutputStream.toString(), findExpectedOutput2);
 
@@ -313,9 +314,38 @@ class OmniTravelTest {
     }
 
     @Test
+
+    public void testListTags() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        // Testcases with tags
+        list.addTravelActivity(accommodationNew1);
+        list.addTravelActivity(foodNew1);
+        list.addTravelActivity(landmarkNew1);
+        list.addTravelActivity(travelActivityNew1);
+
+        // Testcases without tags
+        list.addTravelActivity(new Accommodation("Airbnb",
+                LocalDate.parse("2012-12-12"), "2hours", "", ""));
+        list.addTravelActivity(new Food("Takoyaki",
+                LocalDate.parse("2012-12-12"), "2hours", "", ""));
+        list.addTravelActivity(new Landmark("Pyramid",
+                LocalDate.parse("2012-12-12"), "2hours", "", ""));
+        list.addTravelActivity(new TravelActivity("Go home",
+                LocalDate.parse("2012-12-12"), "2hours", "", ""));
+
+        list.listTags();
+        String expectedOutput = "1. campus stay" + System.lineSeparator()
+                + "2. concert" + System.lineSeparator()
+                + "3. historic site" + System.lineSeparator()
+                + "4. spicy" + System.lineSeparator();
+        assertEquals(capturedOutputStream.toString(), expectedOutput);
+    }
+
+
+    @Test
     public void testIsNumeric() {
-        assertTrue(Parser.isNumeric("123"));
-        assertFalse(Parser.isNumeric("abc"));
+        assertTrue(CheckParameters.isNumeric("123"));
+        assertFalse(CheckParameters.isNumeric("abc"));
     }
 
     @Test
@@ -329,7 +359,7 @@ class OmniTravelTest {
     public void testActivityCommand() throws OmniException {
         TravelActivityList list = new TravelActivityList();
         // Test with valid input
-        Parser.activityCommand("accommodation description /date 2024-04-04 /duration 2 days /tag test", list);
+        Parser.activityCommand("accommodation description /date 2024-10-04 /duration 2 days /tag test", list);
     }
     /*
     // Similar tests for other methods such as addCommand, deleteCommand, checkCommand, uncheckCommand, etc.
@@ -388,6 +418,7 @@ class OmniTravelTest {
         TravelActivityList list = new TravelActivityList();
         // Test with valid input
         Parser.removeExpenseCommand(new String[]{"removeExpense", "1"}, list);
+
     }
 
 
