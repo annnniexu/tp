@@ -375,7 +375,7 @@ class OmniTravelTest {
         // Test with valid input
         Parser.findCommand(new String[]{"find", "test"}, list);
     }
-/*
+    /*
     @Test
     public void testExpenseCommand() throws OmniException {
         TravelActivityList list = new TravelActivityList();
