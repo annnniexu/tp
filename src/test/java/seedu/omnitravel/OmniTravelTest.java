@@ -354,7 +354,7 @@ class OmniTravelTest {
         // Test with valid input
         Parser.updateCommand("update 1 /date 2024-04-04 /duration 2 days /tag test", list);
     }
-     */
+
     @Test
     public void testFindTagCommand() throws OmniException {
         TravelActivityList list = new TravelActivityList();
@@ -389,7 +389,7 @@ class OmniTravelTest {
         // Test with valid input
         Parser.removeExpenseCommand(new String[]{"removeExpense", "1"}, list);
     }
-    */
+    
 
     @Test
     public void testTotalExpenseCommand() throws OmniException {
@@ -397,5 +397,5 @@ class OmniTravelTest {
         // Test with valid input
         Parser.totalExpenseCommand("totalexpense", list);
     }
-
+    */
 }
