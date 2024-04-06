@@ -29,7 +29,6 @@ public class TravelActivity {
     @Override
     public String toString(){
         return travelActivity + " :" + date.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + " :" + duration;
-
     }
 
     /**
