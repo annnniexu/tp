@@ -102,7 +102,7 @@ public class OmniTravel {
             Parser.uncheckCommand(command, list);
             break;
         case "find":
-            Parser.findCommand(command, list);
+            Parser.findCommand(line, list);
             break;
         case "tag":
             Parser.tagCommand(line, list);

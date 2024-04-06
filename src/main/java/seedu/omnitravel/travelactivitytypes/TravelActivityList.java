@@ -1,10 +1,10 @@
 package seedu.omnitravel.travelactivitytypes;
+import seedu.omnitravel.errorhandlers.CheckParameters;
 import seedu.omnitravel.errorhandlers.OmniException;
 import seedu.omnitravel.ui.Ui;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.logging.Logger;
 
@@ -51,8 +51,8 @@ public class TravelActivityList {
             activityCount++;
             Ui.printActivity(activity, activityCount);
         }
-        int finalactivityCount = noOfActivities;
-        assert finalactivityCount == activityCount : "Index out of bounds while listing activities";
+        int finalActivityCount = noOfActivities;
+        assert finalActivityCount == activityCount : "Index out of bounds while listing activities";
     }
 
     /**
@@ -201,13 +201,22 @@ public class TravelActivityList {
         }
         int indexOfTravelActivity = travelActivityNumber-1;
         TravelActivity updatedTravelActivity = travelActivities.get(indexOfTravelActivity);
-        String oldTravelActivity = (updatedTravelActivity.toString()
+        String oldTag = updatedTravelActivity.getTag();
+        String oldTravelActivity = (oldTag.isBlank())? updatedTravelActivity.toString():
+                                            (updatedTravelActivity.toString()
                                             + " (" + updatedTravelActivity.getTag() + ")");
         updatedTravelActivity.setDate(date);
         updatedTravelActivity.setDuration(duration);
         updatedTravelActivity.setTag(tag);
-        System.out.println("I have updated this task\nfrom: " + oldTravelActivity +
-                            "\nto: " + updatedTravelActivity + " (" + updatedTravelActivity.getTag() + ")");
+        String newTag = updatedTravelActivity.getTag();
+        if(newTag.isBlank()){
+            System.out.println("I have updated this task\nfrom: " + oldTravelActivity +
+                    "\nto: " + updatedTravelActivity);
+        } else{
+            System.out.println("I have updated this task\nfrom: " + oldTravelActivity +
+                    "\nto: " + updatedTravelActivity + " (" + updatedTravelActivity.getTag() + ")");
+        }
+
     }
 
     public ArrayList<TravelActivity> getTravelActivities () {
@@ -276,6 +285,9 @@ public class TravelActivityList {
         }
         int indexOfTask = taskNumber - 1;
         TravelActivity task = travelActivities.get(indexOfTask);
+        if(!(expense.startsWith("$") && CheckParameters.isValidExpense(expense.substring(1)))){
+            throw new OmniException("Please follow format for expense: $50");
+        }
         task.setExpense(expense);
         System.out.println("I have added expense for this task:");
         System.out.println(task + " (" + expense + ")");
@@ -304,13 +316,14 @@ public class TravelActivityList {
 
     public void totalExpense(String type) throws OmniException {
         if (!(type.equalsIgnoreCase("food") || type.equalsIgnoreCase("accommodation")
-                || type.equalsIgnoreCase("landmark") || type.equalsIgnoreCase("all"))) {
+                || type.equalsIgnoreCase("landmark") || type.equalsIgnoreCase("all")
+                || type.equalsIgnoreCase("travelactivity"))) {
             throw new OmniException("Not a valid TYPE");
         }
 
         double tot = 0.0;
         for (TravelActivity activity : travelActivities) {
-            if (type.equals("all") || activity.getClass().getSimpleName().equalsIgnoreCase(type)) {
+            if (type.equals("all") || activity.getClass().getSimpleName().equalsIgnoreCase(type)){
                 String expense = activity.getExpense();
                 if (!expense.equals("")) {
                     if (expense.startsWith("$")) {
@@ -320,7 +333,7 @@ public class TravelActivityList {
                 }
             }
         }
-        System.out.println("The total expense for " + type + " travel activities is: " + tot);
+        System.out.println("The total expense for " + type + " travel activities is: $" + tot);
     }
 
     /**

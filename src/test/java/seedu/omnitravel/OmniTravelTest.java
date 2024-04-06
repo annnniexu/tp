@@ -174,7 +174,7 @@ class OmniTravelTest {
             String findExpectedOutput = "Here are what you are looking for:" + System.lineSeparator() +
                     "[ ] 1. Food: utown mala :19 Jun 2019 :2 hours (spicy)" + System.lineSeparator() +
                     "[ ] 2. Food: pgpr mala :7 Jul 2012 :1 hours (spicy)"  + System.lineSeparator();
-            Parser.findCommand(command1, travelActivityListNew);
+            Parser.findCommand("find mala", travelActivityListNew);
             assertEquals(capturedOutputStream.toString(), findExpectedOutput);
         } catch (OmniException exception) {
             Ui.printException(exception);
@@ -200,8 +200,8 @@ class OmniTravelTest {
             travelActivityListNew.addTravelActivity(travelActivityNew3);
 
             String findExpectedOutput2 = "Here are what you are looking for:" + System.lineSeparator() +
-                    "[ ] 1. merlion :7 Apr 2018 :2 hours (sightseeing)" + System.lineSeparator() +
-                    "[ ] 2. chinatown :21 Feb 2015 :5 hours (sightseeing)" + System.lineSeparator();
+                    "[ ] 1. General: merlion :7 Apr 2018 :2 hours (sightseeing)" + System.lineSeparator() +
+                    "[ ] 2. General: chinatown :21 Feb 2015 :5 hours (sightseeing)" + System.lineSeparator();
             Parser.findTagCommand("findtag sightseeing", travelActivityListNew);
             assertEquals(capturedOutputStream.toString(), findExpectedOutput2);
 
@@ -312,6 +312,33 @@ class OmniTravelTest {
         assertEquals("visit museum", list.getDescription("visit museum"));
     }
 
+    @Test
+    public void testListTags() throws OmniException{
+        TravelActivityList list = new TravelActivityList();
+        // Testcases with tags
+        list.addTravelActivity(accommodationNew1);
+        list.addTravelActivity(foodNew1);
+        list.addTravelActivity(landmarkNew1);
+        list.addTravelActivity(travelActivityNew1);
+
+        // Testcases without tags
+        list.addTravelActivity(new Accommodation("Airbnb",
+                                LocalDate.parse("2012-12-12"),"2hours","",""));
+        list.addTravelActivity(new Food("Takoyaki",
+                                LocalDate.parse("2012-12-12"),"2hours","",""));
+        list.addTravelActivity(new Landmark("Pyramid",
+                                LocalDate.parse("2012-12-12"),"2hours","",""));
+        list.addTravelActivity(new TravelActivity("Go home",
+                                LocalDate.parse("2012-12-12"),"2hours","",""));
+
+        list.listTags();
+        String expectedOutput = "1. campus stay" + System.lineSeparator()
+                                + "2. concert" + System.lineSeparator()
+                                + "3. historic site" + System.lineSeparator()
+                                + "4. spicy" + System.lineSeparator();
+        assertEquals(capturedOutputStream.toString(), expectedOutput);
+
+    }
 
 
 }

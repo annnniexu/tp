@@ -95,8 +95,13 @@ public class Ui {
      * @param activityIndex The index of the activity
      */
     public static void printActivity(TravelActivity activity, int activityIndex) {
+
         String checked = activity.getActivityStatus()? "[X]" : "[ ]";
-        System.out.print(checked + " " + activityIndex + ". " + activity);
+        System.out.print(checked + " " + activityIndex + ". ");
+        if (activity.getClass().getSimpleName().equals("TravelActivity")){
+            System.out.print("General: ");
+        }
+        System.out.print(activity);
         if(activity.getTag() != null && !activity.getTag().isEmpty()){
             System.out.print(" (" + activity.getTag() + ")");
         }
