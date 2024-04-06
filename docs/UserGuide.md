@@ -19,6 +19,8 @@ list via a Command Line Interface**.
 
 6. A GUI similar to the below should appear in a few seconds.
 
+
+
 ## Features 
 > 📒 Notes about the command format :
 > * The words that are in `UPPER_CASE` represents the parameters that the users are required to input
@@ -27,10 +29,9 @@ list via a Command Line Interface**.
 > e.g. `help 123` will just be intepreted as `help`.
 > * Words that are in square brackets such as `[/tag TAG]` indicates that it is
 > optional to include in the command.
-> * Users should not use any `/` into their input descriptions unless using 
+> * Users should not use any `/` into their input descriptions unless using for input command format
  
 
-{Give detailed description of each feature}
 
 ### Display Commands : `help`
 Displays the features of OmniTravel
@@ -207,11 +208,10 @@ Example of usage:
 
 **Q**: How do I transfer my data to another computer? 
 
-**A**: {your answer here}
+**A**: To transfer your data to another computer, copy the text file `omni.txt` under the text-ui-test file into the
+same location of your other computer to transfer all the activities.
 
 ## Command Summary
-
-{Give a 'cheat sheet' of commands here}
 
 * Get activity list `list`
 * Get commands `help`

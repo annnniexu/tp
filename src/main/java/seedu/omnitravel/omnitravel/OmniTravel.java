@@ -21,10 +21,10 @@ public class OmniTravel {
     public static void main(String[] args) throws IOException {
         Logger logger = Logger.getLogger("Main");
         initialiseLogger(logger);
-        Ui.printGreeting();
         FileSave file = new FileSave("omni.txt");
         TravelActivityList list = new TravelActivityList();
         file.readFile(list);
+        Ui.printGreeting();
         Scanner in = new Scanner(System.in);
         while (true) {
             try {
@@ -66,7 +66,8 @@ public class OmniTravel {
                     return;
                 default:
                     Ui.printLine();
-                    System.out.println("This is not a valid command");
+                    System.out.println("This is not a valid command!");
+                    System.out.println("Use the 'help' command to see the appropriate inputs!");
                     Ui.printLine();
                 }
                 file.saveActivityList(list);

@@ -56,22 +56,24 @@ public class Parser {
     public static void activityCommand(String line, TravelActivityList list) throws OmniException {
         Ui.printLine();
         String[] command = line.split(" ");
-        String delimiter = command[0] + "| /date | /duration | /tag ";
+        String commandType = command[0];
+        int commandIndex = commandType.length();
+        String delimiter = " /date | /duration | /tag ";
         String[] input = line.split(delimiter);
-        CheckParameters.addExceptions(input);
-        String description = input[1].trim();
-        LocalDate date = LocalDate.parse(input[2]);
-        String duration = input[3].trim();
-        String tag = (line.contains("/tag") && input.length == 5) ? input[4].trim() : "";
+        CheckParameters.addExceptions(input, commandType, line);
+        String description = line.substring(commandIndex + 1, line.indexOf("/date")).trim();
+        LocalDate date = LocalDate.parse(input[1]);
+        String duration = input[2].trim();
+        String tag = (line.contains("/tag") && input.length == 4) ? input[3].trim() : "";
         TravelActivity activity;
-        switch (command[0]) {
+        switch (commandType) {
         case "accommodation":
             activity = new Accommodation(description, date, duration, tag, "");
             System.out.println("I added a new accommodation");
             break;
         case "food":
             activity = new Food(description, date, duration, tag, "");
-            System.out.println("I added a new restaurant");
+            System.out.println("I added a new food activity");
             break;
         case "landmark":
             activity = new Landmark(description, date, duration, tag, "");
@@ -94,13 +96,13 @@ public class Parser {
      */
     public static void addCommand(String line, TravelActivityList list) throws OmniException{
         Ui.printLine();
-        String[] command = line.split("add | /date | /duration | /tag ");
+        String[] command = line.split("/date | /duration | /tag ");
         logger.log(Level.INFO, command[0] + " // " +  command[1]);
-        CheckParameters.addExceptions(command);
-        String description = command[1].trim();
-        LocalDate date = LocalDate.parse(command[2]);
-        String duration = command[3].trim();
-        String tag = (line.contains("/tag") && command.length == 5) ? command[4].trim() : "";
+        CheckParameters.addExceptions(command, "add", line);
+        String description = line.substring(4, line.indexOf("/date"));
+        LocalDate date = LocalDate.parse(command[1]);
+        String duration = command[2].trim();
+        String tag = (line.contains("/tag") && command.length == 4) ? command[3].trim() : "";
         TravelActivity newActivity = new TravelActivity(description, date, duration, tag, "");
         list.addTravelActivity(newActivity);
         System.out.println("I added a new travel activity");
@@ -150,6 +152,7 @@ public class Parser {
     public static void uncheckCommand(String[] command, TravelActivityList list) throws OmniException {
         if (command.length == 2 && isNumeric(command[1])){
             int listNumber = Integer.parseInt(command[1]);
+
             list.uncheckTravelActivity(listNumber);
         } else {
             throw new OmniException("Please specify which activity to uncheck");
