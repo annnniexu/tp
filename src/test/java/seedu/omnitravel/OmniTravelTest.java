@@ -389,7 +389,7 @@ class OmniTravelTest {
         // Test with valid input
         Parser.removeExpenseCommand(new String[]{"removeExpense", "1"}, list);
     }
-    
+
 
     @Test
     public void testTotalExpenseCommand() throws OmniException {

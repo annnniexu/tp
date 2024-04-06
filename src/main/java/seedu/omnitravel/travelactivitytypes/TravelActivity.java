@@ -28,12 +28,7 @@ public class TravelActivity {
 
     @Override
     public String toString(){
-        String result = travelActivity + " :" + date.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + " :"
-                + duration;
-        if (!tag.isEmpty()) {
-            result += " :" + tag;
-        }
-        return result;
+        return travelActivity + " :" + date.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + " :" + duration;
     }
 
     /**
