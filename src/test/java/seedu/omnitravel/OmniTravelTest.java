@@ -312,6 +312,89 @@ class OmniTravelTest {
         assertEquals("visit museum", list.getDescription("visit museum"));
     }
 
+    @Test
+    public void testIsNumeric() {
+        assertTrue(Parser.isNumeric("123"));
+        assertFalse(Parser.isNumeric("abc"));
+    }
 
+    @Test
+    public void testGetList() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        // Test with valid input
+        Parser.getList(new String[]{"list"}, list);
+    }
+
+    @Test
+    public void testActivityCommand() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        // Test with valid input
+        Parser.activityCommand("accommodation description /date 2024-04-04 /duration 2 days /tag test", list);
+    }
+
+    // Similar tests for other methods such as addCommand, deleteCommand, checkCommand, uncheckCommand, etc.
+
+    @Test
+    public void testTagCommand() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        // Test with valid input
+        Parser.tagCommand("tag 1 test", list);
+    }
+
+    @Test
+    public void testRemoveTagCommand() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        // Test with valid input
+        Parser.removeTagCommand(new String[]{"removeTag", "1"}, list);
+    }
+
+    @Test
+    public void testUpdateCommand() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        // Test with valid input
+        Parser.updateCommand("update 1 /date 2024-04-04 /duration 2 days /tag test", list);
+    }
+
+    @Test
+    public void testFindTagCommand() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        // Test with valid input
+        Parser.findTagCommand("findtag test", list);
+    }
+
+    @Test
+    public void testFindTypeCommand() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        // Test with valid input
+        Parser.findTypeCommand("findtype test", list);
+    }
+
+    @Test
+    public void testFindCommand() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        // Test with valid input
+        Parser.findCommand(new String[]{"find", "test"}, list);
+    }
+
+    @Test
+    public void testExpenseCommand() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        // Test with valid input
+        Parser.expenseCommand("expense 1 $50", list);
+    }
+
+    @Test
+    public void testRemoveExpenseCommand() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        // Test with valid input
+        Parser.removeExpenseCommand(new String[]{"removeExpense", "1"}, list);
+    }
+
+    @Test
+    public void testTotalExpenseCommand() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        // Test with valid input
+        Parser.totalExpenseCommand("totalexpense", list);
+    }
 
 }
