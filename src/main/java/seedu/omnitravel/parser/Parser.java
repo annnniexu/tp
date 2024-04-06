@@ -9,26 +9,12 @@ import seedu.omnitravel.travelactivitytypes.TravelActivity;
 import seedu.omnitravel.ui.Ui;
 
 import java.time.LocalDate;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Parser {
 
     private static Logger logger = Logger.getLogger("ParserLogger");
-    /**
-     * Checks if the string is a number
-     *
-     * @param str The string that is to be defined as a number or sentence
-     * @return true or false
-     */
-    public static boolean isNumeric(String str) {
-        try {
-            Double.parseDouble(str);
-            return true;
-        } catch(NumberFormatException e){
-            return false;
-        }
-    }
+
 
     /**
      * Obtains the list of travel activities
@@ -63,7 +49,11 @@ public class Parser {
         CheckParameters.addExceptions(input, commandType, line);
         String description = line.substring(commandIndex + 1, line.indexOf("/date")).trim();
         LocalDate date = LocalDate.parse(input[1]);
+        if(date.isBefore(LocalDate.now())){
+            throw new OmniException("Please input a future date.");
+        }
         String duration = input[2].trim();
+        CheckParameters.containsWords(duration);
         String tag = (line.contains("/tag") && input.length == 4) ? input[3].trim() : "";
         TravelActivity activity;
         switch (commandType) {
@@ -97,11 +87,15 @@ public class Parser {
     public static void addCommand(String line, TravelActivityList list) throws OmniException{
         Ui.printLine();
         String[] command = line.split("/date | /duration | /tag ");
-        logger.log(Level.INFO, command[0] + " // " +  command[1]);
+        //logger.log(Level.INFO, command[0] + " // " +  command[1]);
         CheckParameters.addExceptions(command, "add", line);
         String description = line.substring(4, line.indexOf("/date"));
         LocalDate date = LocalDate.parse(command[1]);
+        if(date.isBefore(LocalDate.now())){
+            throw new OmniException("Please input a future date.");
+        }
         String duration = command[2].trim();
+        CheckParameters.containsWords(duration);
         String tag = (line.contains("/tag") && command.length == 4) ? command[3].trim() : "";
         TravelActivity newActivity = new TravelActivity(description, date, duration, tag, "");
         list.addTravelActivity(newActivity);
@@ -118,11 +112,11 @@ public class Parser {
      * @throws OmniException if command.length != 2 && command[1] is not numeric
      */
     public static void deleteCommand(String[] command, TravelActivityList list) throws OmniException {
-        if (command.length == 2 && isNumeric(command[1])){
+        if (command.length == 2 && CheckParameters.isNumeric(command[1])){
             int listNumber = Integer.parseInt(command[1]);
             list.removeTravelActivity(listNumber);
         } else {
-            throw new OmniException("Please specify which activity to delete");
+            throw new OmniException("Please specify which activity index to delete");
         }
     }
 
@@ -134,7 +128,7 @@ public class Parser {
      * @throws OmniException if command.length != 2 && command[1] is not numeric
      */
     public static void checkCommand(String[] command, TravelActivityList list) throws OmniException {
-        if (command.length == 2 && isNumeric(command[1])){
+        if (command.length == 2 && CheckParameters.isNumeric(command[1])){
             int listNumber = Integer.parseInt(command[1]);
             list.checkTravelActivity(listNumber);
         } else {
@@ -150,7 +144,7 @@ public class Parser {
      * @throws OmniException if command.length != 2 && command[1] is not numeric
      */
     public static void uncheckCommand(String[] command, TravelActivityList list) throws OmniException {
-        if (command.length == 2 && isNumeric(command[1])){
+        if (command.length == 2 && CheckParameters.isNumeric(command[1])){
             int listNumber = Integer.parseInt(command[1]);
 
             list.uncheckTravelActivity(listNumber);
@@ -169,7 +163,7 @@ public class Parser {
      */
     public static void tagCommand(String line, TravelActivityList list) throws OmniException {
         String[] command = line.split(" ");
-        if (command.length >= 3 && isNumeric(command[1])){
+        if (command.length >= 3 && CheckParameters.isNumeric(command[1])){
             String index = command[1];
             String[] tagSplit = line.split(index);
             String tag = tagSplit[1].trim();
@@ -190,7 +184,7 @@ public class Parser {
      * @throws OmniException if command.length != 2 && command[1] is not numeric
      */
     public static void removeTagCommand(String[] command, TravelActivityList list) throws OmniException {
-        if (command.length == 2 && isNumeric(command[1])) {
+        if (command.length == 2 && CheckParameters.isNumeric(command[1])) {
             int listNumber = Integer.parseInt(command[1]);
             list.removeTag(listNumber);
         } else {
@@ -222,10 +216,10 @@ public class Parser {
 
     public static void findTagCommand(String line, TravelActivityList list) throws OmniException {
         String[] command = line.split("findtag");
-        if (command.length < 1) {
-            throw new OmniException("Please check that your update command is in this format: findtag <tag>");
-        } else {
+        if (command.length > 1) {
             list.findTag(command[1].trim());
+        } else {
+            throw new OmniException("Please check that your update command is in this format: findtag <tag>");
         }
     }
 
@@ -241,6 +235,8 @@ public class Parser {
         String[] command = line.split("findtype");
         if (command.length < 1) {
             throw new OmniException("Please check that your find type command is in this format: findtype <type>");
+        } else if (command[1].trim().equalsIgnoreCase("general")){
+            list.findType("TravelActivity");
         } else {
             list.findType(command[1].trim());
         }
@@ -249,13 +245,14 @@ public class Parser {
     /**
      *  Handles the case where the find command is given as input
      *
-     * @param command Command array of input string without spaces
+     * @param line input string
      * @param list List of travel activities
      * @throws OmniException if command.length != 2
      */
-    public static void findCommand(String[] command, TravelActivityList list) throws OmniException {
-        if (command.length == 2) {
-            String keyword = command[1];
+    public static void findCommand(String line, TravelActivityList list) throws OmniException {
+        String[] command = line.split("find");
+        if (command.length > 1 && !command[1].isBlank()) {
+            String keyword = command[1].trim();
             list.searchKeyword(keyword);
         } else {
             throw new OmniException("Please check that your find type command is in this format: find <description>");
@@ -272,11 +269,9 @@ public class Parser {
      */
     public static void expenseCommand(String line, TravelActivityList list) throws OmniException {
         String[] command = line.split(" ");
-        if (command.length == 3 && isNumeric(command[1])){
-            String index = command[1];
-            String[] expenseSplit = line.split(index);
+        if (command.length == 3 && CheckParameters.isNumeric(command[1])){
             int listNumber = Integer.parseInt(command[1]);
-            String expense = expenseSplit[1].trim();
+            String expense = command[2];
             list.expenseActivity(listNumber, expense);
         } else if (command.length == 2) {
             throw new OmniException("Please specify expense amount");
@@ -293,11 +288,11 @@ public class Parser {
      * @throws OmniException if command.length != 2 && command[1] is not numeric
      */
     public static void removeExpenseCommand(String[] command, TravelActivityList list) throws OmniException {
-        if (command.length == 2 && isNumeric(command[1])) {
+        if (command.length == 2 && CheckParameters.isNumeric(command[1])) {
             int listNumber = Integer.parseInt(command[1]);
             list.removeExpense(listNumber);
         } else {
-            throw new OmniException("Please specify which task to remove expense");
+            throw new OmniException("Please follow the format: removeexpense INDEX");
         }
     }
 
@@ -318,9 +313,28 @@ public class Parser {
                 throw new OmniException("Please check your command is in the format totalexpense [/type TYPE]");
             }
             list.totalExpense("all");
+        } else if(command[1].trim().equals("general")){
+            list.totalExpense("TravelActivity");
         } else {
             list.totalExpense(command[1].trim());
         }
+    }
+
+    /**
+     * Handles the case whereby the command is listtags
+     * @param command The command given by the user
+     * @param list The travel activity list
+     * @throws OmniException Throws an exception when the command is in an invalid format
+     */
+    public static void listTagsCommand(String[] command, TravelActivityList list) throws OmniException{
+        Ui.printLine();
+        if (command.length == 1) {
+            System.out.println("These are the tags in your list: ");
+            list.listTags();
+        } else {
+            throw new OmniException("Do you mean the command listtags?");
+        }
+        Ui.printLine();
     }
 
 }
