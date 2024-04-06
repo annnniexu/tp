@@ -4,6 +4,7 @@ package seedu.omnitravel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import seedu.omnitravel.errorhandlers.CheckParameters;
 import seedu.omnitravel.errorhandlers.OmniException;
 import seedu.omnitravel.parser.Parser;
 import seedu.omnitravel.travelactivitytypes.Food;
@@ -313,7 +314,8 @@ class OmniTravelTest {
     }
 
     @Test
-    public void testListTags() throws OmniException{
+
+    public void testListTags() throws OmniException {
         TravelActivityList list = new TravelActivityList();
         // Testcases with tags
         list.addTravelActivity(accommodationNew1);
@@ -323,22 +325,108 @@ class OmniTravelTest {
 
         // Testcases without tags
         list.addTravelActivity(new Accommodation("Airbnb",
-                                LocalDate.parse("2012-12-12"),"2hours","",""));
+                LocalDate.parse("2012-12-12"), "2hours", "", ""));
         list.addTravelActivity(new Food("Takoyaki",
-                                LocalDate.parse("2012-12-12"),"2hours","",""));
+                LocalDate.parse("2012-12-12"), "2hours", "", ""));
         list.addTravelActivity(new Landmark("Pyramid",
-                                LocalDate.parse("2012-12-12"),"2hours","",""));
+                LocalDate.parse("2012-12-12"), "2hours", "", ""));
         list.addTravelActivity(new TravelActivity("Go home",
-                                LocalDate.parse("2012-12-12"),"2hours","",""));
+                LocalDate.parse("2012-12-12"), "2hours", "", ""));
 
         list.listTags();
         String expectedOutput = "1. campus stay" + System.lineSeparator()
-                                + "2. concert" + System.lineSeparator()
-                                + "3. historic site" + System.lineSeparator()
-                                + "4. spicy" + System.lineSeparator();
+                + "2. concert" + System.lineSeparator()
+                + "3. historic site" + System.lineSeparator()
+                + "4. spicy" + System.lineSeparator();
         assertEquals(capturedOutputStream.toString(), expectedOutput);
+    }
+
+
+    @Test
+    public void testIsNumeric() {
+        assertTrue(CheckParameters.isNumeric("123"));
+        assertFalse(CheckParameters.isNumeric("abc"));
+    }
+
+    @Test
+    public void testGetList() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        // Test with valid input
+        Parser.getList(new String[]{"list"}, list);
+    }
+
+    @Test
+    public void testActivityCommand() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        // Test with valid input
+        Parser.activityCommand("accommodation description /date 2024-04-04 /duration 2 days /tag test", list);
+    }
+    /*
+    // Similar tests for other methods such as addCommand, deleteCommand, checkCommand, uncheckCommand, etc.
+
+    @Test
+    public void testTagCommand() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        // Test with valid input
+        Parser.tagCommand("tag 1 test", list);
+    }
+
+    @Test
+    public void testRemoveTagCommand() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        // Test with valid input
+        Parser.removeTagCommand(new String[]{"removeTag", "1"}, list);
+    }
+
+    @Test
+    public void testUpdateCommand() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        // Test with valid input
+        Parser.updateCommand("update 1 /date 2024-04-04 /duration 2 days /tag test", list);
+    }
+
+    @Test
+    public void testFindTagCommand() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        // Test with valid input
+        Parser.findTagCommand("findtag test", list);
+    }
+
+    @Test
+    public void testFindTypeCommand() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        // Test with valid input
+        Parser.findTypeCommand("findtype test", list);
+    }
+
+    @Test
+    public void testFindCommand() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        // Test with valid input
+        Parser.findCommand(new String[]{"find", "test"}, list);
+    }
+    /*
+    @Test
+    public void testExpenseCommand() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        // Test with valid input
+        Parser.expenseCommand("expense 1 $50", list);
+    }
+
+    @Test
+    public void testRemoveExpenseCommand() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        // Test with valid input
+        Parser.removeExpenseCommand(new String[]{"removeExpense", "1"}, list);
 
     }
 
 
+    @Test
+    public void testTotalExpenseCommand() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        // Test with valid input
+        Parser.totalExpenseCommand("totalexpense", list);
+    }
+    */
 }

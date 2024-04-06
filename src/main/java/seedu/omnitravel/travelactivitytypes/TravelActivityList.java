@@ -124,16 +124,19 @@ public class TravelActivityList {
      * @param activityNumber The travel activity number on the list
      */
     public void checkTravelActivity(int activityNumber) throws OmniException{
-
         assert activityNumber != 0 : "There is not activities in the list";
         if (activityNumber > travelActivities.size() || (activityNumber <= 0)) {
             throw new OmniException("Travel activity cannot be found");
         }
         int indexOfActivity = activityNumber - 1;
-        TravelActivity markedActivity  = travelActivities.get(indexOfActivity);
-        markedActivity.setActivityStatus(true);
-        System.out.println("I have checked this activity:");
-        System.out.println(markedActivity);
+        TravelActivity markedActivity = travelActivities.get(indexOfActivity);
+        if (!markedActivity.getActivityStatus()) {
+            markedActivity.setActivityStatus(true);
+            System.out.println("I have checked this activity:");
+            System.out.println(markedActivity);
+        } else {
+            System.out.println("This activity is already done!");
+        }
     }
 
     /**
@@ -147,9 +150,13 @@ public class TravelActivityList {
         }
         int indexOfActivity = activityNumber - 1;
         TravelActivity markedActivity  = travelActivities.get(indexOfActivity);
-        markedActivity.setActivityStatus(false);
-        System.out.println("I have unchecked this activity:");
-        System.out.println(markedActivity);
+        if (markedActivity.getActivityStatus()) {
+            markedActivity.setActivityStatus(false);
+            System.out.println("I have unchecked this activity:");
+            System.out.println(markedActivity);
+        } else {
+            System.out.println("This activity is already unchecked!");
+        }
     }
 
 
@@ -167,7 +174,7 @@ public class TravelActivityList {
         TravelActivity taggedTask = travelActivities.get(indexOfTask);
         taggedTask.setTag(tag);
         System.out.println("I have tagged this task:");
-        System.out.println(taggedTask + " (" + tag + ")");
+        System.out.println(taggedTask);
     }
 
     /**
@@ -258,7 +265,7 @@ public class TravelActivityList {
 
         for (TravelActivity activity: travelActivities){
             assert !(foundCounter > travelActivities.size()) : "Error: There is more activities found than possible";
-            if(activity.getClass().getSimpleName().equals(type)){
+            if(activity.getClass().getSimpleName().equalsIgnoreCase(type)){
                 foundCounter += 1;
                 if (foundCounter == 1) {
                     System.out.println("Here are what you are looking for:");

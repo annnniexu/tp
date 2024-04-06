@@ -12,21 +12,23 @@ public class CheckParameters {
 
     /**
      * Checks for all possible input errors that users may make and throws the corresponding exceptions
-     * @param input Input array that users placed into the chatbot
+     * @param input Line of input that users placed into the chatbot
+     * @param commandType commandType of the four input commands that add new activities into the list
      * @throws OmniException when any of the corresponding input format is wrong
      */
-    public static void addExceptions(String[] input, String line) throws OmniException{
+
+    public static void addExceptions(String[] input, String commandType, String line) throws OmniException{
         String[] command = line.split("/");
-        if (input.length >= 4 && input[1].isBlank()) {
+        if (input.length >= 3 && input[0].substring(commandType.length()).isBlank()) {
             throw new OmniException("The description cannot be empty!");
-        } else if (input.length >= 4 && input[2].isBlank()) {
+        } else if (input.length >= 3 && input[1].isBlank()) {
             throw new OmniException("The date cannot be empty!");
-        } else if (input.length >= 4 && input[3].isBlank()) {
+        } else if (input.length >= 3 && input[2].isBlank()) {
             throw new OmniException("The duration cannot be empty!");
-        } else if (input.length >= 5 && input[4].isBlank()) {
+        } else if (input.length >= 4 && input[3].isBlank()) {
             throw new OmniException("The tag cannot be empty!");
-        } else if (input.length < 4 || input[3].contains("/tag") || !command[1].contains("date")
-                    || !command[2].contains("duration")){
+        } else if (input.length < 3 || input[2].contains("/tag") || !command[1].contains("date")
+                || !command[2].contains("duration")){
             throw new OmniException("Please check that your add command is in this format: add DESCRIPTION " +
                     "/date YYYY-MM-DD /duration DURATION"
                     + " or add DESCRIPTION /date YYYY-MM-DD /duration DURATION /tag TAG");

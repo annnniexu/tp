@@ -42,26 +42,28 @@ public class Parser {
     public static void activityCommand(String line, TravelActivityList list) throws OmniException {
         Ui.printLine();
         String[] command = line.split(" ");
-        String delimiter = command[0] + "| /date | /duration | /tag ";
+        String commandType = command[0];
+        int commandIndex = commandType.length();
+        String delimiter = " /date | /duration | /tag ";
         String[] input = line.split(delimiter);
-        CheckParameters.addExceptions(input, line);
-        String description = input[1].trim();
-        LocalDate date = LocalDate.parse(input[2]);
+        CheckParameters.addExceptions(input, commandType, line);
+        String description = line.substring(commandIndex + 1, line.indexOf("/date")).trim();
+        LocalDate date = LocalDate.parse(input[1]);
         if(date.isBefore(LocalDate.now())){
             throw new OmniException("Please input a future date.");
         }
-        String duration = input[3].trim();
+        String duration = input[2].trim();
         CheckParameters.containsWords(duration);
-        String tag = (line.contains("/tag") && input.length == 5) ? input[4].trim() : "";
+        String tag = (line.contains("/tag") && input.length == 4) ? input[3].trim() : "";
         TravelActivity activity;
-        switch (command[0]) {
+        switch (commandType) {
         case "accommodation":
             activity = new Accommodation(description, date, duration, tag, "");
             System.out.println("I added a new accommodation");
             break;
         case "food":
             activity = new Food(description, date, duration, tag, "");
-            System.out.println("I added a new restaurant");
+            System.out.println("I added a new food activity");
             break;
         case "landmark":
             activity = new Landmark(description, date, duration, tag, "");
@@ -84,17 +86,17 @@ public class Parser {
      */
     public static void addCommand(String line, TravelActivityList list) throws OmniException{
         Ui.printLine();
-        String[] command = line.split("add | /date | /duration | /tag ");
+        String[] command = line.split("/date | /duration | /tag ");
         //logger.log(Level.INFO, command[0] + " // " +  command[1]);
-        CheckParameters.addExceptions(command, line);
-        String description = command[1].trim();
-        LocalDate date = LocalDate.parse(command[2]);
+        CheckParameters.addExceptions(command, "add", line);
+        String description = line.substring(4, line.indexOf("/date"));
+        LocalDate date = LocalDate.parse(command[1]);
         if(date.isBefore(LocalDate.now())){
             throw new OmniException("Please input a future date.");
         }
-        String duration = command[3].trim();
+        String duration = command[2].trim();
         CheckParameters.containsWords(duration);
-        String tag = (line.contains("/tag") && command.length == 5) ? command[4].trim() : "";
+        String tag = (line.contains("/tag") && command.length == 4) ? command[3].trim() : "";
         TravelActivity newActivity = new TravelActivity(description, date, duration, tag, "");
         list.addTravelActivity(newActivity);
         System.out.println("I added a new travel activity");
@@ -114,7 +116,7 @@ public class Parser {
             int listNumber = Integer.parseInt(command[1]);
             list.removeTravelActivity(listNumber);
         } else {
-            throw new OmniException("Please specify which activity to delete");
+            throw new OmniException("Please specify which activity index to delete");
         }
     }
 
@@ -144,6 +146,7 @@ public class Parser {
     public static void uncheckCommand(String[] command, TravelActivityList list) throws OmniException {
         if (command.length == 2 && CheckParameters.isNumeric(command[1])){
             int listNumber = Integer.parseInt(command[1]);
+
             list.uncheckTravelActivity(listNumber);
         } else {
             throw new OmniException("Please specify which activity to uncheck");
@@ -232,7 +235,7 @@ public class Parser {
         String[] command = line.split("findtype");
         if (command.length < 1) {
             throw new OmniException("Please check that your find type command is in this format: findtype <type>");
-        } else if (command[1].trim().equals("general")){
+        } else if (command[1].trim().equalsIgnoreCase("general")){
             list.findType("TravelActivity");
         } else {
             list.findType(command[1].trim());
