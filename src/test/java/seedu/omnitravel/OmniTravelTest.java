@@ -331,7 +331,7 @@ class OmniTravelTest {
         // Test with valid input
         Parser.activityCommand("accommodation description /date 2024-04-04 /duration 2 days /tag test", list);
     }
-/*
+    /*
     // Similar tests for other methods such as addCommand, deleteCommand, checkCommand, uncheckCommand, etc.
 
     @Test
@@ -354,7 +354,7 @@ class OmniTravelTest {
         // Test with valid input
         Parser.updateCommand("update 1 /date 2024-04-04 /duration 2 days /tag test", list);
     }
-*/
+     */
     @Test
     public void testFindTagCommand() throws OmniException {
         TravelActivityList list = new TravelActivityList();
