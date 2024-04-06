@@ -359,7 +359,7 @@ class OmniTravelTest {
     public void testActivityCommand() throws OmniException {
         TravelActivityList list = new TravelActivityList();
         // Test with valid input
-        Parser.activityCommand("accommodation description /date 2024-04-04 /duration 2 days /tag test", list);
+        Parser.activityCommand("accommodation description /date 2024-10-04 /duration 2 days /tag test", list);
     }
     /*
     // Similar tests for other methods such as addCommand, deleteCommand, checkCommand, uncheckCommand, etc.
