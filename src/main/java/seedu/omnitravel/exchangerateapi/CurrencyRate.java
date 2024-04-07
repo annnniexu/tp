@@ -34,14 +34,11 @@ public class CurrencyRate {
                         .build();
                 HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
                 String jsonResponse = response.body();
-
-
                 if(!jsonResponse.contains("\"" + localCurrency + "\"")){
                     throw new OmniException(localCurrency + " is an invalid currency!");
                 } else if(!jsonResponse.contains("\"" + foreignCurrency + "\"")){
                     throw new OmniException(foreignCurrency + " is an invalid currency!");
                 }
-
                 // Parses the data
                 int index = jsonResponse.indexOf("\"" + foreignCurrency + "\"");
                 String subResponse = jsonResponse.substring(index);
@@ -60,14 +57,5 @@ public class CurrencyRate {
                 }
             }
         }
-
-
-
-
     }
-
-
-
-
-
 }
