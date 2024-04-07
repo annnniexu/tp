@@ -91,6 +91,10 @@ public class Ui {
         System.out.println("Something went wrong when saving the file");
     }
 
+    public static void printInterruptedError(){
+        System.out.println("Warning Website might be down!");
+    }
+
     /**
      * Prints out the activity in a list
      * @param activity The travel activity

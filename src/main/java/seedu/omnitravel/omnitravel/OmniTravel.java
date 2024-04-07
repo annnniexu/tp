@@ -16,9 +16,11 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import java.util.logging.LogManager;
 
+
 public class OmniTravel {
 
     public static void main(String[] args) throws IOException {
+
         Logger logger = Logger.getLogger("Main");
         initialiseLogger(logger);
         FileSave file = new FileSave("omni.txt");
@@ -42,6 +44,9 @@ public class OmniTravel {
                 case "add":
                     Parser.addCommand(line, list);
                     break;
+                case "change":
+                    Parser.currencyExchangeCommand(line);
+                    break;
                 case "accommodation":
                 case "food":
                 case "landmark":
@@ -64,6 +69,7 @@ public class OmniTravel {
                 case "help":
                     Ui.helpCommand();
                     break;
+
                 case "bye":
                     Ui.printBye();
                     return;
@@ -75,7 +81,7 @@ public class OmniTravel {
                 }
                 file.saveActivityList(list);
             } catch (OmniException | NoSuchElementException | NumberFormatException | DateTimeException
-                     | IOException exception) {
+                     | IOException exception ) {
                 CheckParameters.handleException(exception);
             }
         }
