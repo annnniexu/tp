@@ -111,6 +111,28 @@ public class CheckParameters {
     }
 
     /**
+     * Checks the parameters for the currency exchange command against a list of available currencies.
+     * It also checks that the parameters are valid
+     * @param command The input given by the user that has been split into an array
+     * @param line The input given by the user
+     * @throws OmniException Throws an exception when parameters are invalid
+     */
+    public static void checkCurrencyParameters(String[] command, String line) throws OmniException{
+        String delimiter = "/";
+        String[] lineSplit = line.split(delimiter);
+
+        if(command.length == 4 && (!isNumeric(command[1].trim()) || Float.parseFloat(command[1].trim()) <= 0)){
+            throw new OmniException("Please ensure that the amount is a number that is more than 0 and not blank");
+        } else if(command.length == 4 && command[2].trim().equalsIgnoreCase(command[3].trim())){
+            throw new OmniException("The 2 currencies cannot be the same!");
+        } else if(command.length < 4 || !lineSplit[1].contains("from")){
+            throw new OmniException("Please check that your format is correct:" +
+                                    "change AMOUNT /from CURRENCY /to CURRENCY");
+        }
+
+    }
+
+    /**
      * Checks for all format errors in the user input and throes the correct exceptions
      *
      * @param exception Exception thrown
@@ -126,6 +148,8 @@ public class CheckParameters {
             Ui.printDateTimeExceptionError();
         } else if (exception instanceof IOException) {
             Ui.printSavingError();
+        } else if (exception instanceof InterruptedException) {
+            Ui.printInterruptedError();
         }
     }
 }

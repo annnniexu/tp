@@ -160,6 +160,13 @@ Format: `findtag TAG`
 
 Examples of usage: `findtag sightseeing`
 
+### List tags from the list : `listtags`
+
+Lists out all the tags that the user has placed in the list
+
+Format: `listtags`
+
+Examples of usage: `listtags`
 ### Find activity from the list using activity type : `findtype`
 
 Find an activity based on their type. All activities with the given type will be listed out.
@@ -204,6 +211,19 @@ Example of usage:
 `totalexpense /type food`
 `totalexpense`
 
+### Converting a currency : `change`
+
+Converts the currency from one currency to another
+
+Format: `change AMOUNT /from CURRENCY1 /to CURRENCY2`
+* `CURRENCY1` and `CURRENCY2` cannot be the same currency
+* `AMOUNT` has to be a valid number
+* `CURRENCY1` and `CURRENCY2` has to be in the form `sgd` for singapore dollars, `myr` for malaysia ringit.
+
+Examples of usage:
+* change 100 /from sgd /to myr
+* change 1000 /from myr /to usd
+* 
 ## FAQ
 
 **Q**: How do I transfer my data to another computer? 
