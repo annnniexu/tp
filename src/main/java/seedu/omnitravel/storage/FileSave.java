@@ -85,7 +85,7 @@ public class FileSave {
         try {
             loadFileContents(list);
         } catch (FileNotFoundException e) {
-            System.out.println("File not found!");
+            System.out.println("No existing database found! Creating a new save file for you!");
         }
     }
 }

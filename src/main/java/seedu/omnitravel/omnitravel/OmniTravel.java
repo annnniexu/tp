@@ -50,10 +50,10 @@ public class OmniTravel {
 
         Logger logger = Logger.getLogger("Main");
         initialiseLogger(logger);
-        Ui.printGreeting();
         FileSave file = new FileSave("omni.txt");
         TravelActivityList list = new TravelActivityList();
         file.readFile(list);
+        Ui.printGreeting();
         Scanner in = new Scanner(System.in);
         while (true) {
             try {
@@ -64,6 +64,9 @@ public class OmniTravel {
                 switch (command[0].toLowerCase()) {
                 case "list":
                     Parser.getList(command, list);
+                    break;
+                case "listtags":
+                    Parser.listTagsCommand(command, list);
                     break;
                 case "add":
                     Parser.addCommand(line, list);
@@ -95,7 +98,8 @@ public class OmniTravel {
                     return;
                 default:
                     Ui.printLine();
-                    System.out.println("This is not a valid command");
+                    System.out.println("This is not a valid command!");
+                    System.out.println("Use the 'help' command to see the appropriate inputs!");
                     Ui.printLine();
                 }
                 file.saveActivityList(list);
@@ -128,7 +132,7 @@ public class OmniTravel {
             Parser.uncheckCommand(command, list);
             break;
         case "find":
-            Parser.findCommand(command, list);
+            Parser.findCommand(line, list);
             break;
         case "tag":
             Parser.tagCommand(line, list);

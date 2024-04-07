@@ -61,9 +61,10 @@ public class Ui {
     public static void helpCommand(){
         printLine();
         System.out.println("These are the available commands!");
-        System.out.println("1. list\n" +
-                "2. help\n" +
-                "3. bye\n" +
+        System.out.println("");
+        System.out.println("1. list: List out the current list\n" +
+                "2. help: Get all commands for the chatbot\n" +
+                "3. bye: Exit the chatbot\n" +
                 "4. add <travel activity> <date> <duration> <tag>\n" +
                 "5. accommodation <travel activity> <date> <duration> <tag>\n" +
                 "6. food <travel activity> <date> <duration> <tag>\n" +
@@ -79,6 +80,7 @@ public class Ui {
                 "16. findtype <type>\n" +
                 "17. expense <activity number> <expense amount>\n" +
                 "18. removeexpense <activity number>\n");
+        printLine();
     }
 
     public static void printDateTimeExceptionError(){
@@ -95,14 +97,31 @@ public class Ui {
      * @param activityIndex The index of the activity
      */
     public static void printActivity(TravelActivity activity, int activityIndex) {
+
         String checked = activity.getActivityStatus()? "[X]" : "[ ]";
-        System.out.print(checked + " " + activityIndex + ". " + activity);
-        if(activity.getTag() != null && !activity.getTag().isEmpty()){
-            System.out.print(" (" + activity.getTag() + ")");
+        System.out.print(checked + " " + activityIndex + ". ");
+        if (activity.getClass().getSimpleName().equals("TravelActivity")){
+            System.out.print("General: ");
         }
+        System.out.print(activity);
         if(activity.getExpense() != null && !activity.getExpense().isEmpty()){
             System.out.print(" (" + activity.getExpense() + ")");
         }
         System.out.println();
+    }
+
+    public static String[] removeElement(String[] array, int indexToRemove) {
+        if (indexToRemove < 0 || indexToRemove >= array.length) {
+            throw new IllegalArgumentException("Index out of bounds");
+        }
+        // Create a new array with one less element
+        String[] newArray = new String[array.length - 1];
+        // Copy elements from the original array to the new array, excluding the element to remove
+        for (int i = 0, j = 0; i < array.length; i++) {
+            if (i != indexToRemove) {
+                newArray[j++] = array[i];
+            }
+        }
+        return newArray;
     }
 }

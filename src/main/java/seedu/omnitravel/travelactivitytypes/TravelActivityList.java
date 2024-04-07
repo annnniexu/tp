@@ -1,9 +1,11 @@
 package seedu.omnitravel.travelactivitytypes;
+import seedu.omnitravel.errorhandlers.CheckParameters;
 import seedu.omnitravel.errorhandlers.OmniException;
 import seedu.omnitravel.ui.Ui;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.logging.Logger;
 
 
@@ -12,10 +14,14 @@ public class TravelActivityList {
     /** Array of travel activity */
     private ArrayList<TravelActivity> travelActivities;
 
+    /** Array of tags given to travel activities */
+    private ArrayList<String> travelActivityTags;
+
     /** Number of TravelActivities */
     private int noOfActivities = 0;
     public TravelActivityList() {
         travelActivities = new ArrayList<>();
+        travelActivityTags = new ArrayList<>();
     }
 
 
@@ -45,8 +51,8 @@ public class TravelActivityList {
             activityCount++;
             Ui.printActivity(activity, activityCount);
         }
-        int finalactivityCount = noOfActivities;
-        assert finalactivityCount == activityCount : "Index out of bounds while listing activities";
+        int finalActivityCount = noOfActivities;
+        assert finalActivityCount == activityCount : "Index out of bounds while listing activities";
     }
 
     /**
@@ -118,16 +124,19 @@ public class TravelActivityList {
      * @param activityNumber The travel activity number on the list
      */
     public void checkTravelActivity(int activityNumber) throws OmniException{
-
         assert activityNumber != 0 : "There is not activities in the list";
         if (activityNumber > travelActivities.size() || (activityNumber <= 0)) {
             throw new OmniException("Travel activity cannot be found");
         }
         int indexOfActivity = activityNumber - 1;
-        TravelActivity markedActivity  = travelActivities.get(indexOfActivity);
-        markedActivity.setActivityStatus(true);
-        System.out.println("I have checked this activity:");
-        System.out.println(markedActivity);
+        TravelActivity markedActivity = travelActivities.get(indexOfActivity);
+        if (!markedActivity.getActivityStatus()) {
+            markedActivity.setActivityStatus(true);
+            System.out.println("I have checked this activity:");
+            System.out.println(markedActivity);
+        } else {
+            System.out.println("This activity is already done!");
+        }
     }
 
     /**
@@ -141,9 +150,13 @@ public class TravelActivityList {
         }
         int indexOfActivity = activityNumber - 1;
         TravelActivity markedActivity  = travelActivities.get(indexOfActivity);
-        markedActivity.setActivityStatus(false);
-        System.out.println("I have unchecked this activity:");
-        System.out.println(markedActivity);
+        if (markedActivity.getActivityStatus()) {
+            markedActivity.setActivityStatus(false);
+            System.out.println("I have unchecked this activity:");
+            System.out.println(markedActivity);
+        } else {
+            System.out.println("This activity is already unchecked!");
+        }
     }
 
 
@@ -161,7 +174,7 @@ public class TravelActivityList {
         TravelActivity taggedTask = travelActivities.get(indexOfTask);
         taggedTask.setTag(tag);
         System.out.println("I have tagged this task:");
-        System.out.println(taggedTask + " (" + tag + ")");
+        System.out.println(taggedTask);
     }
 
     /**
@@ -195,13 +208,22 @@ public class TravelActivityList {
         }
         int indexOfTravelActivity = travelActivityNumber-1;
         TravelActivity updatedTravelActivity = travelActivities.get(indexOfTravelActivity);
-        String oldTravelActivity = (updatedTravelActivity.toString()
+        String oldTag = updatedTravelActivity.getTag();
+        String oldTravelActivity = (oldTag.isBlank())? updatedTravelActivity.toString():
+                                            (updatedTravelActivity.toString()
                                             + " (" + updatedTravelActivity.getTag() + ")");
         updatedTravelActivity.setDate(date);
         updatedTravelActivity.setDuration(duration);
         updatedTravelActivity.setTag(tag);
-        System.out.println("I have updated this task\nfrom: " + oldTravelActivity +
-                            "\nto: " + updatedTravelActivity + " (" + updatedTravelActivity.getTag() + ")");
+        String newTag = updatedTravelActivity.getTag();
+        if(newTag.isBlank()){
+            System.out.println("I have updated this task\nfrom: " + oldTravelActivity +
+                    "\nto: " + updatedTravelActivity);
+        } else{
+            System.out.println("I have updated this task\nfrom: " + oldTravelActivity +
+                    "\nto: " + updatedTravelActivity + " (" + updatedTravelActivity.getTag() + ")");
+        }
+
     }
 
     public ArrayList<TravelActivity> getTravelActivities () {
@@ -243,7 +265,7 @@ public class TravelActivityList {
 
         for (TravelActivity activity: travelActivities){
             assert !(foundCounter > travelActivities.size()) : "Error: There is more activities found than possible";
-            if(activity.getClass().getSimpleName().equals(type)){
+            if(activity.getClass().getSimpleName().equalsIgnoreCase(type)){
                 foundCounter += 1;
                 if (foundCounter == 1) {
                     System.out.println("Here are what you are looking for:");
@@ -270,6 +292,9 @@ public class TravelActivityList {
         }
         int indexOfTask = taskNumber - 1;
         TravelActivity task = travelActivities.get(indexOfTask);
+        if(!(expense.startsWith("$") && CheckParameters.isValidExpense(expense.substring(1)))){
+            throw new OmniException("Please follow format for expense: $50");
+        }
         task.setExpense(expense);
         System.out.println("I have added expense for this task:");
         System.out.println(task + " (" + expense + ")");
@@ -298,13 +323,14 @@ public class TravelActivityList {
 
     public void totalExpense(String type) throws OmniException {
         if (!(type.equalsIgnoreCase("food") || type.equalsIgnoreCase("accommodation")
-                || type.equalsIgnoreCase("landmark") || type.equalsIgnoreCase("all"))) {
+                || type.equalsIgnoreCase("landmark") || type.equalsIgnoreCase("all")
+                || type.equalsIgnoreCase("travelactivity"))) {
             throw new OmniException("Not a valid TYPE");
         }
 
         double tot = 0.0;
         for (TravelActivity activity : travelActivities) {
-            if (type.equals("all") || activity.getClass().getSimpleName().equalsIgnoreCase(type)) {
+            if (type.equals("all") || activity.getClass().getSimpleName().equalsIgnoreCase(type)){
                 String expense = activity.getExpense();
                 if (!expense.equals("")) {
                     if (expense.startsWith("$")) {
@@ -314,7 +340,31 @@ public class TravelActivityList {
                 }
             }
         }
-        System.out.println("The total expense for " + type + " travel activities is: " + tot);
+        System.out.println("The total expense for " + type + " travel activities is: $" + tot);
+    }
+
+    /**
+     * Lists out all the tags currently in the travel activity list
+     */
+    public void listTags(){
+        for (TravelActivity travelActivity: travelActivities){
+            if(travelActivity == null){
+                break;
+            }
+            String tag = travelActivity.getTag();
+            if(!travelActivityTags.contains(tag) && !tag.isBlank() ){
+                travelActivityTags.add(tag);
+            }
+        }
+        Collections.sort(travelActivityTags);
+        int tagCount = 1;
+        for (String tag: travelActivityTags){
+            if(tag == null){
+                break;
+            }
+            System.out.println(tagCount + ". " + tag);
+            tagCount++;
+        }
     }
 
 }
