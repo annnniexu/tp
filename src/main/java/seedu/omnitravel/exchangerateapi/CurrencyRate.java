@@ -1,6 +1,5 @@
 package seedu.omnitravel.exchangerateapi;
 
-import seedu.omnitravel.errorhandlers.CheckParameters;
 import seedu.omnitravel.errorhandlers.OmniException;
 
 import java.io.IOException;
@@ -17,14 +16,14 @@ public class CurrencyRate {
      * @param foreignCurrency The foreign currency the user want to convert to
      * @param amount The amount of local currency the user wants to change
      * @throws IOException Throws an exception when there is a problem accessing the web
-     * @throws InterruptedException Throws an exception when the program is interrupted while accessing
-     * the web
+     * @throws InterruptedException Throws an exception when the program is interrupted while accessing the web
      * @throws OmniException Throws an exception when the currencies are invalid
      */
     public static void convertCurrency(String localCurrency, String foreignCurrency, float amount) throws
             OmniException, IOException, InterruptedException{
         String[] urls = {"https://latest.currency-api.pages.dev/v1/currencies/" + localCurrency + ".json",
-                "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/" + localCurrency + ".json"};
+            "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/"
+                + localCurrency + ".json"};
         int errorCounter = 0;
         for(String url:urls){
             try{
