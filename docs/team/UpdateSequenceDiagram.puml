@@ -2,30 +2,23 @@
 'https://plantuml.com/sequence-diagram
 
 autonumber
-!define LOGIC_COlOR #228B22
-!define LOGIC_COlOR_T1 #B22222
-!define LOGIC_COlOR_T2 #DCDCDC
-!define LOGIC_COlOR_T3 #808080
-!define LOGIC_COlOR_T4 #008000
-!define LOGIC_COlOR_T5 #800000
-!define LOGIC_COlOR_T6 #008B8B
-!define LOGIC_COlOR_T7 #00FFFF
+
 
 actor User as user
 
-box OmniTravel LOGIC_COlOR_T6
-participant ":OmniTravel" as OmniTravel LOGIC_COlOR_T7
+box OmniTravel
+participant ":OmniTravel" as OmniTravel
 
-box Ui LOGIC_COlOR_T4
-participant ":Ui" as Ui LOGIC_COlOR
+box Ui
+participant ":Ui" as Ui
 
-box Parser LOGIC_COlOR_T5
-participant ":Parser" as Parser LOGIC_COlOR_T1
+box Parser
+participant ":Parser" as Parser
 end box
 
-box TravelActivityType LOGIC_COlOR_T3
-participant ":TravelActivityList" as TravelActivityList LOGIC_COlOR_T2
-participant ":TravelActivity" as TravelActivity LOGIC_COlOR_T2
+box TravelActivityType
+participant ":TravelActivityList" as TravelActivityList
+participant ":TravelActivity" as TravelActivity
 end box
 
 user -> OmniTravel : "update 1 /date 2019-12-12 /duration 2 hours"

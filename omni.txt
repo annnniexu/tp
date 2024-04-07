@@ -1,4 +1,0 @@
-general / 0 / go to paris  / 2024-12-12 / 2 hours / hello / $50
-food / 0 / food / 2024-12-12 / now /  / 
-food / 0 / food / 2024-12-12 / 2 hours /  / $30
-general / 0 / hello world  / 2040-12-12 / 2 hours / your mom / 

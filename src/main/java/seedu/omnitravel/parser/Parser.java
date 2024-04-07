@@ -1,4 +1,5 @@
 package seedu.omnitravel.parser;
+import seedu.omnitravel.exchangerateapi.CurrencyRate;
 import seedu.omnitravel.travelactivitytypes.TravelActivityList;
 import seedu.omnitravel.errorhandlers.CheckParameters;
 import seedu.omnitravel.errorhandlers.OmniException;
@@ -8,6 +9,7 @@ import seedu.omnitravel.travelactivitytypes.Landmark;
 import seedu.omnitravel.travelactivitytypes.TravelActivity;
 import seedu.omnitravel.ui.Ui;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.logging.Logger;
 
@@ -335,6 +337,32 @@ public class Parser {
             throw new OmniException("Do you mean the command listtags?");
         }
         Ui.printLine();
+    }
+
+    /**
+     * Handles the case whereby the command is change
+     * @param line The input given by the user
+     * @throws OmniException Throws an exception when the parameters are invalid
+     * @throws InterruptedException Throws an exception when the thread is interrupted
+     * @throws IOException Throws an exception when there is an error during an I/O operation
+     */
+    public static void currencyExchangeCommand(String line) throws OmniException{
+        Ui.printLine();
+        try {
+
+            String delimiter = "change | /from | /to ";
+            String[] command = line.split(delimiter);
+            // Check parameters
+            CheckParameters.checkCurrencyParameters(command, line);
+            float amount = Float.parseFloat(command[1].trim());
+            String localCurrency = command[2].trim();
+            String foreignCurrency = command[3].trim();
+            CurrencyRate.convertCurrency(localCurrency, foreignCurrency, amount);
+        } catch(InterruptedException | IOException exception){
+            System.out.println("Website might be down!");
+        }
+        Ui.printLine();
+
     }
 
 }
