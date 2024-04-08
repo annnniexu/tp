@@ -436,6 +436,7 @@ class OmniTravelTest {
         TravelActivityList list = initialiseTestTravelActivityList();
         list.addTravelActivity(accommodationNew1);
         // Test with valid input
+
         Parser.updateCommand("update 1 /date 2025-04-04 /duration 2 days /tag test", list);
         String expectedOutput7 = "I have updated this task" + System.lineSeparator() +
                 "from: Accommodation: nus rvrc :12 Dec 2025 :5 years (campus stay) (campus stay)" +
@@ -492,4 +493,92 @@ class OmniTravelTest {
         Parser.totalExpenseCommand("totalexpense", list);
     }
 
+    @Test
+    public void testLocationCommand() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(landmarkNew1);
+        Parser.locationCommand("location 1 Paris", list);
+    }
+
+    @Test
+    public void testRemoveLocationCommand() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(landmarkNew1);
+        Parser.locationCommand("location 1 Paris", list);
+        Parser.removeLocationCommand(new String[]{"removelocation", "1"}, list);
+    }
+
+    @Test
+    public void testFindLocationCommand() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(landmarkNew1);
+        Parser.locationCommand("location 1 Paris", list);
+        Parser.findLocationCommand("findlocation Paris", list);
+    }
+
+    @Test
+    public void testCurrencyExchangeCommand() throws OmniException {
+        Parser.currencyExchangeCommand("change 100 /from USD /to EUR");
+    }
+
+    @Test
+    public void testLocation() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(new TravelActivity("visit museum",
+                LocalDate.parse("2019-05-12"),"2hours", "Sightseeing",
+                 "$50"));
+        assertEquals("visit museum", list.getDescription("visit museum"));
+        // Adding a location an existing task
+        list.locationActivity(1, "Singapore");
+        TravelActivity travelActivity = list.getTravelActivities().get(0);
+        assertEquals("Singapore", travelActivity.getLocation());
+    }
+
+    @Test
+    public void testRemoveLocation() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(new TravelActivity("visit museum",
+                LocalDate.parse("2019-05-12"),"2hours", "Sightseeing",
+                "$100"));
+        assertEquals("visit museum", list.getDescription("visit museum"));
+        // Adding a location an existing task
+        list.locationActivity(1, "Singapore");
+        TravelActivity travelActivity = list.getTravelActivities().get(0);
+        assertEquals("Singapore", travelActivity.getLocation());
+        // Remove an existing location
+        list.removeLocation(1);
+        assertEquals("visit museum", list.getDescription("visit museum"));
+    }
+
+    @Test
+    public void testAddExceptions() throws OmniException {
+        CheckParameters.addExceptions(new String[]{"description", "/date", "2024-04-08", "/duration", "2 days"},
+                "add", "add description /date 2024-04-08 /duration 2 days");
+    }
+
+    @Test
+    public void testContainsWords() throws OmniException {
+        CheckParameters.containsWords("2 days");
+    }
+
+    @Test
+    public void testIsValidExpense() throws OmniException {
+        assertTrue(CheckParameters.isValidExpense("50"));
+    }
+
+    @Test
+    public void testCheckCurrencyParameters() throws OmniException {
+        CheckParameters.checkCurrencyParameters(new String[]{"change", "100", "/from", "USD", "/to", "EUR"},
+                "change 100 /from USD /to EUR");
+    }
+
+    @Test
+    public void testHandleException() {
+        CheckParameters.handleException(new OmniException("Test OmniException"));
+    }
+
+    @Test
+    public void testAsciiCheck() throws OmniException {
+        CheckParameters.asciiCheck("Valid input");
+    }
 }

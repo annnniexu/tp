@@ -11,3 +11,4 @@ general / 0 / esplanade  / 2026-03-19 / 3 hours / concert /
 general / 0 / merlion  / 2026-04-07 / 2 hours / sightseeing / 
 general / 0 / chinatown  / 2025-02-21 / 5 hours / sightseeing / 
 accommodation / 0 / description / 2024-10-04 / 2 days / test / 
+

@@ -399,4 +399,60 @@ public class TravelActivityList {
         }
     }
 
+    /**
+     * Adds a location to travel activity
+     * @param taskNumber The travel activity number on the list
+     * @param location The location of travel activity
+     */
+    public void locationActivity(int taskNumber, String location) throws OmniException {
+        assert taskNumber != 0 : "There is no tasks in the list";
+        if (taskNumber > travelActivities.size() || (taskNumber <= 0)) {
+            throw new OmniException("Travel activity cannot be found");
+        }
+        int indexOfTask = taskNumber - 1;
+        TravelActivity locationTask = travelActivities.get(indexOfTask);
+        locationTask.setLocation(location);
+        System.out.println("I have added a location to this task:");
+        System.out.println(locationTask + " (" + location + ")");
+    }
+
+    /**
+     * Removes the location on a travel activity
+     * @param taskNumber The travel activity number on the list
+     */
+    public void removeLocation(int taskNumber) throws OmniException {
+        assert taskNumber != 0 : "There is no task in the list";
+        if (taskNumber > travelActivities.size() || (taskNumber <= 0)) {
+            throw new OmniException("Travel activity cannot be found");
+        }
+        int indexOfTask = taskNumber - 1;
+        TravelActivity locationTask = travelActivities.get(indexOfTask);
+        locationTask.removeLocation();
+        System.out.println("Location removed from the task:");
+        System.out.println(locationTask);
+    }
+
+    /**
+     * Find all the tasks with a particular location and prints them out
+     *
+     * @param location The tag of tasks that the user wants to find
+     */
+    public void findLocation(String location){
+        int foundCounter = 0;
+        for (TravelActivity travelActivity : travelActivities) {
+            assert !(foundCounter > travelActivities.size()) : "Error: There is more activities found than possible";
+            if (travelActivity.getLocation().contains(location) &&
+                    !travelActivity.getLocation().isEmpty()) {
+                foundCounter += 1;
+                if (foundCounter == 1) {
+                    System.out.println("Here are what you are looking for:");
+                }
+                Ui.printActivity(travelActivity, foundCounter);
+            }
+        }
+        if (foundCounter == 0) {
+            System.out.println("Sorry I could not find what you are looking for.");
+        }
+    }
+
 }
