@@ -6,6 +6,7 @@ import seedu.omnitravel.ui.Ui;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
@@ -350,6 +351,7 @@ public class TravelActivityList {
                         expense = expense.substring(1);
                     }
                     tot += Double.parseDouble(expense);
+                    logger.log(Level.INFO, String.valueOf(tot));
                 }
             }
         }

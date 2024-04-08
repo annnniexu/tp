@@ -1,0 +1,4 @@
+landmark / 0 / Eiffel Tower / 2025-03-14 / 2 hours / go up tower / $20
+food / 0 / Mala Hotpot / 2025-03-14 / 2 hours / very spicy / $50
+accommodation / 0 / Four Seasons Hotel / 2025-08-25 / 2 weeks / first hotel / $70
+general / 0 / Go to Hong Kong  / 2025-08-25 / 6 hours / with family / 

@@ -17,7 +17,7 @@ list via a Command Line Interface**.
 
 5. Use the java -jar omni.jar command to run the application.
 
-6. A GUI similar to the below should appear in a few seconds.
+6. A welcome message similar to the one below should appear in a few seconds.
 ```
 No existing database found! Creating a new save file for you!
 ____________________________________________________________
