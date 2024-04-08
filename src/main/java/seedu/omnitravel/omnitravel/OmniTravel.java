@@ -18,7 +18,7 @@ import java.util.logging.LogManager;
 
 
 public class OmniTravel {
-
+    //@@author EugeneChanJiajun
     public static void main(String[] args) throws IOException {
 
         Logger logger = Logger.getLogger("Main");
@@ -148,6 +148,7 @@ public class OmniTravel {
         LogManager.getLogManager().reset();
         logger.setLevel(java.util.logging.Level.OFF);
     }
+    //@@author EugeneChanJiajun
 }
 
 

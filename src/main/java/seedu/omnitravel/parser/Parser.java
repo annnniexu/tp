@@ -349,7 +349,6 @@ public class Parser {
     public static void currencyExchangeCommand(String line) throws OmniException{
         Ui.printLine();
         try {
-
             String delimiter = "change | /from | /to ";
             String[] command = line.split(delimiter);
             // Check parameters

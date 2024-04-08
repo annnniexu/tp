@@ -79,7 +79,8 @@ public class Ui {
                 "15. findtag <tag name>\n" +
                 "16. findtype <type>\n" +
                 "17. expense <activity number> <expense amount>\n" +
-                "18. removeexpense <activity number>\n");
+                "18. removeexpense <activity number>\n" +
+                "19. change <amount> /from <current currency> /to <changed currency> ");
         printLine();
     }
 
@@ -114,18 +115,4 @@ public class Ui {
         System.out.println();
     }
 
-    public static String[] removeElement(String[] array, int indexToRemove) {
-        if (indexToRemove < 0 || indexToRemove >= array.length) {
-            throw new IllegalArgumentException("Index out of bounds");
-        }
-        // Create a new array with one less element
-        String[] newArray = new String[array.length - 1];
-        // Copy elements from the original array to the new array, excluding the element to remove
-        for (int i = 0, j = 0; i < array.length; i++) {
-            if (i != indexToRemove) {
-                newArray[j++] = array[i];
-            }
-        }
-        return newArray;
-    }
 }

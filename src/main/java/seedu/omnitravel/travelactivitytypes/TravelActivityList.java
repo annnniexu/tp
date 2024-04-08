@@ -27,6 +27,7 @@ public class TravelActivityList {
 
     /**
      * Adds travel activity to the travel activity list
+     *
      * @param travelActivity The travel activity
      */
     public void addTravelActivity(TravelActivity travelActivity){
@@ -57,6 +58,7 @@ public class TravelActivityList {
 
     /**
      * returns the number of travel activities in the list
+     *
      * @return the number of travel activities
      */
     public int getNoOfTravelActivities(){
@@ -82,7 +84,12 @@ public class TravelActivityList {
         assert newSize == initialListSize - 1 :"There is an error with list size!";
     }
 
-
+    /**
+     * Obtains the description of the plan that we are looking for from the travel activity list
+     *
+     * @param plan Plan that we are looking for in the travel activity list
+     * @return The travel activity description user is looking for
+     */
     public String getDescription(String plan){
         for(TravelActivity travelActivity: travelActivities){
             if(travelActivity.getPlan().equals(plan)){
@@ -121,6 +128,7 @@ public class TravelActivityList {
 
     /**
      * Checks travel activity as completed
+     *
      * @param activityNumber The travel activity number on the list
      */
     public void checkTravelActivity(int activityNumber) throws OmniException{
@@ -141,6 +149,7 @@ public class TravelActivityList {
 
     /**
      * Unchecks travel activity and sets it to uncompleted
+     *
      * @param activityNumber The travel activity number on the list
      */
     public void uncheckTravelActivity(int activityNumber) throws OmniException{
@@ -162,6 +171,7 @@ public class TravelActivityList {
 
     /**
      * Adds a tag to travel activity
+     *
      * @param taskNumber The travel activity number on the list
      * @param tag The tag of travel activity
      */
@@ -179,6 +189,7 @@ public class TravelActivityList {
 
     /**
      * Removes the tag on a travel activity
+     *
      * @param taskNumber The travel activity number on the list
      */
     public void removeTag(int taskNumber) throws OmniException {
@@ -195,6 +206,7 @@ public class TravelActivityList {
 
     /**
      * Updates the date, duration and tag of the travel activity
+     *
      * @param travelActivityNumber The index of the travel activity
      * @param date The new date of the travel activity
      * @param duration The new duration of the travel activity
@@ -278,10 +290,9 @@ public class TravelActivityList {
         }
     }
 
-
-
     /**
      * Adds expense to travel activity
+     *
      * @param taskNumber The travel activity number on the list
      * @param expense  The expense of travel activity
      */
@@ -302,6 +313,7 @@ public class TravelActivityList {
 
     /**
      * Removes the expense on a travel activity
+     *
      * @param taskNumber The travel activity number on the list
      */
     public void removeExpense(int taskNumber) throws OmniException {
@@ -318,6 +330,7 @@ public class TravelActivityList {
 
     /**
      * Calculates the total expense for the given type.
+     *
      * @param type The type of tasks that the user wants to find
      */
 
