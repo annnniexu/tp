@@ -92,6 +92,12 @@ class OmniTravelTest {
         //delete the plan
         travelActivityList.removeTravelActivity("1");
         assertEquals("cant be found", travelActivityList.getDescription("visit museum"));
+        //testing the keyword delete enhancement
+        TravelActivity travelActivity2 = new TravelActivity("visit home",
+                LocalDate.parse("2019-12-14"), "5hours", "Sightseeing", "$50");
+        travelActivityList.removeTravelActivity("home");
+        assertEquals("cant be found", travelActivityList.getDescription("visit home"));
+
     }
 
     @Test
