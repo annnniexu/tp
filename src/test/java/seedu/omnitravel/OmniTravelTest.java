@@ -387,7 +387,7 @@ class OmniTravelTest {
         TravelActivityList list = new TravelActivityList();
         list.addTravelActivity(accommodationNew1);
         // Test with valid input
-        Parser.updateCommand("update 1 /date 2024-04-04 /duration 2 days /tag test", list);
+        Parser.updateCommand("update 1 /date 2024-12-04 /duration 2 days /tag test", list);
     }
 
 
