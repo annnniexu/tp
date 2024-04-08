@@ -113,120 +113,201 @@ functions.
 | v2.0    | user     | be able to delete a destination from my records                | remove redundant records that I do not need                                               |
 | v2.0    | user     | be able to edit and update existing plans                      | efficiently update exisiting plans without having to delete and add plans                 |
 | v2.0    | user     | have some form of QOL considerations like warning messages     | know what are the errors that I have made in the inputs                                   |
+| v2.1    | user     | be able to convert from one currency to another                | know how much of a currency I need to convert for usage                                   |
+| v2.1    | user     | be able to list all the tags I have given to the activities    | easily see what are the tags I currently have in the list                                 |
 
 
 ## Non-Functional Requirements
 
-{Give non-functional requirements}
+1. The program should be able to run on any mainstream OS with java 11 installed
+2. Users should be able to
 
 ## Glossary
 
 * Mainstream OS: Windows, Linux, MacOS
 
 ## Instructions for manual testing
+The instructions given below are used for testing the app manually.
 
+### Launch and shutdown
+1. Initial launch
+    1. Download the jar file and put it into an empty folder.
+    2. Open a terminal in that empty folder and type java-jar Omnitravel.jar into the terminal.
+2. Shutdown
+    1. When the app is running, type `bye` into the terminal to close the app.
 
+### Adding a travel activity
+1. Adding a general travel activity
+    1. Test case: `add visit Paris /date 2024-12-12 /duration 2 weeks`
 
-- To add a general travel activity into the list
+       Expected: A new general activity is added and the details of the activity is shown
 
-Example: `add visit Paris /date 2024-12-12 /duration 2 weeks`
+    2. Test case: `add visit Japan /date 2024-08-12 /duration 2 weeks /tag friday`
 
-Expected: A new general activity is added
+       Expected: A new general activity is added with a tag and the details of the activity is shown
 
-- To add an accommodation activity into the list
+2. Adding a accommodation activity into the list
+    1. Test case: `accommodation hotel /date 2024-12-12 /duration one month`
 
-Example: `accommodation hotel /date 2024-12-12 /duration one night`
+       Expected: A new accommodation activity type is added and the details of the activity is shown
 
-Expected: A new accommodation activity type is added
+    2. Test case: `accommodation motel /date 2024-10-12 /duration one month /tag Monday`
 
-- To add a food activity into the list
+       Expected: A new accommodation activity type is added with a tag and the details of the activity is shown
 
-Example: `food prata /date 2024-12-12 /duration 1 hour`
+3. Adding a food activity into the list
+    1. Test case: `food prata /date 2024-12-12 /duration 1 hour`
 
-Expected: A new food activity type is added
+       Expected: A new food activity type is added and the details of the activity is shown
 
-- To add a landmark activity into the list
+    2. Test case: `food takoyaki /date 2024-10-12 /duration 1 hour /tag Japanese food`
 
-Example: `landmark Eiffel Tower /date 2024-12-12 /duration 2 hour`
+       Expected: A new food activity type is added with a tag and the details of the activity is shown
 
-Expected: A new landmark activity type is added
+4. Adding a landmark activity into the list
+    1. Test case: `landmark Eiffel Tower /date 2024-12-12 /duration 2 hour`
+       
+       Expected: A new landmark activity type is added and the details of the activity is shown
 
-- To delete an activity from the list
+    2. Test case: `landmark Pyramid /date 2025-12-12 /duration 3 hours /tag Tuesday`
 
-Example: `delete 1`
+       Expected: A new landmark activity type is added with a tag and the details of the activity is shown
 
-Expected: The general activity "visit Paris" should be deleted
+### Deleting a travel activity
+1. Deleting a travel activity that is present in the list
+    1. Prerequisites: List all the travel activities using the `list` command.
 
-- To update an existing activity date and duration in the list
+    2. Test case: `delete 1`
+   
+       Expected: Deletes the first activity in the list and details of the deleted activity is shown in the terminal
+   
+2. Deleting a travel activity that is not present in the list
+    3. Test case: `delete -1` 
 
-Example: `update 1 /date 2024-12-13 /duration two nights`
+       Expected: An error message will be shown in the terminal and no activity is deleted.
 
-Expected: The accommodation activity hotel would be on 13th Dec 2024 instead of 12th Dec 2024 and be for two nights instead of one 
+### Updating a travel activity
+1. Updating a travel activity that is present in the list
+    1. Prerequisites: List all the travel activities using the `list` command.
+    
+    2. Test case: `update 1 /date 2024-12-13 /duration two days`
+    
+       Expected: The first activity in the list will be updated with a new date and duration. The details of the activity
+        will be shown.
 
-- To list out the current activity list
+    3. Test case: `update 2 /date 2024-12-13 /duration two days /tag Friday`
 
-Example: `list`
+       Expected: The second activity in the list will be updated with a new date, duration and tag. The details of the activity
+       will be shown.
+   
+2. Updating a travel activity that is not present in the list
+    1. Test case: `update -1 /date 2025-12-12 /duration five days /tag Monday`
 
-Expected: The current activity list will be shown by the chatbot
+       Expected: No activity will be updated and an error message will be shown
 
-- To find all travel plans with the same keyword
+### List travel activities
+1. To list out the current activity list
+    1. Test case: `list`
+    
+       Expected: The current activity list will be shown by the chatbot
 
-Example: `find rvrc`
+### Finding a travel activity
+1. To find all travel activities with the same keyword
+    1. Prerequisite: Add 2 new travel activities, one with the description "go to paris"
+        and the other with the description "fly to paris".
+   
+    2. Test case: `find paris`
+       
+       Expected: The activities with "paris" in the description will be shown in a list.  
 
-Result:
-____________________________________________________________
-Here are what you are looking for:
-1. Accommodation: rvrc :24 Dec 2024 :2 weeks
-____________________________________________________________
+### Finding a travel activity with a tag
+1. To find all the travel activities with the same tag
+    1. Prerequisites: Add 2 new travel activities with the same tag "Friday".
 
-- To find all travel plans with the same tag
+    2. Test case: `findtag Friday`
 
-Example: findtag delicacies
+       Expected: The activities with the tag "Friday" will be shown in a list
 
-Result: 
-____________________________________________________________
-Here are what you are looking for:
-1. Food: Popia :1 Dec 2020 :1hour
-2. Food: kfc :12 Dec 2024 :1 hour
-____________________________________________________________
+### Finding a type of travel activity
+1. To find all travel activities of a certain type
+    1. Prerequisites: Have at least 2 different types of travel activity currently in the list.
+       For example, food and landmark type of travel activity.
 
-- To tag a travel plan
+    2. Test case: `findtype Food`
+   
+       Expected: The activities of food type will be shown in the list
 
-Example: tag 2 activity 1
+### Adding expense to a travel activity
+1. Adding expense to a activity currently in the list
+    1. Prerequisites: List all the travel activities using the `list` command.
 
-Result:
-____________________________________________________________
-I have tagged this task: 
-Visit museum (activity 1)
-____________________________________________________________
+    2. Test case: `expense 1 $40`
 
-- To untag a travel plan
+       Expected: An expense of $40 will be added to the first activity in the list and the details
+        of the activity will be shown
 
-Example: untag 2
+2. Adding expense to a activity not in the list
+    1. Test case: `expense 1 $-1`
 
-Result:
-____________________________________________________________
-Tag removed from the task:
-Visit museum
-____________________________________________________________
+       Expected: No expense will be added and a error message will be shown
 
-- To add an expense to a travel plan
+### Deleting an expense
+1. Deleting an expense from a activity currently in the list
+    1. Prerequisites: List all the travel activities using the `list` command.
 
-Example: expense 1 $50
+    2. Test case: `removeexpense 1`
+    
+       Expected: The expense of the first activity in the list will be removed. The details of the activity will
+       be shown
 
-Result:
-____________________________________________________________
-I have added expense for this task:
-Visit museum ($50)
-____________________________________________________________
+2. Deleting an expense from a activity not in the list
+    1. Test case: `removeexpense 0`
 
-- To remove expense from a travel plan
+       Expected: No expense is removed and a error message will be shown. 
+        
+### Converting currency
+1. Converting a local curreny to a foreign currency
+    1. Test case: `change 100 /from sgd /to jyp`
+   
+       Expected: The conversion of 100 singapore dollars to japanese yen will be shown
 
-Example: removeexpense 1
+### Add tag to a travel activity
+1. Adding a tag to a travel activity currently in the list
+    1. Prerequisites: List all the travel activities using the `list` command.
+    
+    2. Test case: `tag 1 Friday`
 
-Result:
-____________________________________________________________
-Expense removed from the task:
-Visit museum
-____________________________________________________________
+       Expected: A tag will be added to the first activity in the list and the details
+       of the activity will be shown
 
+2. Adding a tag to a travel activity not in the list   
+    1. Test case: `tag 0 Friday`
+
+       Expected: No tag will be added and a error message will be shown 
+
+### Remove tag from travel activity
+1. Removing a tag from a travel activity currently in the list
+    1. Prerequisites: List all the travel activities using the `list` command.
+   
+    2. Test case: `untag 1`
+
+       Expected: The tag will be removed from the first activity and the details of the activity will be shown
+   
+2. Removing a tag from a travel activity not in the list
+    1. Test case: `untag 0`
+   
+       Expected: No tag will be removed and an error message will be shown 
+
+### List tags
+1. Listing out all the tags in the current list
+    1. Prerequisites: There must be tags in the current list
+   
+    2. Test case: `listtags`
+
+       Expected: All the tags currently in the list will be shown in a list in alphabetical order
+
+### Show help
+1. Shows all the commands the user can input
+    1. Test case: `help`
+
+       Expected: All the commands and their format will be shown 
