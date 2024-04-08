@@ -31,6 +31,7 @@ public class OmniTravel {
             try {
                 String line = in.nextLine();
                 assert line != null :"Input does not exist!";
+                CheckParameters.asciiCheck(line);
                 String[] command = line.split(" ");
                 logger.log(Level.INFO, command[0]);
                 switch (command[0].toLowerCase()) {
