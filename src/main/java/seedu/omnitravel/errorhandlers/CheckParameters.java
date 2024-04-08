@@ -66,7 +66,7 @@ public class CheckParameters {
     public static void containsWords(String input) throws OmniException{
         String[] inputSplit = input.split(" ");
         if (inputSplit.length == 2){
-            String[] durationKeyWords = {"day", "month", "year", "hour", "minute", "second"};
+            String[] durationKeyWords = {"day", "week", "month", "year", "hour", "minute", "second"};
             for(String word:durationKeyWords){
                 if(input.contains(word)){
                     return;
@@ -74,7 +74,7 @@ public class CheckParameters {
             }
         }
         throw new OmniException("Your duration is invalid. Please input in terms of \"1 " +
-                "day, month, year, hour, minutue or second\"");
+                "day, week, month, year, hour, minutue or second\"");
     }
 
     /**

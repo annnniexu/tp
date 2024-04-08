@@ -141,7 +141,7 @@ public class TravelActivityList {
         if (!markedActivity.getActivityStatus()) {
             markedActivity.setActivityStatus(true);
             System.out.println("I have checked this activity:");
-            System.out.println(markedActivity);
+            Ui.printActivity(markedActivity, activityNumber);
         } else {
             System.out.println("This activity is already done!");
         }
@@ -162,7 +162,7 @@ public class TravelActivityList {
         if (markedActivity.getActivityStatus()) {
             markedActivity.setActivityStatus(false);
             System.out.println("I have unchecked this activity:");
-            System.out.println(markedActivity);
+            Ui.printActivity(markedActivity, activityNumber);
         } else {
             System.out.println("This activity is already unchecked!");
         }

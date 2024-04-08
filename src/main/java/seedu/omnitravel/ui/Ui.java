@@ -80,7 +80,8 @@ public class Ui {
                 "16. findtype <type>\n" +
                 "17. expense <activity number> <expense amount>\n" +
                 "18. removeexpense <activity number>\n" +
-                "19. change <amount> /from <current currency> /to <changed currency> ");
+                "19. totalexpense <type>\n" +
+                "20. change <amount> /from <current currency> /to <changed currency> ");
         printLine();
     }
 

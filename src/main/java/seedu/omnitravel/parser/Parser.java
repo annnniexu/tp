@@ -11,6 +11,7 @@ import seedu.omnitravel.ui.Ui;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 public class Parser {
@@ -166,11 +167,12 @@ public class Parser {
     public static void tagCommand(String line, TravelActivityList list) throws OmniException {
         String[] command = line.split(" ");
         if (command.length >= 3 && CheckParameters.isNumeric(command[1])){
-            String index = command[1];
-            String[] tagSplit = line.split(index);
-            String tag = tagSplit[1].trim();
-            int listNumber = Integer.parseInt(index);
-            list.tagActivity(listNumber, tag);
+            int listNumber = Integer.parseInt(command[1]);
+            // Extract tags starting from the third element onwards
+            String[] tagArray = Arrays.copyOfRange(command, 2, command.length);
+            // Join the tags into a single string
+            String tags = String.join(" ", tagArray);
+            list.tagActivity(listNumber, tags);
         } else if (command.length == 2) {
             throw new OmniException("Please specify a tag name");
         } else {
@@ -354,8 +356,8 @@ public class Parser {
             // Check parameters
             CheckParameters.checkCurrencyParameters(command, line);
             float amount = Float.parseFloat(command[1].trim());
-            String localCurrency = command[2].trim();
-            String foreignCurrency = command[3].trim();
+            String localCurrency = command[2].toLowerCase().trim();
+            String foreignCurrency = command[3].toLowerCase().trim();
             CurrencyRate.convertCurrency(localCurrency, foreignCurrency, amount);
         } catch(InterruptedException | IOException exception){
             System.out.println("Website might be down!");

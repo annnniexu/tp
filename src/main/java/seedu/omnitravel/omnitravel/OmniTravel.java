@@ -20,7 +20,6 @@ import java.util.logging.LogManager;
 public class OmniTravel {
     //@@author EugeneChanJiajun
     public static void main(String[] args) throws IOException {
-
         Logger logger = Logger.getLogger("Main");
         initialiseLogger(logger);
         FileSave file = new FileSave("omni.txt");
