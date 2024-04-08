@@ -366,4 +366,59 @@ public class Parser {
 
     }
 
+    /**
+     * Handles the case where the location command is given as input
+     *
+     * @param line array of input string
+     * @param list List of travel activities
+     * @throws OmniException if command.length == 2
+     * @throws OmniException if command.length == 1
+     */
+    public static void locationCommand(String line, TravelActivityList list) throws OmniException {
+        String[] command = line.split(" ");
+        if (command.length >= 3 && CheckParameters.isNumeric(command[1])){
+            String index = command[1];
+            String[] locationSplit = line.split(index);
+            String location = locationSplit[1].trim();
+            int listNumber = Integer.parseInt(index);
+            list.locationActivity(listNumber, location);
+        } else if (command.length == 2) {
+            throw new OmniException("Please specify a location");
+        } else {
+            throw new OmniException("Please specify which task to add location");
+        }
+    }
+
+    /**
+     * Handles the case where the removelocation command is given as input
+     *
+     * @param command Command array of input string without spaces
+     * @param list List of travel activities
+     * @throws OmniException if command.length != 2 && command[1] is not numeric
+     */
+    public static void removeLocationCommand(String[] command, TravelActivityList list) throws OmniException {
+        if (command.length == 2 && CheckParameters.isNumeric(command[1])) {
+            int listNumber = Integer.parseInt(command[1]);
+            list.removeLocation(listNumber);
+        } else {
+            throw new OmniException("Please specify which task to remove location");
+        }
+    }
+
+    /**
+     * Handles the case where the findLocation command is given as input
+     *
+     * @param line User's input into Omnitravel
+     * @param list List of travel activities
+     * @throws OmniException if command.length < 1
+     */
+    public static void findLocationCommand(String line, TravelActivityList list) throws OmniException {
+        String[] command = line.split("findlocation");
+        if (command.length < 1) {
+            throw new OmniException("Please check that your find command is in this format: findlocation <location>");
+        } else {
+            list.findLocation(command[1].trim());
+        }
+    }
+
 }
