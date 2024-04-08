@@ -477,6 +477,34 @@ class OmniTravelTest {
     }
 
     @Test
+    public void testLocationCommand() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(landmarkNew1);
+        Parser.locationCommand("location 1 Paris", list);
+    }
+
+    @Test
+    public void testRemoveLocationCommand() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(landmarkNew1);
+        Parser.locationCommand("location 1 Paris", list);
+        Parser.removeLocationCommand(new String[]{"removelocation", "1"}, list);
+    }
+
+    @Test
+    public void testFindLocationCommand() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(landmarkNew1);
+        Parser.locationCommand("location 1 Paris", list);
+        Parser.findLocationCommand("findlocation Paris", list);
+    }
+
+    @Test
+    public void testCurrencyExchangeCommand() throws OmniException {
+        Parser.currencyExchangeCommand("change 100 /from USD /to EUR");
+    }
+
+    @Test
     public void testLocation() throws OmniException {
         TravelActivityList list = new TravelActivityList();
         list.addTravelActivity(new TravelActivity("visit museum",
@@ -505,4 +533,35 @@ class OmniTravelTest {
         assertEquals("visit museum", list.getDescription("visit museum"));
     }
 
+    @Test
+    public void testAddExceptions() throws OmniException {
+        CheckParameters.addExceptions(new String[]{"description", "/date", "2024-04-08", "/duration", "2 days"},
+                "add", "add description /date 2024-04-08 /duration 2 days");
+    }
+
+    @Test
+    public void testContainsWords() throws OmniException {
+        CheckParameters.containsWords("2 days");
+    }
+
+    @Test
+    public void testIsValidExpense() throws OmniException {
+        assertTrue(CheckParameters.isValidExpense("50"));
+    }
+
+    @Test
+    public void testCheckCurrencyParameters() throws OmniException {
+        CheckParameters.checkCurrencyParameters(new String[]{"change", "100", "/from", "USD", "/to", "EUR"},
+                "change 100 /from USD /to EUR");
+    }
+
+    @Test
+    public void testHandleException() {
+        CheckParameters.handleException(new OmniException("Test OmniException"));
+    }
+
+    @Test
+    public void testAsciiCheck() throws OmniException {
+        CheckParameters.asciiCheck("Valid input");
+    }
 }

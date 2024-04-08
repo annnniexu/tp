@@ -369,7 +369,6 @@ public class Parser {
             System.out.println("Website might be down!");
         }
         Ui.printLine();
-
     }
 
     /**
@@ -427,5 +426,4 @@ public class Parser {
             list.findLocation(command[1].trim());
         }
     }
-
 }
