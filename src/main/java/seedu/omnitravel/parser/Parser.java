@@ -115,11 +115,10 @@ public class Parser {
      * @throws OmniException if command.length != 2 && command[1] is not numeric
      */
     public static void deleteCommand(String[] command, TravelActivityList list) throws OmniException {
-        if (command.length == 2 && CheckParameters.isNumeric(command[1])){
-            int listNumber = Integer.parseInt(command[1]);
-            list.removeTravelActivity(listNumber);
+        if (command.length == 2){
+            list.removeTravelActivity(command[1]);
         } else {
-            throw new OmniException("Please specify which activity index to delete");
+            throw new OmniException("Please specify which activity index or description to delete");
         }
     }
 
