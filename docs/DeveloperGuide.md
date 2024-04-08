@@ -125,8 +125,6 @@ functions.
 
 ## Instructions for manual testing
 
-
-
 - To add a general travel activity into the list
 
 Example: `add visit Paris /date 2024-12-12 /duration 2 weeks`
