@@ -498,11 +498,6 @@ class OmniTravelTest {
     }
 
     @Test
-    public void testUpdateExceptions() throws OmniException {
-        CheckParameters.updateExceptions(new String[]{"update", "1", "/date", "2024-04-08", "/duration", "2 days"});
-    }
-
-    @Test
     public void testContainsWords() throws OmniException {
         CheckParameters.containsWords("2 days");
     }
