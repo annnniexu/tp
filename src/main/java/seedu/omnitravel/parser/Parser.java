@@ -383,10 +383,11 @@ public class Parser {
     public static void locationCommand(String line, TravelActivityList list) throws OmniException {
         String[] command = line.split(" ");
         if (command.length >= 3 && CheckParameters.isNumeric(command[1])){
-            String index = command[1];
-            String[] locationSplit = line.split(index);
-            String location = locationSplit[1].trim();
-            int listNumber = Integer.parseInt(index);
+            int listNumber = Integer.parseInt(command[1]);
+            // Extract location starting from the third element onwards
+            String[] locationArray = Arrays.copyOfRange(command, 2, command.length);
+            // Join the location into a single string
+            String location = String.join(" ", locationArray);
             list.locationActivity(listNumber, location);
         } else if (command.length == 2) {
             throw new OmniException("Please specify a location");
