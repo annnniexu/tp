@@ -28,6 +28,7 @@ import java.util.Arrays;
 
 class OmniTravelTest {
 
+
     Accommodation accommodationNew1 = new Accommodation("nus rvrc", LocalDate.parse("2007-12-12"),
             "5 years", "campus stay", "");
     Accommodation accommodationNew2 = new Accommodation("nus pgpr", LocalDate.parse("2017-10-12"),
@@ -312,6 +313,47 @@ class OmniTravelTest {
         // Remove an existing expense
         list.removeExpense(1);
         assertEquals("visit museum", list.getDescription("visit museum"));
+    }
+
+    @Test
+    public void testTotalExpanseAll() throws OmniException{
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(new TravelActivity("visit museum",
+                LocalDate.parse("2019-05-12"),"2hours", "Sightseeing", "$20"));
+        list.totalExpense("all");
+
+        String findExpectedOutput = "The total expense for all travel activities is: $20.0";
+        assertEquals(capturedOutputStream.toString().trim(), findExpectedOutput);
+    }
+
+    @Test
+    public void testTotalExpanseAccommodation() throws OmniException{
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(new Accommodation("RVRC", LocalDate.parse("2022-07-12"), "3hours",
+                "hostel", "$70"));
+        String findExpectedOutput1 = "The total expense for Accommodation travel activities is: $70.0";
+        list.totalExpense("Accommodation");
+        assertEquals(capturedOutputStream.toString().trim(), findExpectedOutput1);
+    }
+
+    @Test
+    public void testTotalExpanseFood() throws OmniException{
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(new Food("UTOWN Flavours", LocalDate.parse("2024-05-12"), "1 hours",
+                "lunch", "$10"));
+        String findExpectedOutput2 = "The total expense for Food travel activities is: $10.0";
+        list.totalExpense("Food");
+        assertEquals(capturedOutputStream.toString().trim(), findExpectedOutput2);
+    }
+
+    @Test
+    public void testTotalExpanseLandmark() throws OmniException{
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(new Landmark("Berlin Wall", LocalDate.parse("2024-08-14"), "1 hours",
+                "sightseeig", "$5"));
+        String findExpectedOutput2 = "The total expense for Landmark travel activities is: $5.0";
+        list.totalExpense("Landmark");
+        assertEquals(capturedOutputStream.toString().trim(), findExpectedOutput2);
     }
 
     @Test
