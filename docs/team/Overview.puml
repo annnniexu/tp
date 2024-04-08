@@ -14,6 +14,7 @@ class Parser
 class CheckParameter
 class OmniException
 class Exception
+class CurrencyRate
 
 OmniException -|> Exception
 TravelActivity <|- Accomodation
@@ -30,6 +31,7 @@ Ui .> OmniException
 TravelActivityList .> Ui
 Ui <.. Parser
 Parser .> CheckParameter
+CurrencyRate <. Parser
 CheckParameter ..> Exception
 Parser ..> TravelActivityList
 Parser --> "*" Accomodation

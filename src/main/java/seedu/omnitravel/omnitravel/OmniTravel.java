@@ -16,15 +16,16 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import java.util.logging.LogManager;
 
-public class OmniTravel {
 
+public class OmniTravel {
+    //@@author EugeneChanJiajun
     public static void main(String[] args) throws IOException {
         Logger logger = Logger.getLogger("Main");
         initialiseLogger(logger);
-        Ui.printGreeting();
         FileSave file = new FileSave("omni.txt");
         TravelActivityList list = new TravelActivityList();
         file.readFile(list);
+        Ui.printGreeting();
         Scanner in = new Scanner(System.in);
         while (true) {
             try {
@@ -36,8 +37,14 @@ public class OmniTravel {
                 case "list":
                     Parser.getList(command, list);
                     break;
+                case "listtags":
+                    Parser.listTagsCommand(command, list);
+                    break;
                 case "add":
                     Parser.addCommand(line, list);
+                    break;
+                case "change":
+                    Parser.currencyExchangeCommand(line);
                     break;
                 case "accommodation":
                 case "food":
@@ -55,22 +62,25 @@ public class OmniTravel {
                 case "findtype":
                 case "expense":
                 case "removeexpense":
+                case "totalexpense":
                     invokeCommand(command, line, list);
                     break;
                 case "help":
                     Ui.helpCommand();
                     break;
+
                 case "bye":
                     Ui.printBye();
                     return;
                 default:
                     Ui.printLine();
-                    System.out.println("This is not a valid command");
+                    System.out.println("This is not a valid command!");
+                    System.out.println("Use the 'help' command to see the appropriate inputs!");
                     Ui.printLine();
                 }
                 file.saveActivityList(list);
             } catch (OmniException | NoSuchElementException | NumberFormatException | DateTimeException
-                     | IOException exception) {
+                     | IOException exception ) {
                 CheckParameters.handleException(exception);
             }
         }
@@ -98,7 +108,7 @@ public class OmniTravel {
             Parser.uncheckCommand(command, list);
             break;
         case "find":
-            Parser.findCommand(command, list);
+            Parser.findCommand(line, list);
             break;
         case "tag":
             Parser.tagCommand(line, list);
@@ -121,6 +131,9 @@ public class OmniTravel {
         case "removeexpense":
             Parser.removeExpenseCommand(command, list);
             break;
+        case "totalexpense":
+            Parser.totalExpenseCommand(line, list);
+            break;
         default:
             throw new OmniException("Invalid command");
         }
@@ -134,6 +147,7 @@ public class OmniTravel {
         LogManager.getLogManager().reset();
         logger.setLevel(java.util.logging.Level.OFF);
     }
+    //@@author EugeneChanJiajun
 }
 
 
