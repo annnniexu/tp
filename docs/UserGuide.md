@@ -59,6 +59,7 @@ Expected outcome:
 
 ### Adding a general travel activity : `add`
 Adds a general travel activity into the travel activity list
+* This is for activities that do not fall under the other activity types. EG. visiting a country.
 
 Format: `add DESCRIPTION /date YYYY-MM-DD /duration DURATION [/tag TAG]`
 

@@ -33,8 +33,6 @@ public class CheckParameters {
                     "/date YYYY-MM-DD /duration DURATION"
                     + " or add DESCRIPTION /date YYYY-MM-DD /duration DURATION /tag TAG");
         }
-
-
     }
 
     /**
@@ -150,6 +148,21 @@ public class CheckParameters {
             Ui.printSavingError();
         } else if (exception instanceof InterruptedException) {
             Ui.printInterruptedError();
+        }
+    }
+
+    /**
+     * Checks the input that the users placed into the chatbot and checks if the input contains any ASCII characters.
+     *
+     * @param input Input line that users placed into the chatbot
+     * @throws OmniException if the input contains any non-ASCII characters
+     */
+    public static void ASCIICheck(String input) throws OmniException {
+        for (int i = 0; i < input.length(); i++) {
+            char c = input.charAt(i);
+            if (c < 32 || c > 126) {
+                throw new OmniException("Input contains non-ASCII characters.");
+            }
         }
     }
 }
