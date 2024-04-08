@@ -162,6 +162,9 @@ public class Ui {
         if(activity.getExpense() != null && !activity.getExpense().isEmpty()){
             System.out.print(" (" + activity.getExpense() + ")");
         }
+        if(activity.getLocation() != null && !activity.getLocation().isEmpty()){
+            System.out.print(" (" + activity.getLocation() + ")");
+        }
         System.out.println();
     }
 
