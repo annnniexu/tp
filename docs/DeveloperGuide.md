@@ -129,6 +129,7 @@ functions.
 ## Instructions for manual testing
 The instructions given below are used for testing the app manually.
 
+
 ### Launch and shutdown
 1. Initial launch
     1. Download the jar file and put it into an empty folder.
