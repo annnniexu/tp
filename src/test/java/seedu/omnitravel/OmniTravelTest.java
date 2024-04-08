@@ -90,7 +90,7 @@ class OmniTravelTest {
         travelActivityList.addTravelActivity(travelActivity);
         assertEquals("visit museum", travelActivityList.getDescription("visit museum"));
         //delete the plan
-        travelActivityList.removeTravelActivity(1);
+        travelActivityList.removeTravelActivity("1");
         assertEquals("cant be found", travelActivityList.getDescription("visit museum"));
     }
 
@@ -114,7 +114,7 @@ class OmniTravelTest {
         //check number of activities
         assertEquals(3, travelActivityList.getNoOfTravelActivities());
         //delete the first plan
-        travelActivityList.removeTravelActivity(1);
+        travelActivityList.removeTravelActivity("1");
         assertEquals("cant be found", travelActivityList.getDescription("visit museum"));
         //check number of activities
         assertEquals(2, travelActivityList.getNoOfTravelActivities());

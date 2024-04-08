@@ -65,24 +65,41 @@ public class TravelActivityList {
     public int getNoOfTravelActivities(){
         return noOfActivities;
     }
+
     /**
      * Removes travel activity from the travel activity list
-     * @param activityNumber The travel activity number on the list
+     * @param activityNumber The travel activity index number or description on the list
      */
-    public void removeTravelActivity(int activityNumber) throws OmniException {
-        assert activityNumber != 0  :"There is not activities in the list";
-        if(activityNumber > travelActivities.size() || (activityNumber <= 0)){
-            throw new OmniException("Travel activity cannot be found!");
+    public void removeTravelActivity(String activityNumber) throws OmniException {
+        try {
+            assert Integer.parseInt(activityNumber) != 0 : "There is not activities in the list";
+            int indexOfActivity = Integer.parseInt(activityNumber) - 1;
+            int initialListSize = noOfActivities;
+            TravelActivity removedActivity = travelActivities.get(indexOfActivity);
+            travelActivities.remove(indexOfActivity);
+            System.out.println("I have removed this activity:");
+            System.out.println(removedActivity);
+            noOfActivities -= 1;
+            int newSize = noOfActivities;
+            assert newSize == initialListSize - 1 : "There is an error with list size!";
+        } catch (NumberFormatException e) {
+            int foundCounter = 0;
+            for (int iterator = 0; iterator < travelActivities.size(); iterator += 1) {
+                if (travelActivities.get(iterator).getPlan().toLowerCase().contains(activityNumber.toLowerCase())) {
+                    if (foundCounter == 0) {
+                        System.out.println("I have removed this activity:");
+                    }
+                    System.out.println(Integer.toString(foundCounter + 1) + ". " + travelActivities.get(iterator));
+                    travelActivities.remove(iterator);
+                    noOfActivities -= 1;
+                    foundCounter += 1;
+                    assert noOfActivities >= 0 : "There is an error with list size!";
+                }
+            }
+            if (foundCounter == 0) {
+                System.out.println("Travel activity cannot be found!");
+            }
         }
-        int indexOfActivity = activityNumber - 1;
-        int initialListSize = noOfActivities;
-        TravelActivity removedActivity = travelActivities.get(indexOfActivity);
-        travelActivities.remove(indexOfActivity);
-        System.out.println("I have removed this activity:");
-        System.out.println(removedActivity);
-        noOfActivities-=1;
-        int newSize = noOfActivities;
-        assert newSize == initialListSize - 1 :"There is an error with list size!";
     }
 
     /**
