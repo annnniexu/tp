@@ -81,6 +81,7 @@ public class FileSave {
                     + " / " + travelActivity.getDuration()
                     + " / " + travelActivity.getTag()
                     + " / " + travelActivity.getExpense()
+                    + " / " + travelActivity.getLocation()
                     + System.lineSeparator());
         }
         fw.close();
