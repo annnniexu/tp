@@ -157,7 +157,7 @@ public class CheckParameters {
      * @param input Input line that users placed into the chatbot
      * @throws OmniException if the input contains any non-ASCII characters
      */
-    public static void ASCIICheck(String input) throws OmniException {
+    public static void asciiCheck(String input) throws OmniException {
         for (int i = 0; i < input.length(); i++) {
             char c = input.charAt(i);
             if (c < 32 || c > 126) {
