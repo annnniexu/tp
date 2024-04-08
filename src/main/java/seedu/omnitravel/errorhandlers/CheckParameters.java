@@ -1,12 +1,9 @@
 package seedu.omnitravel.errorhandlers;
 
 import seedu.omnitravel.ui.Ui;
-
 import java.io.IOException;
 import java.time.DateTimeException;
 import java.util.NoSuchElementException;
-
-
 
 public class CheckParameters {
 

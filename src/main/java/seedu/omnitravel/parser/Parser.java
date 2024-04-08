@@ -363,7 +363,6 @@ public class Parser {
             System.out.println("Website might be down!");
         }
         Ui.printLine();
-
     }
 
     /**
