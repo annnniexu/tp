@@ -434,4 +434,33 @@ class OmniTravelTest {
         Parser.totalExpenseCommand("totalexpense", list);
     }
 
+    @Test
+    public void testLocation() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(new TravelActivity("visit museum",
+                LocalDate.parse("2019-05-12"),"2hours", "Sightseeing",
+                 "$50"));
+        assertEquals("visit museum", list.getDescription("visit museum"));
+        // Adding a location an existing task
+        list.locationActivity(1, "Singapore");
+        TravelActivity travelActivity = list.getTravelActivities().get(0);
+        assertEquals("Singapore", travelActivity.getLocation());
+    }
+
+    @Test
+    public void testRemoveLocation() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(new TravelActivity("visit museum",
+                LocalDate.parse("2019-05-12"),"2hours", "Sightseeing",
+                "$100"));
+        assertEquals("visit museum", list.getDescription("visit museum"));
+        // Adding a location an existing task
+        list.locationActivity(1, "Singapore");
+        TravelActivity travelActivity = list.getTravelActivities().get(0);
+        assertEquals("Singapore", travelActivity.getLocation());
+        // Remove an existing location
+        list.removeLocation(1);
+        assertEquals("visit museum", list.getDescription("visit museum"));
+    }
+
 }
