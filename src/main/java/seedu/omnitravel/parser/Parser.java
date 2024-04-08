@@ -204,9 +204,15 @@ public class Parser {
      */
     public static void updateCommand(String line, TravelActivityList list) throws OmniException {
         String[] command = line.split("update | /date | /duration | /tag ");
-        CheckParameters.updateExceptions(command);
+        CheckParameters.updateExceptions(command, line);
         String tag = (line.contains("/tag") && command.length == 5)? command[4].trim() : "";
-        list.updateTravelActivity(Integer.parseInt(command[1]), LocalDate.parse(command[2]), command[3].trim(),
+        LocalDate date = LocalDate.parse(command[2]);
+        if(date.isBefore(LocalDate.now())){
+            throw new OmniException("Please input a future date.");
+        }
+        String duration = command[3].trim();
+        CheckParameters.containsWords(duration);
+        list.updateTravelActivity(Integer.parseInt(command[1]), date, duration,
                 tag);
     }
 

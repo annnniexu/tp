@@ -86,6 +86,8 @@ public class OmniTravel {
             } catch (OmniException | NoSuchElementException | NumberFormatException | DateTimeException
                      | IOException exception ) {
                 CheckParameters.handleException(exception);
+            } catch (Exception exception){
+                System.out.println("STOP IT");
             }
         }
     }
