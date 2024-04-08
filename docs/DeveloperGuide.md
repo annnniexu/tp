@@ -307,6 +307,33 @@ The instructions given below are used for testing the app manually.
 
        Expected: All the tags currently in the list will be shown in a list in alphabetical order
 
+### Checking a travel activity
+1. Checking a travel activity currently in the list
+    1. Prerequisites: List all the travel activities using the `list` command.
+   
+    2. Test case: `check 1`
+
+       Expected: The first activity will be marked with an "X" and the details of the activity will be shown
+   
+2. Checking a travel activity not in the list
+    1. Test case: `check 0`
+
+        Expected: No activity will be marked and an error will be shown
+
+### Unchecking a travel activity
+1. Unchecking a checked travel activity in the list
+    1. Prerequisites: List all the travel activities using the `list` command.
+
+    2. Test case: `uncheck 1`
+
+       Expected: The first activity will be unmarked and the details of the activity will be shown
+
+2. Unchecking a travel activity not in the list
+    1. Test case: `uncheck 0`
+   
+       Expected: No activity will be unmarked and an error message will be shown
+
+
 ### Show help
 1. Shows all the commands the user can input
     1. Test case: `help`
