@@ -1,14 +1,2 @@
-accommodation / 0 / nus rvrc / 2024-04-04 / 2 days / test / $50
-accommodation / 0 / nus pgpr / 2025-10-12 / 5 years / campus stay / 
-accommodation / 0 / nus utr / 2025-09-12 / 5 years / campus stay / 
-landmark / 0 / berlin wall / 2027-12-15 / 5 hours / historic site / 
-landmark / 0 / utown / 2028-08-14 / 10 hours / recreational centre / 
-landmark / 0 / supper stretch / 2027-08-18 / 2 hours / tourist hotspot / 
-food / 0 / utown mala / 2028-06-19 / 2 hours / spicy / 
-food / 0 / pgpr mala / 2026-07-07 / 1 hours / spicy / 
-food / 0 / pgpr waffle / 2026-03-09 / 0.5 hours / non-spicy / 
-general / 0 / esplanade  / 2026-03-19 / 3 hours / concert / 
-general / 0 / merlion  / 2026-04-07 / 2 hours / sightseeing / 
-general / 0 / chinatown  / 2025-02-21 / 5 hours / sightseeing / 
-accommodation / 0 / description / 2024-10-04 / 2 days / test / 
-
+landmark / 0 / berlin wall / 2027-12-15 / 5 hours / historic site /  / null
+landmark / 0 / supper stretch / 2027-08-18 / 2 hours / tourist hotspot /  / null

@@ -57,7 +57,7 @@ public class Ui {
         System.out.println("Warning! " + exception.getMessage() + " number too large!");
         printLine();
     }
-
+    //@@author ChenKangg
     public static void helpCommand(){
         printLine();
         System.out.println("These are the available commands!");
@@ -88,7 +88,7 @@ public class Ui {
                 "23. findlocation <location>\n");
         printLine();
     }
-
+    //@@author ChenKangg
     public static void printDateTimeExceptionError(){
         System.out.println("Invalid date, please input the date in the following order: YYYY-MM-DD");
     }
