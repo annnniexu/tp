@@ -18,7 +18,7 @@ public class Parser {
 
     private static Logger logger = Logger.getLogger("ParserLogger");
 
-
+    //@@author ChinYanXu
     /**
      * Obtains the list of travel activities
      *
@@ -34,7 +34,7 @@ public class Parser {
         }
         Ui.printLine();
     }
-
+    //@@author ChinYanXu
     /**
      * Handles the case where the add command is given as input
      *
@@ -115,14 +115,14 @@ public class Parser {
      * @throws OmniException if command.length != 2 && command[1] is not numeric
      */
     public static void deleteCommand(String[] command, TravelActivityList list) throws OmniException {
-        if (command.length == 2 && CheckParameters.isNumeric(command[1])){
-            int listNumber = Integer.parseInt(command[1]);
-            list.removeTravelActivity(listNumber);
+        if (command.length == 2){
+            list.removeTravelActivity(command[1]);
         } else {
-            throw new OmniException("Please specify which activity index to delete");
+            throw new OmniException("Please specify which activity index or description to delete");
         }
     }
     //@@author ChinYanXu
+
     //@@author annnniexu
     /**
      * Handles the case where the check command is given as input
