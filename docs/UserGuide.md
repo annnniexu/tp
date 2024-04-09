@@ -41,71 +41,7 @@ ____________________________________________________________
 > * Words that are in square brackets such as `[/tag TAG]` indicates that it is
 > optional to include in the command.
 > * Users should not use any `/` into their input descriptions unless using for input command format
- 
 
-
-### Display Commands : `help`
-Displays the features of OmniTravel
-
-Format: `help`
-
-Example of usage:
-
-`help`
-
-Expected outcome:
-```
-____________________________________________________________
-These are the available commands!
-
-1. list: List out the current list
-Format: `list`
-2. help: Get all commands for the chatbot
-Format: `help`
-3. bye: Exit the chatbot
-Format: `bye`
-4. add <travel activity> <date> <duration> <tag>
-Format: `add DESCRIPTION /date YYYY-MM-DD /duration DURATION [/tag TAG]`
-5. accommodation <travel activity> <date> <duration> <tag>
-Format: `accommodation DESCRIPTION /date YYYY-MM-DD /duration DURATION [/tag TAG]`
-6. food <travel activity> <date> <duration> <tag>
-Format: `food DESCRIPTION /date YYYY-MM-DD /duration DURATION [/tag TAG]`
-7. landmark <travel activity> <date> <duration> <tag>
-Format: `landmark DESCRIPTION /date YYYY-MM-DD /duration DURATION [/tag TAG]`
-8. delete <activity number>
-Format: `delete INDEX`
-9. find <keyword>
-Format: `find DESCRIPTION`
-10. check <activity number>
-Format: `check INDEX`
-11. uncheck <activity number>
-Format: `uncheck INDEX`
-12. tag <activity number> <tag name>
-Format: `tag INDEX TAGNAME`
-13. untag <activity number>
-Format: `untag INDEX`
-14. update <update> <date> <duration> <tag>
-Format: `update INDEX /date YYYY-MM-DD /duration DURATION [/tag TAG]`
-15. findtag <tag name>
-Format: `findtag TAG`
-16. findtype <type>
-Format: `findtype TYPE`
-17. expense <activity number> <expense amount>
-Format: `expense INDEX EXPENSE`
-18. removeexpense <activity number>
-Format: `removeexpense INDEX`
-19. totalexpense <type>
-Format: `totalexpense [/type TYPE]`
-20. change <amount> /from <current currency> /to <changed currency>
-Format: `change AMOUNT /from CODE /to CODE`
-21. location <activity number> <location>
-Format: `location INDEX LOCATION`
-22. removelocation <activity number>
-Format: `removelocation INDEX`
-23. findlocation <location>
-Format: `findlocation LOCATION`
-____________________________________________________________
-```
 
 ### Adding a general travel activity : `add`
 Adds a general travel activity into the travel activity list
