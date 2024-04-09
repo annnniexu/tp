@@ -1,12 +1,9 @@
 package seedu.omnitravel.errorhandlers;
 
 import seedu.omnitravel.ui.Ui;
-
 import java.io.IOException;
 import java.time.DateTimeException;
 import java.util.NoSuchElementException;
-
-
 
 public class CheckParameters {
 
@@ -33,8 +30,6 @@ public class CheckParameters {
                     "/date YYYY-MM-DD /duration DURATION"
                     + " or add DESCRIPTION /date YYYY-MM-DD /duration DURATION /tag TAG");
         }
-
-
     }
 
     /**
@@ -43,7 +38,8 @@ public class CheckParameters {
      * @param command Command array that users placed into the chatbot
      * @throws OmniException when any of the corresponding input format is wrong
      */
-    public static void updateExceptions(String[] command) throws OmniException {
+    public static void updateExceptions(String[] command, String line) throws OmniException {
+        String[] lineSplit = line.split("/");
         if (command.length >= 4 && (command[1].isBlank() || !isNumeric(command[1]))) {
             throw new OmniException("The update index cannot be empty or non numerical!");
         } else if (command.length >= 4 && command[2].isBlank()) {
@@ -52,7 +48,8 @@ public class CheckParameters {
             throw new OmniException("The duration cannot be empty!");
         } else if(command.length >= 5 && command[4].isBlank()){
             throw new OmniException("The tag cannot be empty!");
-        } else if (command.length < 4 || command[3].contains("/tag")) {
+        } else if (command.length < 4 || command[3].contains("/tag") || !lineSplit[1].contains("date")
+                || !lineSplit[2].contains("duration")) {
             throw new OmniException("Please check that your update command is in this format: update INDEX " +
                     "/date YYYY-MM-DD /duration DURATION"
                     + " or update INDEX /date YYYY-MM-DD /duration DURATION /tag TAG");
@@ -66,9 +63,10 @@ public class CheckParameters {
     public static void containsWords(String input) throws OmniException{
         String[] inputSplit = input.split(" ");
         if (inputSplit.length == 2){
-            String[] durationKeyWords = {"day", "week", "month", "year", "hour", "minute", "second"};
+            String[] durationKeyWords = {"day", "week", "month", "year", "hour", "minute", "second"
+                                        ,"days", "weeks", "months", "years", "hours", "minutes", "seconds"};
             for(String word:durationKeyWords){
-                if(input.contains(word)){
+                if(inputSplit[1].equalsIgnoreCase(word)){
                     return;
                 }
             }
@@ -150,6 +148,21 @@ public class CheckParameters {
             Ui.printSavingError();
         } else if (exception instanceof InterruptedException) {
             Ui.printInterruptedError();
+        }
+    }
+
+    /**
+     * Checks the input that the users placed into the chatbot and checks if the input contains any ASCII characters.
+     *
+     * @param input Input line that users placed into the chatbot
+     * @throws OmniException if the input contains any non-ASCII characters
+     */
+    public static void asciiCheck(String input) throws OmniException {
+        for (int i = 0; i < input.length(); i++) {
+            char c = input.charAt(i);
+            if (c < 32 || c > 126) {
+                throw new OmniException("Input contains non-ASCII characters.");
+            }
         }
     }
 }

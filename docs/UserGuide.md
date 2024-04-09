@@ -59,6 +59,7 @@ Expected outcome:
 
 ### Adding a general travel activity : `add`
 Adds a general travel activity into the travel activity list
+* This is for activities that do not fall under the other activity types. EG. visiting a country.
 
 Format: `add DESCRIPTION /date YYYY-MM-DD /duration DURATION [/tag TAG]`
 
@@ -449,6 +450,61 @@ ____________________________________________________________
 ____________________________________________________________
 ```
 
+### Adding a location: `location`
+Adds a location to an existing travel activity.
+
+Format: `location INDEX LOCATION`
+
+* The `INDEX` must be a valid activity index
+*
+Example of usage:
+
+`location 3 Singapore`
+
+Expected outcome:
+```
+____________________________________________________________
+I have added a location to this task:
+Go to Japan  :14 Dec 2026 :2 hours (Japan)
+____________________________________________________________
+```
+
+### Removing a location amount: `removelocation`
+Removes a location to an existing travel activity.
+
+Format: `removelocation INDEX`
+
+* The `INDEX` must be a valid activity index.
+
+Example of usage:
+
+`removelocation 3`
+
+Expected outcome:
+```
+____________________________________________________________
+Location removed from the task:
+Go to Japan  :14 Dec 2026 :2 hours
+____________________________________________________________
+```
+
+### Find activity from the list using activity location: `findlocation`
+
+Find an activity based on their location. All activities with the given location will be listed out.
+
+Format: `findlocation LOCATION`
+* `LOCATION` has to match the activity location exactly to find the activity
+
+Examples of usage: `findlocation Japan`
+
+Expected outcome:
+```
+____________________________________________________________
+Here are what you are looking for:
+[ ] 1. General: Go to Japan  :14 Dec 2026 :2 hours (Japan)
+____________________________________________________________
+```
+
 Common currency codes:
 * USA: USD
 * EURO: EUR
@@ -491,3 +547,6 @@ same location of your other computer to transfer all the activities.
 * Remove expense `removeexpense INDEX`
 * Total expense `totalexpense [/type TYPE]`
 * Check currency exchange `change AMOUNT /from CODE /to CODE`
+* Add location `location INDEX LOCATION`
+* Remove location `removelocation INDEX`
+* Find location `findlocation LOCATION`
