@@ -12,7 +12,6 @@ import seedu.omnitravel.ui.Ui;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Parser {
@@ -219,11 +218,17 @@ public class Parser {
      */
 
     public static void findTagCommand(String line, TravelActivityList list) throws OmniException {
-        String[] command = line.split("findtag");
-        if (command.length > 1) {
-            list.findTag(command[1].trim());
+        String[] command = line.split("findtag | /exclude");
+        if (command.length == 2 && !command[1].isBlank() && !line.contains("/exclude")) {
+            String keyword = command[1].trim();
+            list.findTag(keyword);
+        } else if (command.length == 3 && !command[1].isBlank() && !command[2].isBlank()) {
+            String keyword = command[1].trim();
+            String exclusion = command[2].trim();
+            list.findTag(keyword, exclusion);
         } else {
-            throw new OmniException("Please check that your update command is in this format: findtag <tag>");
+            throw new OmniException("Please check that your find tag command is in this format: + " +
+                    "findtag <description> " + "or findtag <description> /exclude <exclusion>");
         }
     }
 
@@ -236,13 +241,17 @@ public class Parser {
      */
 
     public static void findTypeCommand(String line, TravelActivityList list) throws OmniException {
-        String[] command = line.split("findtype");
-        if (command.length < 1) {
-            throw new OmniException("Please check that your find type command is in this format: findtype <type>");
-        } else if (command[1].trim().equalsIgnoreCase("general")){
-            list.findType("TravelActivity");
+        String[] command = line.split("findtype | /exclude");
+        if (command.length == 2 && !command[1].isBlank() && !line.contains("/exclude")) {
+            String keyword = command[1].trim();
+            list.findType(keyword);
+        } else if (command.length == 3 && !command[1].isBlank() && !command[2].isBlank()) {
+            String keyword = command[1].trim();
+            String exclusion = command[2].trim();
+            list.findType(keyword, exclusion);
         } else {
-            list.findType(command[1].trim());
+            throw new OmniException("Please check that your find type command is in this format: + " +
+                    "findtype <description> " + "or findtype <description> /exclude <exclusion>");
         }
     }
 
@@ -255,7 +264,6 @@ public class Parser {
      */
     public static void findCommand(String line, TravelActivityList list) throws OmniException {
         String[] command = line.split("find | /exclude");
-        logger.log(Level.INFO,  String.valueOf(command.length));
         if (command.length == 2 && !command[1].isBlank() && !line.contains("/exclude")) {
             String keyword = command[1].trim();
             list.searchKeyword(keyword);
@@ -264,7 +272,7 @@ public class Parser {
             String exclusion = command[2].trim();
             list.searchKeyword(keyword, exclusion);
         } else {
-            throw new OmniException("Please check that your find type command is in this format: + " +
+            throw new OmniException("Please check that your find command is in this format: + " +
                     "find <description> " + "or find <description> /exclude <exclusion>");
         }
     }

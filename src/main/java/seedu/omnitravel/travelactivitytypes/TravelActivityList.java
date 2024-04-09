@@ -143,6 +143,13 @@ public class TravelActivityList {
         }
     }
 
+    /**
+     * Overloaded version of searchKeyword function to enable user to exclude certain activities from their search
+     *
+     * @param activityName The description of tasks that the user wants to find
+     * @param exclusion The keyword that the user uses to remove unwanted results from the search
+     */
+
     public void searchKeyword (String activityName, String exclusion) {
         int foundCounter = 0;
         for (TravelActivity travelActivity : travelActivities) {
@@ -302,6 +309,31 @@ public class TravelActivityList {
     }
 
     /**
+     * Overloaded version of findtag function to enable user to exclude certain activities from their search
+     *
+     * @param tag The tag of tasks that the user wants to find
+     * @param exclude The keyword that the user uses to remove unwanted results from the search
+     */
+
+    public void findTag(String tag, String exclude){
+        int foundCounter = 0;
+        for (TravelActivity travelActivity : travelActivities) {
+            assert !(foundCounter > travelActivities.size()) : "Error: There is more activities found than possible";
+            if (travelActivity.getTag().contains(tag) && !travelActivity.getTag().isEmpty() &&
+                    !travelActivity.getPlan().contains(exclude)) {
+                foundCounter += 1;
+                if (foundCounter == 1) {
+                    System.out.println("Here are what you are looking for:");
+                }
+                Ui.printActivity(travelActivity, foundCounter);
+            }
+        }
+        if (foundCounter == 0) {
+            System.out.println("Sorry I could not find what you are looking for.");
+        }
+    }
+
+    /**
      * Find all the tasks of a particular type and prints them out
      *
      * @param type The type of tasks that the user wants to find
@@ -313,6 +345,30 @@ public class TravelActivityList {
         for (TravelActivity activity: travelActivities){
             assert !(foundCounter > travelActivities.size()) : "Error: There is more activities found than possible";
             if(activity.getClass().getSimpleName().equalsIgnoreCase(type)){
+                foundCounter += 1;
+                if (foundCounter == 1) {
+                    System.out.println("Here are what you are looking for:");
+                }
+                Ui.printActivity(activity, foundCounter);
+            }
+        }
+        if (foundCounter == 0) {
+            System.out.println("Sorry I could not find what you are looking for.");
+        }
+    }
+
+    /**
+     * Overloaded version of findtype to enable user to exclude certain activities from their search
+     *
+     * @param type The type of tasks that the user wants to find
+     * @param exclude The keyword that the user uses to remove unwanted results from the search
+     */
+    public void findType(String type, String exclude){
+        int foundCounter = 0;
+
+        for (TravelActivity activity: travelActivities){
+            assert !(foundCounter > travelActivities.size()) : "Error: There is more activities found than possible";
+            if(activity.getClass().getSimpleName().equalsIgnoreCase(type) && !activity.getPlan().contains(exclude)){
                 foundCounter += 1;
                 if (foundCounter == 1) {
                     System.out.println("Here are what you are looking for:");
