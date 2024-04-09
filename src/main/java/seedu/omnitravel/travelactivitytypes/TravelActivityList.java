@@ -70,35 +70,37 @@ public class TravelActivityList {
      * Removes travel activity from the travel activity list
      * @param activityNumber The travel activity index number or description on the list
      */
-    public void removeTravelActivity(String activityNumber) throws OmniException {
-        try {
-            assert Integer.parseInt(activityNumber) != 0 : "There is not activities in the list";
-            int indexOfActivity = Integer.parseInt(activityNumber) - 1;
-            int initialListSize = noOfActivities;
-            TravelActivity removedActivity = travelActivities.get(indexOfActivity);
-            travelActivities.remove(indexOfActivity);
-            System.out.println("I have removed this activity:");
-            System.out.println(removedActivity);
-            noOfActivities -= 1;
-            int newSize = noOfActivities;
-            assert newSize == initialListSize - 1 : "There is an error with list size!";
-        } catch (NumberFormatException e) {
-            int foundCounter = 0;
-            for (int iterator = 0; iterator < travelActivities.size(); iterator += 1) {
-                if (travelActivities.get(iterator).getPlan().toLowerCase().contains(activityNumber.toLowerCase())) {
-                    if (foundCounter == 0) {
-                        System.out.println("I have removed this activity:");
-                    }
-                    System.out.println(Integer.toString(foundCounter + 1) + ". " + travelActivities.get(iterator));
-                    travelActivities.remove(iterator);
-                    noOfActivities -= 1;
-                    foundCounter += 1;
-                    assert noOfActivities >= 0 : "There is an error with list size!";
+    public void removeTravelActivity(int activityNumber) throws OmniException {
+
+        assert activityNumber != 0 : "There is not activities in the list";
+        int indexOfActivity = activityNumber - 1;
+        int initialListSize = noOfActivities;
+        TravelActivity removedActivity = travelActivities.get(indexOfActivity);
+        travelActivities.remove(indexOfActivity);
+        System.out.println("I have removed this activity:");
+        System.out.println("1. " + removedActivity);
+        noOfActivities -= 1;
+        int newSize = noOfActivities;
+        assert newSize == initialListSize - 1 : "There is an error with list size!";
+    }
+
+    public void removeTravelActivity(String activity) throws OmniException {
+        int foundCounter = 0;
+        for (int iterator = 0; iterator < travelActivities.size(); iterator += 1) {
+            if (travelActivities.get(iterator).getPlan().toLowerCase().contains(activity.toLowerCase())) {
+                if (foundCounter == 0) {
+                    System.out.println("I have removed this activity:");
                 }
+                System.out.println(Integer.toString(foundCounter + 1) + ". " + travelActivities.get(iterator));
+                travelActivities.remove(iterator);
+                iterator -= 1;
+                noOfActivities -= 1;
+                foundCounter += 1;
+                assert noOfActivities >= 0 : "There is an error with list size!";
             }
-            if (foundCounter == 0) {
-                System.out.println("Travel activity cannot be found!");
-            }
+        }
+        if (foundCounter == 0) {
+            System.out.println("Can't find any related activity to remove");
         }
     }
 
