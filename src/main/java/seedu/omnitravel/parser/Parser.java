@@ -106,7 +106,7 @@ public class Parser {
         System.out.println(newActivity);
         Ui.printLine();
     }
-
+    //@@author ChinYanXu
     /**
      * Handles the case where the delete command is given as input
      *
@@ -122,7 +122,8 @@ public class Parser {
             throw new OmniException("Please specify which activity index to delete");
         }
     }
-
+    //@@author ChinYanXu
+    //@@author annnniexu
     /**
      * Handles the case where the check command is given as input
      *
@@ -155,6 +156,7 @@ public class Parser {
             throw new OmniException("Please specify which activity to uncheck");
         }
     }
+    //@@author annnniexu
 
     /**
      * Handles the case where the tag command is given as input
@@ -329,7 +331,7 @@ public class Parser {
             list.totalExpense(command[1].trim());
         }
     }
-
+    //@@author ChinYanXu
     /**
      * Handles the case whereby the command is listtags
      * @param command The command given by the user
@@ -346,6 +348,7 @@ public class Parser {
         }
         Ui.printLine();
     }
+    //@@author ChinYanXu
 
     /**
      * Handles the case whereby the command is change
