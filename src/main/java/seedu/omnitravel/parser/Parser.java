@@ -18,7 +18,7 @@ public class Parser {
 
     private static Logger logger = Logger.getLogger("ParserLogger");
 
-
+    //@@author ChinYanXu
     /**
      * Obtains the list of travel activities
      *
@@ -34,7 +34,7 @@ public class Parser {
         }
         Ui.printLine();
     }
-
+    //@@author ChinYanXu
     /**
      * Handles the case where the add command is given as input
      *
@@ -106,7 +106,7 @@ public class Parser {
         System.out.println(newActivity);
         Ui.printLine();
     }
-
+    //@@author ChinYanXu
     /**
      * Handles the case where the delete command is given as input
      *
@@ -122,7 +122,7 @@ public class Parser {
             throw new OmniException("Please specify which activity index to delete");
         }
     }
-
+    //@@author ChinYanXu
     /**
      * Handles the case where the check command is given as input
      *
