@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class FileSave {
+    //@@author EugeneChanJiajun
     private static Logger logger = Logger.getLogger("LoadFileLogger");
     private static String filePath;
 
@@ -81,7 +82,6 @@ public class FileSave {
                     + " / " + travelActivity.getDuration()
                     + " / " + travelActivity.getTag()
                     + " / " + travelActivity.getExpense()
-                    + " / " + travelActivity.getLocation()
                     + System.lineSeparator());
         }
         fw.close();
