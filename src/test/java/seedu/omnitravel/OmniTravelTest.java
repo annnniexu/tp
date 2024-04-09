@@ -452,12 +452,11 @@ class OmniTravelTest {
     public void testUpdateCommand() throws OmniException {
         TravelActivityList list = initialiseTestTravelActivityList();
         list.addTravelActivity(accommodationNew1);
-        // Test with valid input
         Parser.updateCommand("update 1 /date 2025-04-04 /duration 2 days /tag test", list);
-        String expectedOutput7 = "I have updated this task" + System.lineSeparator() +
-                "from: Accommodation: nus rvrc :12 Dec 2025 :5 years (campus stay) (campus stay)" +
-                System.lineSeparator() +
-                "to: Accommodation: nus rvrc :4 Apr 2025 :2 days (test) (test)";
+        String expectedOutput7 = "I have updated this task\n" +
+                "from: Accommodation: nus rvrc :12 Dec 2025 :5 years (campus stay) (campus stay)\n" +
+                "to: Accommodation: nus rvrc :4 Apr 2025 :2 days (test) (test)"  + System.lineSeparator();
+        assertEquals(capturedOutputStream.toString(), expectedOutput7);
     }
 
     @Test
@@ -469,7 +468,6 @@ class OmniTravelTest {
                     "[ ] 2. General: chinatown :21 Feb 2025 :5 hours (sightseeing)" + System.lineSeparator();
             Parser.findTagCommand("findtag sightseeing", travelActivityListNew);
             assertEquals(capturedOutputStream.toString(), findExpectedOutput2);
-
         } catch (OmniException exception) {
             Ui.printException(exception);
         }
@@ -482,7 +480,6 @@ class OmniTravelTest {
                     "[ ] 1. General: chinatown :21 Feb 2025 :5 hours (sightseeing)" + System.lineSeparator();
             Parser.findTagCommand("findtag sightseeing /exclude merlion", travelActivityListNew);
             assertEquals(capturedOutputStream.toString(), findExpectedOutput2);
-
         } catch (OmniException exception) {
             Ui.printException(exception);
         }
@@ -512,9 +509,10 @@ class OmniTravelTest {
     public void testExpenseCommand() throws OmniException {
         TravelActivityList list = new TravelActivityList();
         list.addTravelActivity(accommodationNew1);
-        String input = "expense 1 $50";
-        String ex;
-        Parser.expenseCommand(input, list);
+        String expectedOutput4 = "I have added expense for this task:" + System.lineSeparator() +
+                "Accommodation: nus rvrc :12 Dec 2025 :5 years (campus stay) ($50)" + System.lineSeparator();
+        Parser.expenseCommand("expense 1 $50", list);
+        assertEquals(capturedOutputStream.toString(), expectedOutput4);
     }
 
     @Test
@@ -523,7 +521,12 @@ class OmniTravelTest {
         list.addTravelActivity(accommodationNew1);
         Parser.expenseCommand("expense 1 $50", list);
         String[] input = {"removeExpense", "1"};
+        String expectedOutput5 = "I have added expense for this task:" + System.lineSeparator() +
+                "Accommodation: nus rvrc :12 Dec 2025 :5 years (campus stay) ($50)" + System.lineSeparator() +
+                "Expense removed from the task:" + System.lineSeparator() +
+                "Accommodation: nus rvrc :12 Dec 2025 :5 years (campus stay)" + System.lineSeparator();
         Parser.removeExpenseCommand(input, list);
+        assertEquals(capturedOutputStream.toString(), expectedOutput5);
     }
     @Test
     public void testFindCommandWithoutExclusion() throws OmniException {
@@ -553,8 +556,9 @@ class OmniTravelTest {
     @Test
     public void testTotalExpenseCommand() throws OmniException {
         TravelActivityList list = new TravelActivityList();
-        // Test with valid input
+        String input = "The total expense for all travel activities is: $0.0" + System.lineSeparator();
         Parser.totalExpenseCommand("totalexpense", list);
+        assertEquals(capturedOutputStream.toString(), input);
     }
 
 }
