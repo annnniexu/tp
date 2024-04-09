@@ -66,6 +66,7 @@ public class TravelActivityList {
         return noOfActivities;
     }
 
+    //@@author ChinYanXu
     /**
      * Removes travel activity from the travel activity list
      * @param activityNumber The travel activity index number or description on the list
@@ -83,6 +84,7 @@ public class TravelActivityList {
             int newSize = noOfActivities;
             assert newSize == initialListSize - 1 : "There is an error with list size!";
         } catch (NumberFormatException e) {
+            /*
             int foundCounter = 0;
             for (int iterator = 0; iterator < travelActivities.size(); iterator += 1) {
                 if (travelActivities.get(iterator).getPlan().toLowerCase().contains(activityNumber.toLowerCase())) {
@@ -91,17 +93,24 @@ public class TravelActivityList {
                     }
                     System.out.println(Integer.toString(foundCounter + 1) + ". " + travelActivities.get(iterator));
                     travelActivities.remove(iterator);
-                    noOfActivities -= 1;
                     foundCounter += 1;
                     assert noOfActivities >= 0 : "There is an error with list size!";
                 }
             }
+            noOfActivities -= foundCounter;
             if (foundCounter == 0) {
                 System.out.println("Travel activity cannot be found!");
+            }*/
+            ArrayList<TravelActivity> found = new ArrayList<>();
+            for (TravelActivity activity: travelActivities){
+                if (activity.getPlan().toLowerCase().contains(activityNumber)){
+                    found.add(activity);
+                }
             }
+            travelActivities.removeAll(found);
         }
     }
-
+    //@@author ChinYanXu
     /**
      * Obtains the description of the plan that we are looking for from the travel activity list
      *
