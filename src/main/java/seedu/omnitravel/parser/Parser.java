@@ -15,10 +15,7 @@ import java.util.Arrays;
 import java.util.logging.Logger;
 
 public class Parser {
-
     private static Logger logger = Logger.getLogger("ParserLogger");
-
-
     /**
      * Obtains the list of travel activities
      *
