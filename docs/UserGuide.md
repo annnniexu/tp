@@ -17,7 +17,7 @@ list via a Command Line Interface**.
 
 5. Use the java -jar omni.jar command to run the application.
 
-6. A GUI similar to the below should appear in a few seconds.
+6. A welcome message similar to the one below should appear in a few seconds.
 ```
 No existing database found! Creating a new save file for you!
 ____________________________________________________________
@@ -179,17 +179,26 @@ ____________________________________________________________
 ### Deleting a travel activity : `delete`
 Deletes a travel activity from the travel activity list
 
-Format: `delete INDEX`
-* `INDEX` has to be a number that is shown in the list of travel activities
+Format: `delete ACTIVITY`
+* `ACTIVITY` can be an index of an activity or a keyword found in the description of an activity in the list of travel 
+* activities. If the user writes a number only the activity in that particular index on the list gets deleted. 
+* If the user writes a keyword then every activity with that keyword in its description gets deleted.
 
 Examples of usage: 
 * `delete 1`
+* `delete Eiffel`
 
 Expected output:
 ```
 ____________________________________________________________
 I have removed this activity:
 Accommodation: Four Seasons Hotel :14 Mar 2025 :2 days
+____________________________________________________________
+```
+```
+____________________________________________________________
+I have removed this activity:
+1. Landmark: Eiffel Tower :14 Mar 2025 :2 hours (go up tower)
 ____________________________________________________________
 ```
 
