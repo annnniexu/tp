@@ -41,21 +41,7 @@ ____________________________________________________________
 > * Words that are in square brackets such as `[/tag TAG]` indicates that it is
 > optional to include in the command.
 > * Users should not use any `/` into their input descriptions unless using for input command format
- 
 
-
-### Display Commands : `help`
-Displays the features of OmniTravel
-
-Format: `help`
-
-Example of usage:
-
-`help`
-
-Expected outcome:
-
-{chenkang to include}
 
 ### Adding a general travel activity : `add`
 Adds a general travel activity into the travel activity list
@@ -281,7 +267,8 @@ ____________________________________________________________
 ```
 
 ### Adding a tag: `tag`
-Adds a new tag to an existing travel activity.
+Adds a new tag to an existing travel activity. The tag can be a short description to help a user better organise 
+their travel activities. 
 
 Format: `tag INDEX TAGNAME`
 

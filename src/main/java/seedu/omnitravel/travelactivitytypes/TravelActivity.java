@@ -16,8 +16,7 @@ public class TravelActivity {
     private String tag;
     /** Travel activity expense */
     private String expense;
-    /** Travel activity location */
-    private String location;
+
 
 
     public TravelActivity(String description, LocalDate date, String duration, String tag, String expense){
@@ -106,21 +105,6 @@ public class TravelActivity {
         this.expense = "";
     }
 
-    /**
-     * Gets the location of the travel activity
-     * @return The location of the travel activity
-     */
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public void removeLocation() {
-        this.location = "";
-    }
 
 }
 
