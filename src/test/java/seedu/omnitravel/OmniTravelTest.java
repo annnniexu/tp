@@ -454,8 +454,8 @@ class OmniTravelTest {
         list.addTravelActivity(accommodationNew1);
         Parser.updateCommand("update 1 /date 2025-04-04 /duration 2 days /tag test", list);
         String expectedOutput7 = "I have updated this task\n" +
-                "from: Accommodation: nus rvrc :12 Dec 2025 :5 years (campus stay) (campus stay)\n" +
-                "to: Accommodation: nus rvrc :4 Apr 2025 :2 days (test) (test)"  + System.lineSeparator();
+                "from: Accommodation: nus rvrc :12 Dec 2025 :5 years (campus stay)\n" +
+                "to: Accommodation: nus rvrc :4 Apr 2025 :2 days (test)"  + System.lineSeparator();
         assertEquals(capturedOutputStream.toString(), expectedOutput7);
     }
 
