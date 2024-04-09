@@ -29,33 +29,51 @@ import java.util.Arrays;
 class OmniTravelTest {
 
 
-    Accommodation accommodationNew1 = new Accommodation("nus rvrc", LocalDate.parse("2007-12-12"),
+    Accommodation accommodationNew1 = new Accommodation("nus rvrc", LocalDate.parse("2025-12-12"),
             "5 years", "campus stay", "");
-    Accommodation accommodationNew2 = new Accommodation("nus pgpr", LocalDate.parse("2017-10-12"),
+    Accommodation accommodationNew2 = new Accommodation("nus pgpr", LocalDate.parse("2025-10-12"),
             "5 years", "campus stay", "");
-    Accommodation accommodationNew3 = new Accommodation("nus utr", LocalDate.parse("2007-09-12"),
+    Accommodation accommodationNew3 = new Accommodation("nus utr", LocalDate.parse("2025-09-12"),
             "5 years", "campus stay", "");
-    Landmark landmarkNew1 = new Landmark("berlin wall", LocalDate.parse("2009-12-15"), "5 hours",
+    Landmark landmarkNew1 = new Landmark("berlin wall", LocalDate.parse("2027-12-15"), "5 hours",
             "historic site", "");
-    Landmark landmarkNew2 = new Landmark("utown", LocalDate.parse("2016-08-14"), "10 hours",
+    Landmark landmarkNew2 = new Landmark("utown", LocalDate.parse("2028-08-14"), "10 hours",
             "recreational centre", "");
-    Landmark landmarkNew3 = new Landmark("supper stretch", LocalDate.parse("2021-08-18"), "2 hours",
+    Landmark landmarkNew3 = new Landmark("supper stretch", LocalDate.parse("2027-08-18"), "2 hours",
             "tourist hotspot", "");
-    Food foodNew1 = new Food("utown mala", LocalDate.parse("2019-06-19"), "2 hours",
+    Food foodNew1 = new Food("utown mala", LocalDate.parse("2028-06-19"), "2 hours",
             "spicy", "");
-    Food foodNew2 = new Food("pgpr mala", LocalDate.parse("2012-07-07"), "1 hours",
+    Food foodNew2 = new Food("pgpr mala", LocalDate.parse("2026-07-07"), "1 hours",
             "spicy", "");
-    Food foodNew3 = new Food("pgpr waffle", LocalDate.parse("2006-03-09"), "0.5 hours",
+    Food foodNew3 = new Food("pgpr waffle", LocalDate.parse("2026-03-09"), "0.5 hours",
             "non-spicy", "");
-    TravelActivity travelActivityNew1 = new TravelActivity("esplanade", LocalDate.parse("2016-03-19"),
+    TravelActivity travelActivityNew1 = new TravelActivity("esplanade", LocalDate.parse("2026-03-19"),
             "3 hours", "concert", "");
-    TravelActivity travelActivityNew2 = new TravelActivity("merlion", LocalDate.parse("2018-04-07"),
+    TravelActivity travelActivityNew2 = new TravelActivity("merlion", LocalDate.parse("2026-04-07"),
             "2 hours", "sightseeing", "");
-    TravelActivity travelActivityNew3 = new TravelActivity("chinatown", LocalDate.parse("2015-02-21"),
+    TravelActivity travelActivityNew3 = new TravelActivity("chinatown", LocalDate.parse("2025-02-21"),
             "5 hours", "sightseeing", "");
 
     private final PrintStream printedText = System.out;
     private final ByteArrayOutputStream capturedOutputStream = new ByteArrayOutputStream();
+
+
+    public TravelActivityList initialiseTestTravelActivityList() {
+        TravelActivityList travelActivityListNew = new TravelActivityList();
+        travelActivityListNew.addTravelActivity(accommodationNew1);
+        travelActivityListNew.addTravelActivity(accommodationNew2);
+        travelActivityListNew.addTravelActivity(accommodationNew3);
+        travelActivityListNew.addTravelActivity(landmarkNew1);
+        travelActivityListNew.addTravelActivity(landmarkNew2);
+        travelActivityListNew.addTravelActivity(landmarkNew3);
+        travelActivityListNew.addTravelActivity(foodNew1);
+        travelActivityListNew.addTravelActivity(foodNew2);
+        travelActivityListNew.addTravelActivity(foodNew3);
+        travelActivityListNew.addTravelActivity(travelActivityNew1);
+        travelActivityListNew.addTravelActivity(travelActivityNew2);
+        travelActivityListNew.addTravelActivity(travelActivityNew3);
+        return travelActivityListNew;
+    }
 
 
     @BeforeEach
@@ -90,8 +108,14 @@ class OmniTravelTest {
         travelActivityList.addTravelActivity(travelActivity);
         assertEquals("visit museum", travelActivityList.getDescription("visit museum"));
         //delete the plan
-        travelActivityList.removeTravelActivity(1);
+        travelActivityList.removeTravelActivity("1");
         assertEquals("cant be found", travelActivityList.getDescription("visit museum"));
+        //testing the keyword delete enhancement
+        TravelActivity travelActivity2 = new TravelActivity("visit home",
+                LocalDate.parse("2019-12-14"), "5hours", "Sightseeing", "$50");
+        travelActivityList.removeTravelActivity("home");
+        assertEquals("cant be found", travelActivityList.getDescription("visit home"));
+
     }
 
     @Test
@@ -114,7 +138,7 @@ class OmniTravelTest {
         //check number of activities
         assertEquals(3, travelActivityList.getNoOfTravelActivities());
         //delete the first plan
-        travelActivityList.removeTravelActivity(1);
+        travelActivityList.removeTravelActivity("1");
         assertEquals("cant be found", travelActivityList.getDescription("visit museum"));
         //check number of activities
         assertEquals(2, travelActivityList.getNoOfTravelActivities());
@@ -160,23 +184,11 @@ class OmniTravelTest {
     //basic test for searchKeyword function
     public void findTest () {
         try {
-            TravelActivityList travelActivityListNew = new TravelActivityList();
-            travelActivityListNew.addTravelActivity(accommodationNew1);
-            travelActivityListNew.addTravelActivity(accommodationNew2);
-            travelActivityListNew.addTravelActivity(accommodationNew3);
-            travelActivityListNew.addTravelActivity(landmarkNew1);
-            travelActivityListNew.addTravelActivity(landmarkNew2);
-            travelActivityListNew.addTravelActivity(landmarkNew3);
-            travelActivityListNew.addTravelActivity(foodNew1);
-            travelActivityListNew.addTravelActivity(foodNew2);
-            travelActivityListNew.addTravelActivity(foodNew3);
-            travelActivityListNew.addTravelActivity(travelActivityNew1);
-            travelActivityListNew.addTravelActivity(travelActivityNew2);
-            travelActivityListNew.addTravelActivity(travelActivityNew3);
+            TravelActivityList travelActivityListNew = initialiseTestTravelActivityList();
             String[] command1 = new String[]{"find", "mala"};
             String findExpectedOutput = "Here are what you are looking for:" + System.lineSeparator() +
-                    "[ ] 1. Food: utown mala :19 Jun 2019 :2 hours (spicy)" + System.lineSeparator() +
-                    "[ ] 2. Food: pgpr mala :7 Jul 2012 :1 hours (spicy)"  + System.lineSeparator();
+                    "[ ] 1. Food: utown mala :19 Jun 2028 :2 hours (spicy)" + System.lineSeparator() +
+                    "[ ] 2. Food: pgpr mala :7 Jul 2026 :1 hours (spicy)"  + System.lineSeparator();
             Parser.findCommand("find mala", travelActivityListNew);
             assertEquals(capturedOutputStream.toString(), findExpectedOutput);
         } catch (OmniException exception) {
@@ -188,23 +200,10 @@ class OmniTravelTest {
     //basic test for searchKeyword function
     public void findTagTest () {
         try {
-            TravelActivityList travelActivityListNew = new TravelActivityList();
-            travelActivityListNew.addTravelActivity(accommodationNew1);
-            travelActivityListNew.addTravelActivity(accommodationNew2);
-            travelActivityListNew.addTravelActivity(accommodationNew3);
-            travelActivityListNew.addTravelActivity(landmarkNew1);
-            travelActivityListNew.addTravelActivity(landmarkNew2);
-            travelActivityListNew.addTravelActivity(landmarkNew3);
-            travelActivityListNew.addTravelActivity(foodNew1);
-            travelActivityListNew.addTravelActivity(foodNew2);
-            travelActivityListNew.addTravelActivity(foodNew3);
-            travelActivityListNew.addTravelActivity(travelActivityNew1);
-            travelActivityListNew.addTravelActivity(travelActivityNew2);
-            travelActivityListNew.addTravelActivity(travelActivityNew3);
-
+            TravelActivityList travelActivityListNew = initialiseTestTravelActivityList();
             String findExpectedOutput2 = "Here are what you are looking for:" + System.lineSeparator() +
-                    "[ ] 1. General: merlion :7 Apr 2018 :2 hours (sightseeing)" + System.lineSeparator() +
-                    "[ ] 2. General: chinatown :21 Feb 2015 :5 hours (sightseeing)" + System.lineSeparator();
+                    "[ ] 1. General: merlion :7 Apr 2026 :2 hours (sightseeing)" + System.lineSeparator() +
+                    "[ ] 2. General: chinatown :21 Feb 2025 :5 hours (sightseeing)" + System.lineSeparator();
             Parser.findTagCommand("findtag sightseeing", travelActivityListNew);
             assertEquals(capturedOutputStream.toString(), findExpectedOutput2);
 
@@ -217,24 +216,11 @@ class OmniTravelTest {
     //basic test for searchKeyword function
     public void findTypeTest () {
         try {
-            TravelActivityList travelActivityListNew = new TravelActivityList();
-            travelActivityListNew.addTravelActivity(accommodationNew1);
-            travelActivityListNew.addTravelActivity(accommodationNew2);
-            travelActivityListNew.addTravelActivity(accommodationNew3);
-            travelActivityListNew.addTravelActivity(landmarkNew1);
-            travelActivityListNew.addTravelActivity(landmarkNew2);
-            travelActivityListNew.addTravelActivity(landmarkNew3);
-            travelActivityListNew.addTravelActivity(foodNew1);
-            travelActivityListNew.addTravelActivity(foodNew2);
-            travelActivityListNew.addTravelActivity(foodNew3);
-            travelActivityListNew.addTravelActivity(travelActivityNew1);
-            travelActivityListNew.addTravelActivity(travelActivityNew2);
-            travelActivityListNew.addTravelActivity(travelActivityNew3);
-
+            TravelActivityList travelActivityListNew = initialiseTestTravelActivityList();
             String findExpectedOutput3 = "Here are what you are looking for:" + System.lineSeparator() +
-                    "[ ] 1. Accommodation: nus rvrc :12 Dec 2007 :5 years (campus stay)" + System.lineSeparator() +
-                    "[ ] 2. Accommodation: nus pgpr :12 Oct 2017 :5 years (campus stay)" + System.lineSeparator() +
-                    "[ ] 3. Accommodation: nus utr :12 Sep 2007 :5 years (campus stay)" + System.lineSeparator();
+                    "[ ] 1. Accommodation: nus rvrc :12 Dec 2025 :5 years (campus stay)" + System.lineSeparator() +
+                    "[ ] 2. Accommodation: nus pgpr :12 Oct 2025 :5 years (campus stay)" + System.lineSeparator() +
+                    "[ ] 3. Accommodation: nus utr :12 Sep 2025 :5 years (campus stay)" + System.lineSeparator();
             Parser.findTypeCommand("findtype Accommodation", travelActivityListNew);
             assertEquals(capturedOutputStream.toString(), findExpectedOutput3);
             Parser.findTypeCommand("findtype Accommodation", travelActivityListNew);
@@ -243,7 +229,6 @@ class OmniTravelTest {
             Ui.printException(exception);
         }
     }
-
 
     @Test
     public void testTagActivity() throws OmniException {
@@ -339,7 +324,7 @@ class OmniTravelTest {
     @Test
     public void testTotalExpanseFood() throws OmniException{
         TravelActivityList list = new TravelActivityList();
-        list.addTravelActivity(new Food("UTOWN Flavours", LocalDate.parse("2024-05-12"), "1 hours",
+        list.addTravelActivity(new Food("UTOWN Flavours", LocalDate.parse("2028-05-12"), "1 hours",
                 "lunch", "$10"));
         String findExpectedOutput2 = "The total expense for Food travel activities is: $10.0";
         list.totalExpense("Food");
@@ -349,7 +334,7 @@ class OmniTravelTest {
     @Test
     public void testTotalExpanseLandmark() throws OmniException{
         TravelActivityList list = new TravelActivityList();
-        list.addTravelActivity(new Landmark("Berlin Wall", LocalDate.parse("2024-08-14"), "1 hours",
+        list.addTravelActivity(new Landmark("Berlin Wall", LocalDate.parse("2027-08-14"), "1 hours",
                 "sightseeig", "$5"));
         String findExpectedOutput2 = "The total expense for Landmark travel activities is: $5.0";
         list.totalExpense("Landmark");
@@ -393,65 +378,97 @@ class OmniTravelTest {
 
     @Test
     public void testGetList() throws OmniException {
-        TravelActivityList list = new TravelActivityList();
-        // Test with valid input
-        Parser.getList(new String[]{"list"}, list);
+        TravelActivityList travelActivityListNew = initialiseTestTravelActivityList();
+        String expectedOutput1 = "[ ] 1. Accommodation: nus rvrc :12 Dec 2025 :5 years (campus stay)" +
+                System.lineSeparator() +
+                "[ ] 2. Accommodation: nus pgpr :12 Oct 2025 :5 years (campus stay)" + System.lineSeparator() +
+                "[ ] 3. Accommodation: nus utr :12 Sep 2025 :5 years (campus stay)" + System.lineSeparator() +
+                "[ ] 4. Landmark: berlin wall :15 Dec 2027 :5 hours (historic site)" + System.lineSeparator() +
+                "[ ] 5. Landmark: utown :14 Aug 2028 :10 hours (recreational centre)" + System.lineSeparator() +
+                "[ ] 6. Landmark: supper stretch :18 Aug 2027 :2 hours (tourist hotspot)" + System.lineSeparator() +
+                "[ ] 7. Food: utown mala :19 Jun 2028 :2 hours (spicy)" + System.lineSeparator() +
+                "[ ] 8. Food: pgpr mala :7 Jul 2026 :1 hours (spicy)" + System.lineSeparator() +
+                "[ ] 9. Food: pgpr waffle :9 Mar 2026 :0.5 hours (non-spicy)" + System.lineSeparator() +
+                "[ ] 10. General: esplanade :19 Mar 2026 :3 hours (concert)" + System.lineSeparator() +
+                "[ ] 11. General: merlion :7 Apr 2026 :2 hours (sightseeing)" + System.lineSeparator() +
+                "[ ] 12. General: chinatown :21 Feb 2025 :5 hours (sightseeing)";
+        travelActivityListNew.listTravelActivities();
+        assertEquals(capturedOutputStream.toString().trim(), expectedOutput1);
     }
 
     @Test
     public void testActivityCommand() throws OmniException {
         TravelActivityList list = new TravelActivityList();
-        // Test with valid input
+        String expectedOutput4 = "____________________________________________________________" +
+                System.lineSeparator() +
+                "I added a new accommodation" + System.lineSeparator() +
+                "Accommodation: description :4 Oct 2024 :2 days (test)" + System.lineSeparator() +
+                "____________________________________________________________";
         Parser.activityCommand("accommodation description /date 2024-10-04 /duration 2 days /tag test", list);
+        assertEquals(capturedOutputStream.toString().trim(), expectedOutput4);
     }
 
 
     @Test
     public void testTagCommand() throws OmniException {
-        TravelActivityList list = new TravelActivityList();
-        list.addTravelActivity(accommodationNew1);
-        // Test with valid input
+        TravelActivityList list = initialiseTestTravelActivityList();
+        String expectedOutput5 = "I have tagged this task:" + System.lineSeparator() +
+                "Accommodation: nus rvrc :12 Dec 2025 :5 years (test)";
         Parser.tagCommand("tag 1 test", list);
+        assertEquals(capturedOutputStream.toString().trim(), expectedOutput5);
     }
 
     @Test
     public void testRemoveTagCommand() throws OmniException {
-        TravelActivityList list = new TravelActivityList();
-        list.addTravelActivity(accommodationNew1);
+        TravelActivityList list = initialiseTestTravelActivityList();
         Parser.tagCommand("tag 1 test", list);
         String[] input = {"untag", "1"};
-        // Test with valid input
+        String expectedOutput6 = "I have tagged this task:" + System.lineSeparator() +
+                "Accommodation: nus rvrc :12 Dec 2025 :5 years (test)" + System.lineSeparator() +
+                "Tag removed from the task:" +
+                System.lineSeparator() + "Accommodation: nus rvrc :12 Dec 2025 :5 years";
         Parser.removeTagCommand(input, list);
+        assertEquals(capturedOutputStream.toString().trim(), expectedOutput6);
     }
 
     @Test
     public void testUpdateCommand() throws OmniException {
-        TravelActivityList list = new TravelActivityList();
+        TravelActivityList list = initialiseTestTravelActivityList();
         list.addTravelActivity(accommodationNew1);
         // Test with valid input
-        Parser.updateCommand("update 1 /date 2024-12-04 /duration 2 days /tag test", list);
+
+        Parser.updateCommand("update 1 /date 2025-04-04 /duration 2 days /tag test", list);
+        String expectedOutput7 = "I have updated this task" + System.lineSeparator() +
+                "from: Accommodation: nus rvrc :12 Dec 2025 :5 years (campus stay) (campus stay)" +
+                System.lineSeparator() +
+                "to: Accommodation: nus rvrc :4 Apr 2025 :2 days (test) (test)";
     }
-
-
 
     @Test
     public void testFindTagCommand() throws OmniException {
-        TravelActivityList list = new TravelActivityList();
-        // Test with valid input
-        Parser.findTagCommand("findtag test", list);
+        TravelActivityList travelActivityListNew = initialiseTestTravelActivityList();
+        String expectedOutput2 = "Here are what you are looking for:" + System.lineSeparator() +
+                "[ ] 1. Landmark: supper stretch :18 Aug 2027 :2 hours (tourist hotspot)";
+        Parser.findTagCommand("findtag tourist", travelActivityListNew);
+        assertEquals(capturedOutputStream.toString().trim(), expectedOutput2);
     }
 
     @Test
     public void testFindTypeCommand() throws OmniException {
-        TravelActivityList list = new TravelActivityList();
-        // Test with valid input
-        Parser.findTypeCommand("findtype test", list);
+        TravelActivityList travelActivityListNew = initialiseTestTravelActivityList();
+        String expectedOutput3 = "Here are what you are looking for:" + System.lineSeparator() +
+                "[ ] 1. General: esplanade :19 Mar 2026 :3 hours (concert)" + System.lineSeparator() +
+                "[ ] 2. General: merlion :7 Apr 2026 :2 hours (sightseeing)" + System.lineSeparator() +
+                "[ ] 3. General: chinatown :21 Feb 2025 :5 hours (sightseeing)";
+        Parser.findTypeCommand("findtype General", travelActivityListNew);
+        assertEquals(capturedOutputStream.toString().trim(), expectedOutput3);
     }
     @Test
     public void testExpenseCommand() throws OmniException {
         TravelActivityList list = new TravelActivityList();
         list.addTravelActivity(accommodationNew1);
         String input = "expense 1 $50";
+        String ex;
         Parser.expenseCommand(input, list);
     }
 
