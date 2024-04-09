@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.Arrays;
 
 class OmniTravelTest {
 
@@ -182,18 +181,22 @@ class OmniTravelTest {
 
     @Test
     //basic test for searchKeyword function
-    public void findTest () {
-        try {
-            TravelActivityList travelActivityListNew = initialiseTestTravelActivityList();
-            String[] command1 = new String[]{"find", "mala"};
-            String findExpectedOutput = "Here are what you are looking for:" + System.lineSeparator() +
-                    "[ ] 1. Food: utown mala :19 Jun 2028 :2 hours (spicy)" + System.lineSeparator() +
-                    "[ ] 2. Food: pgpr mala :7 Jul 2026 :1 hours (spicy)"  + System.lineSeparator();
-            Parser.findCommand("find mala", travelActivityListNew);
-            assertEquals(capturedOutputStream.toString(), findExpectedOutput);
-        } catch (OmniException exception) {
-            Ui.printException(exception);
-        }
+    public void findWithoutExclusionTest () {
+        TravelActivityList travelActivityListNew = initialiseTestTravelActivityList();
+        String findExpectedOutput = "Here are what you are looking for:" + System.lineSeparator() +
+                "[ ] 1. Food: utown mala :19 Jun 2028 :2 hours (spicy)" + System.lineSeparator() +
+                "[ ] 2. Food: pgpr mala :7 Jul 2026 :1 hours (spicy)"  + System.lineSeparator();
+        travelActivityListNew.searchKeyword("mala");
+        assertEquals(capturedOutputStream.toString(), findExpectedOutput);
+    }
+
+    @Test
+    public void findWithExclusionTest () {
+        TravelActivityList travelActivityListNew = initialiseTestTravelActivityList();
+        String findExpectedOutput = "Here are what you are looking for:" + System.lineSeparator() +
+                "[ ] 1. Food: pgpr mala :7 Jul 2026 :1 hours (spicy)"  + System.lineSeparator();
+        travelActivityListNew.searchKeyword("mala", "utown");
+        assertEquals(capturedOutputStream.toString(), findExpectedOutput);
     }
 
     @Test
@@ -480,10 +483,29 @@ class OmniTravelTest {
         Parser.removeExpenseCommand(input, list);
     }
     @Test
-    public void testFindCommand() throws OmniException {
-        TravelActivityList list = new TravelActivityList();
-        // Test with valid input
-        Parser.findCommand(Arrays.toString(new String[]{"find", "test"}), list);
+    public void testFindCommandWithoutExclusion() throws OmniException {
+        try {
+            TravelActivityList travelActivityListNew = initialiseTestTravelActivityList();
+            String findExpectedOutput = "Here are what you are looking for:" + System.lineSeparator() +
+                    "[ ] 1. Food: utown mala :19 Jun 2028 :2 hours (spicy)" + System.lineSeparator() +
+                    "[ ] 2. Food: pgpr mala :7 Jul 2026 :1 hours (spicy)"  + System.lineSeparator();
+            Parser.findCommand("find mala", travelActivityListNew);
+            assertEquals(capturedOutputStream.toString(), findExpectedOutput);
+        } catch (OmniException exception) {
+            Ui.printException(exception);
+        }
+    }
+    @Test
+    public void testFindCommandWithExclusion() throws OmniException {
+        try {
+            TravelActivityList travelActivityListNew = initialiseTestTravelActivityList();
+            String findExpectedOutput = "Here are what you are looking for:" + System.lineSeparator() +
+                    "[ ] 1. Food: pgpr mala :7 Jul 2026 :1 hours (spicy)"  + System.lineSeparator();
+            Parser.findCommand("find mala /exclude utown", travelActivityListNew);
+            assertEquals(capturedOutputStream.toString(), findExpectedOutput);
+        } catch (OmniException exception) {
+            Ui.printException(exception);
+        }
     }
     @Test
     public void testTotalExpenseCommand() throws OmniException {

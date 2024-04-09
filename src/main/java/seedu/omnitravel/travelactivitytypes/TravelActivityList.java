@@ -136,7 +136,24 @@ public class TravelActivityList {
                     System.out.println("Here are what you are looking for:");
                 }
                 Ui.printActivity(travelActivity, foundCounter);
+            }
+        }
+        if (foundCounter == 0) {
+            System.out.println("Sorry I could not find what you are looking for.");
+        }
+    }
 
+    public void searchKeyword (String activityName, String exclusion) {
+        int foundCounter = 0;
+        for (TravelActivity travelActivity : travelActivities) {
+            assert !(foundCounter > travelActivities.size()) : "Error: There is more activities found than possible";
+            if (travelActivity.getPlan().contains(activityName) && !travelActivity.getPlan().contains(exclusion) &&
+                    !travelActivity.getPlan().isEmpty()) {
+                foundCounter += 1;
+                if (foundCounter == 1) {
+                    System.out.println("Here are what you are looking for:");
+                }
+                Ui.printActivity(travelActivity, foundCounter);
             }
         }
         if (foundCounter == 0) {

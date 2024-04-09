@@ -12,6 +12,7 @@ import seedu.omnitravel.ui.Ui;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Parser {
@@ -253,12 +254,18 @@ public class Parser {
      * @throws OmniException if command.length != 2
      */
     public static void findCommand(String line, TravelActivityList list) throws OmniException {
-        String[] command = line.split("find");
-        if (command.length > 1 && !command[1].isBlank()) {
+        String[] command = line.split("find | /exclude");
+        logger.log(Level.INFO,  String.valueOf(command.length));
+        if (command.length == 2 && !command[1].isBlank() && !line.contains("/exclude")) {
             String keyword = command[1].trim();
             list.searchKeyword(keyword);
+        } else if (command.length == 3 && !command[1].isBlank() && !command[2].isBlank()) {
+            String keyword = command[1].trim();
+            String exclusion = command[2].trim();
+            list.searchKeyword(keyword, exclusion);
         } else {
-            throw new OmniException("Please check that your find type command is in this format: find <description>");
+            throw new OmniException("Please check that your find type command is in this format: + " +
+                    "find <description> " + "or find <description> /exclude <exclusion>");
         }
     }
 
