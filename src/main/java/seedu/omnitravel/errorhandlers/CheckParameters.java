@@ -6,7 +6,7 @@ import java.time.DateTimeException;
 import java.util.NoSuchElementException;
 
 public class CheckParameters {
-
+    //@@author EugeneChanJiajun
     /**
      * Checks for all possible input errors that users may make and throws the corresponding exceptions
      * @param input Line of input that users placed into the chatbot
@@ -55,7 +55,7 @@ public class CheckParameters {
                     + " or update INDEX /date YYYY-MM-DD /duration DURATION /tag TAG");
         }
     }
-
+    //@@author daryltay415
     /**
      * Checks if a string contains all the words
      * @param input The input String
@@ -130,6 +130,7 @@ public class CheckParameters {
 
     }
 
+    //@@author EugeneChanJiajun
     /**
      * Checks for all format errors in the user input and throes the correct exceptions
      *
