@@ -88,7 +88,7 @@ public class Ui {
                 "23. findlocation <location>\n");
         printLine();
     }
-    //@@author ChenKangg
+    //@@author daryltay415
     public static void printDateTimeExceptionError(){
         System.out.println("Invalid date, please input the date in the following order: YYYY-MM-DD");
     }
@@ -116,9 +116,7 @@ public class Ui {
         if(activity.getExpense() != null && !activity.getExpense().isEmpty()){
             System.out.print(" (" + activity.getExpense() + ")");
         }
-        if(activity.getLocation() != null && !activity.getLocation().isEmpty()){
-            System.out.print(" (" + activity.getLocation() + ")");
-        }
+
         System.out.println();
     }
 

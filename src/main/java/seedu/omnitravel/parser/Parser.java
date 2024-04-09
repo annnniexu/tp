@@ -34,7 +34,7 @@ public class Parser {
         }
         Ui.printLine();
     }
-    //@@author ChinYanXu
+    //@@author EugeneChanJiajun
     /**
      * Handles the case where the add command is given as input
      *
@@ -121,7 +121,9 @@ public class Parser {
             throw new OmniException("Please specify which activity index or description to delete");
         }
     }
-    //@@author ChinYanXu
+
+
+    //@@author annnniexu
     /**
      * Handles the case where the check command is given as input
      *
@@ -155,6 +157,7 @@ public class Parser {
         }
     }
 
+    //@@author ChenKangg
     /**
      * Handles the case where the tag command is given as input
      *
@@ -195,6 +198,7 @@ public class Parser {
         }
     }
 
+    //@@author daryltay415
     /**
      * Handles the case where the update command is given as input
      * @param line The update command given by the user
@@ -215,6 +219,7 @@ public class Parser {
                 tag);
     }
 
+    //@@author ChinYanXu
     /**
      * Handles the case where the findtag command is given as input
      *
@@ -268,6 +273,7 @@ public class Parser {
         }
     }
 
+    //@@author ChenKangg
     /**
      * Handles the case where the expense command is given as input
      *
@@ -305,6 +311,7 @@ public class Parser {
         }
     }
 
+    //@@author annnniexu
     /**
      * Handles the case where totalexpense command is given as input
      *
@@ -328,7 +335,7 @@ public class Parser {
             list.totalExpense(command[1].trim());
         }
     }
-
+    //@@author ChenKangg
     /**
      * Handles the case whereby the command is listtags
      * @param command The command given by the user
@@ -345,13 +352,12 @@ public class Parser {
         }
         Ui.printLine();
     }
+    //@@author daryltay415
 
     /**
      * Handles the case whereby the command is change
      * @param line The input given by the user
      * @throws OmniException Throws an exception when the parameters are invalid
-     * @throws InterruptedException Throws an exception when the thread is interrupted
-     * @throws IOException Throws an exception when there is an error during an I/O operation
      */
     public static void currencyExchangeCommand(String line) throws OmniException{
         Ui.printLine();
@@ -370,59 +376,5 @@ public class Parser {
         Ui.printLine();
     }
 
-    /**
-     * Handles the case where the location command is given as input
-     *
-     * @param line array of input string
-     * @param list List of travel activities
-     * @throws OmniException if command.length == 2
-     * @throws OmniException if command.length == 1
-     */
-    public static void locationCommand(String line, TravelActivityList list) throws OmniException {
-        String[] command = line.split(" ");
-        if (command.length >= 3 && CheckParameters.isNumeric(command[1])){
-            int listNumber = Integer.parseInt(command[1]);
-            // Extract location starting from the third element onwards
-            String[] locationArray = Arrays.copyOfRange(command, 2, command.length);
-            // Join the location into a single string
-            String location = String.join(" ", locationArray);
-            list.locationActivity(listNumber, location);
-        } else if (command.length == 2) {
-            throw new OmniException("Please specify a location");
-        } else {
-            throw new OmniException("Please specify which task to add location");
-        }
-    }
 
-    /**
-     * Handles the case where the removelocation command is given as input
-     *
-     * @param command Command array of input string without spaces
-     * @param list List of travel activities
-     * @throws OmniException if command.length != 2 && command[1] is not numeric
-     */
-    public static void removeLocationCommand(String[] command, TravelActivityList list) throws OmniException {
-        if (command.length == 2 && CheckParameters.isNumeric(command[1])) {
-            int listNumber = Integer.parseInt(command[1]);
-            list.removeLocation(listNumber);
-        } else {
-            throw new OmniException("Please specify which task to remove location");
-        }
-    }
-
-    /**
-     * Handles the case where the findLocation command is given as input
-     *
-     * @param line User's input into Omnitravel
-     * @param list List of travel activities
-     * @throws OmniException if command.length < 1
-     */
-    public static void findLocationCommand(String line, TravelActivityList list) throws OmniException {
-        String[] command = line.split("findlocation");
-        if (command.length < 1) {
-            throw new OmniException("Please check that your find command is in this format: findlocation <location>");
-        } else {
-            list.findLocation(command[1].trim());
-        }
-    }
 }
