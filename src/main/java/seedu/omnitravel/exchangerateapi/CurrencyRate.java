@@ -9,7 +9,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class CurrencyRate {
-
+    //@@author daryltay415
     /**
      * Converts the local currency value to the foreign currency value
      * @param localCurrency The local currency the user wants to convert

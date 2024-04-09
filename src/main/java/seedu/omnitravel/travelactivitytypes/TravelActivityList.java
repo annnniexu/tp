@@ -110,7 +110,7 @@ public class TravelActivityList {
             travelActivities.removeAll(found);
         }
     }
-    //@@author ChinYanXu
+    //@@author EugeneChanJiajun
     /**
      * Obtains the description of the plan that we are looking for from the travel activity list
      *
@@ -125,7 +125,7 @@ public class TravelActivityList {
         }
         return "cant be found";
     }
-
+    //@@author ChinYanXu
     /**
      * Finds all activities in the TravelActivity list that contains a keyword specified
      * by the user.
@@ -133,6 +133,7 @@ public class TravelActivityList {
      * @param activityName keyword specified by the user to find activities in the TravelActivity list
      *                 related to the keyword.
      */
+
 
     public void searchKeyword (String activityName) {
         int foundCounter = 0;
@@ -153,6 +154,8 @@ public class TravelActivityList {
         }
     }
 
+
+    //@@author annnniexu
     /**
      * Checks travel activity as completed
      *
@@ -194,7 +197,7 @@ public class TravelActivityList {
             System.out.println("This activity is already unchecked!");
         }
     }
-
+    //@@author ChenKangg
 
     /**
      * Adds a tag to travel activity
@@ -231,6 +234,7 @@ public class TravelActivityList {
         System.out.println(taggedTask);
     }
 
+    //@@author daryltay415
     /**
      * Updates the date, duration and tag of the travel activity
      *
@@ -247,28 +251,20 @@ public class TravelActivityList {
         }
         int indexOfTravelActivity = travelActivityNumber-1;
         TravelActivity updatedTravelActivity = travelActivities.get(indexOfTravelActivity);
-        String oldTag = updatedTravelActivity.getTag();
-        String oldTravelActivity = (oldTag.isBlank())? updatedTravelActivity.toString():
-                                            (updatedTravelActivity.toString()
-                                            + " (" + updatedTravelActivity.getTag() + ")");
+        String oldTravelActivity = updatedTravelActivity.toString();
         updatedTravelActivity.setDate(date);
         updatedTravelActivity.setDuration(duration);
         updatedTravelActivity.setTag(tag);
-        String newTag = updatedTravelActivity.getTag();
-        if(newTag.isBlank()){
-            System.out.println("I have updated this task\nfrom: " + oldTravelActivity +
-                    "\nto: " + updatedTravelActivity);
-        } else{
-            System.out.println("I have updated this task\nfrom: " + oldTravelActivity +
-                    "\nto: " + updatedTravelActivity + " (" + updatedTravelActivity.getTag() + ")");
-        }
-
+        System.out.println("I have updated this task\nfrom: " + oldTravelActivity +
+                "\nto: " + updatedTravelActivity);
     }
 
+    //@@author EugeneChanJiajun
     public ArrayList<TravelActivity> getTravelActivities () {
         return travelActivities;
     }
 
+    //@@author ChinYanXu
     /**
      * Find all the tasks with a particular tag and prints them out
      *
@@ -317,6 +313,7 @@ public class TravelActivityList {
         }
     }
 
+    //@@author ChenKangg
     /**
      * Adds expense to travel activity
      *
@@ -355,6 +352,7 @@ public class TravelActivityList {
         System.out.println(task);
     }
 
+    //@@author annnniexu
     /**
      * Calculates the total expense for the given type.
      *
@@ -384,6 +382,7 @@ public class TravelActivityList {
         System.out.println("The total expense for " + type + " travel activities is: $" + tot);
     }
 
+    //@@author ChenKangg
     /**
      * Lists out all the tags currently in the travel activity list
      */
@@ -407,61 +406,4 @@ public class TravelActivityList {
             tagCount++;
         }
     }
-
-    /**
-     * Adds a location to travel activity
-     * @param taskNumber The travel activity number on the list
-     * @param location The location of travel activity
-     */
-    public void locationActivity(int taskNumber, String location) throws OmniException {
-        assert taskNumber != 0 : "There is no tasks in the list";
-        if (taskNumber > travelActivities.size() || (taskNumber <= 0)) {
-            throw new OmniException("Travel activity cannot be found");
-        }
-        int indexOfTask = taskNumber - 1;
-        TravelActivity locationTask = travelActivities.get(indexOfTask);
-        locationTask.setLocation(location);
-        System.out.println("I have added a location to this task:");
-        System.out.println(locationTask + " (" + location + ")");
-    }
-
-    /**
-     * Removes the location on a travel activity
-     * @param taskNumber The travel activity number on the list
-     */
-    public void removeLocation(int taskNumber) throws OmniException {
-        assert taskNumber != 0 : "There is no task in the list";
-        if (taskNumber > travelActivities.size() || (taskNumber <= 0)) {
-            throw new OmniException("Travel activity cannot be found");
-        }
-        int indexOfTask = taskNumber - 1;
-        TravelActivity locationTask = travelActivities.get(indexOfTask);
-        locationTask.removeLocation();
-        System.out.println("Location removed from the task:");
-        System.out.println(locationTask);
-    }
-
-    /**
-     * Find all the tasks with a particular location and prints them out
-     *
-     * @param location The tag of tasks that the user wants to find
-     */
-    public void findLocation(String location){
-        int foundCounter = 0;
-        for (TravelActivity travelActivity : travelActivities) {
-            assert !(foundCounter > travelActivities.size()) : "Error: There is more activities found than possible";
-            if (travelActivity.getLocation().contains(location) &&
-                    !travelActivity.getLocation().isEmpty()) {
-                foundCounter += 1;
-                if (foundCounter == 1) {
-                    System.out.println("Here are what you are looking for:");
-                }
-                Ui.printActivity(travelActivity, foundCounter);
-            }
-        }
-        if (foundCounter == 0) {
-            System.out.println("Sorry I could not find what you are looking for.");
-        }
-    }
-
 }
