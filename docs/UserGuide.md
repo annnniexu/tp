@@ -331,7 +331,8 @@ ____________________________________________________________
 ```
 
 ### Adding a tag: `tag`
-Adds a new tag to an existing travel activity.
+Adds a new tag to an existing travel activity. The tag can be a short description to help a user better organise 
+their travel activities. 
 
 Format: `tag INDEX TAGNAME`
 
