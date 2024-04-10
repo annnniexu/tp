@@ -90,45 +90,41 @@ public class TravelActivityList {
      * Removes travel activity from the travel activity list
      * @param activityNumber The travel activity index number or description on the list
      */
-    public void removeTravelActivity(String activityNumber) throws OmniException {
-        try {
-            assert Integer.parseInt(activityNumber) != 0 : "There is not activities in the list";
-            int indexOfActivity = Integer.parseInt(activityNumber) - 1;
-            int initialListSize = noOfActivities;
-            TravelActivity removedActivity = travelActivities.get(indexOfActivity);
-            travelActivities.remove(indexOfActivity);
-            System.out.println("I have removed this activity:");
-            System.out.println(removedActivity);
-            noOfActivities -= 1;
-            int newSize = noOfActivities;
-            assert newSize == initialListSize - 1 : "There is an error with list size!";
-        } catch (NumberFormatException e) {
-            /*
-            int foundCounter = 0;
-            for (int iterator = 0; iterator < travelActivities.size(); iterator += 1) {
-                if (travelActivities.get(iterator).getPlan().toLowerCase().contains(activityNumber.toLowerCase())) {
-                    if (foundCounter == 0) {
-                        System.out.println("I have removed this activity:");
-                    }
-                    System.out.println(Integer.toString(foundCounter + 1) + ". " + travelActivities.get(iterator));
-                    travelActivities.remove(iterator);
-                    foundCounter += 1;
-                    assert noOfActivities >= 0 : "There is an error with list size!";
+  
+
+    public void removeTravelActivity(int activityNumber) throws OmniException {
+        assert activityNumber != 0 : "There is not activities in the list";
+        int indexOfActivity = activityNumber - 1;
+        int initialListSize = noOfActivities;
+        TravelActivity removedActivity = travelActivities.get(indexOfActivity);
+        travelActivities.remove(indexOfActivity);
+        System.out.println("I have removed this activity:");
+        System.out.println("1. " + removedActivity);
+        noOfActivities -= 1;
+        int newSize = noOfActivities;
+        assert newSize == initialListSize - 1 : "There is an error with list size!";
+    }
+
+    public void removeTravelActivity(String activity) throws OmniException {
+        int foundCounter = 0;
+        for (int iterator = 0; iterator < travelActivities.size(); iterator += 1) {
+            if (travelActivities.get(iterator).getPlan().toLowerCase().contains(activity.toLowerCase())) {
+                if (foundCounter == 0) {
+                    System.out.println("I have removed this activity:");
                 }
+                System.out.println(Integer.toString(foundCounter + 1) + ". " + travelActivities.get(iterator));
+                travelActivities.remove(iterator);
+                iterator -= 1;
+                noOfActivities -= 1;
+                foundCounter += 1;
+                assert noOfActivities >= 0 : "There is an error with list size!";
             }
-            noOfActivities -= foundCounter;
-            if (foundCounter == 0) {
-                System.out.println("Travel activity cannot be found!");
-            }*/
-            ArrayList<TravelActivity> found = new ArrayList<>();
-            for (TravelActivity activity: travelActivities){
-                if (activity.getPlan().toLowerCase().contains(activityNumber)){
-                    found.add(activity);
-                }
-            }
-            travelActivities.removeAll(found);
+        }
+        if (foundCounter == 0) {
+            System.out.println("Can't find any related activity to remove");
         }
     }
+      
     //@@author EugeneChanJiajun
     /**
      * Obtains the description of the plan that we are looking for from the travel activity list
@@ -165,7 +161,31 @@ public class TravelActivityList {
                     System.out.println("Here are what you are looking for:");
                 }
                 Ui.printActivity(travelActivity, foundCounter);
+            }
+        }
+        if (foundCounter == 0) {
+            System.out.println("Sorry I could not find what you are looking for.");
+        }
+    }
 
+    /**
+     * Overloaded version of searchKeyword function to enable user to exclude certain activities from their search
+     *
+     * @param activityName The description of tasks that the user wants to find
+     * @param exclusion The keyword that the user uses to remove unwanted results from the search
+     */
+
+    public void searchKeyword (String activityName, String exclusion) {
+        int foundCounter = 0;
+        for (TravelActivity travelActivity : travelActivities) {
+            assert !(foundCounter > travelActivities.size()) : "Error: There is more activities found than possible";
+            if (travelActivity.getPlan().contains(activityName) && !travelActivity.getPlan().contains(exclusion) &&
+                    !travelActivity.getPlan().isEmpty()) {
+                foundCounter += 1;
+                if (foundCounter == 1) {
+                    System.out.println("Here are what you are looking for:");
+                }
+                Ui.printActivity(travelActivity, foundCounter);
             }
         }
         if (foundCounter == 0) {
@@ -309,6 +329,31 @@ public class TravelActivityList {
     }
 
     /**
+     * Overloaded version of findtag function to enable user to exclude certain activities from their search
+     *
+     * @param tag The tag of tasks that the user wants to find
+     * @param exclude The keyword that the user uses to remove unwanted results from the search
+     */
+
+    public void findTag(String tag, String exclude){
+        int foundCounter = 0;
+        for (TravelActivity travelActivity : travelActivities) {
+            assert !(foundCounter > travelActivities.size()) : "Error: There is more activities found than possible";
+            if (travelActivity.getTag().contains(tag) && !travelActivity.getTag().isEmpty() &&
+                    !travelActivity.getPlan().contains(exclude)) {
+                foundCounter += 1;
+                if (foundCounter == 1) {
+                    System.out.println("Here are what you are looking for:");
+                }
+                Ui.printActivity(travelActivity, foundCounter);
+            }
+        }
+        if (foundCounter == 0) {
+            System.out.println("Sorry I could not find what you are looking for.");
+        }
+    }
+
+    /**
      * Find all the tasks of a particular type and prints them out
      *
      * @param type The type of tasks that the user wants to find
@@ -333,6 +378,30 @@ public class TravelActivityList {
     }
 
     //@@author ChenKangg
+    /**
+     * Overloaded version of findtype to enable user to exclude certain activities from their search
+     *
+     * @param type The type of tasks that the user wants to find
+     * @param exclude The keyword that the user uses to remove unwanted results from the search
+     */
+    public void findType(String type, String exclude){
+        int foundCounter = 0;
+
+        for (TravelActivity activity: travelActivities){
+            assert !(foundCounter > travelActivities.size()) : "Error: There is more activities found than possible";
+            if(activity.getClass().getSimpleName().equalsIgnoreCase(type) && !activity.getPlan().contains(exclude)){
+                foundCounter += 1;
+                if (foundCounter == 1) {
+                    System.out.println("Here are what you are looking for:");
+                }
+                Ui.printActivity(activity, foundCounter);
+            }
+        }
+        if (foundCounter == 0) {
+            System.out.println("Sorry I could not find what you are looking for.");
+        }
+    }
+
     /**
      * Adds expense to travel activity
      *
