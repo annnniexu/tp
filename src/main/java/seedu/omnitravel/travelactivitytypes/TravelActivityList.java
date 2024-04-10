@@ -6,6 +6,7 @@ import seedu.omnitravel.ui.Ui;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -42,19 +43,37 @@ public class TravelActivityList {
     }
 
     /**
-     * Prints out all the travel activities
+     * Prints out all the travel activities.
+     * If sort
+     * TODO ADD PARAM
      */
-    public void listTravelActivities(){
+    public void listTravelActivities(boolean sort, boolean filterDate, LocalDate date){
+        ArrayList<TravelActivity> activities = new ArrayList<>();
+        if (filterDate) {
+            for (TravelActivity a: travelActivities) {
+                if (a.getDate().equals(date)) {
+                    activities.add(a);
+                }
+            }
+        } else {
+            activities = travelActivities;
+        }
+        if (sort) {
+            Collections.sort(activities, Comparator.comparing(TravelActivity::getDate));
+        }
         int activityCount = 0;
-        for (TravelActivity activity: travelActivities) {
+        for (TravelActivity activity: activities) {
             if (activity == null) {
                 break;
             }
             activityCount++;
             Ui.printActivity(activity, activityCount);
         }
+        if (activityCount == 0) {
+            System.out.println("There are no activities to list");
+        }
         int finalActivityCount = noOfActivities;
-        assert finalActivityCount == activityCount : "Index out of bounds while listing activities";
+        assert finalActivityCount >= activityCount : "Index out of bounds while listing activities";
     }
 
     /**

@@ -11,6 +11,7 @@ import seedu.omnitravel.ui.Ui;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.logging.Logger;
 
@@ -18,20 +19,40 @@ public class Parser {
 
     private static Logger logger = Logger.getLogger("ParserLogger");
 
-    //@@author ChinYanXu
+    //@@author annnniexu
     /**
      * Obtains the list of travel activities
      *
+     * @param line Line that the user inputs into the chatbot
      * @param list List of travel activities.
      */
-    public static void getList(String[] command, TravelActivityList list) throws OmniException {
+    public static void getList(String line, TravelActivityList list) throws OmniException {
         Ui.printLine();
-        if (command.length == 1) {
-            System.out.println("Here are the travel activities in your list:");
-            list.listTravelActivities();
-        } else {
-            throw new OmniException("Do you mean the command list?");
+        String[] command = line.split(" ");
+        String delimiter = "/date | /sort ";
+        String[] input = line.split(delimiter);
+        CheckParameters.listExceptions(command, input, line);
+        boolean sort = false;
+        boolean isDate = false;
+        LocalDate date = LocalDate.now();
+        String dateString = "all dates";
+        if (command.length == 2 || command.length == 4) {
+            sort = true;
         }
+        if (command.length == 3 || command.length == 4) {
+            isDate = true;
+            try {
+                date = LocalDate.parse(command[2].trim());
+            } catch (DateTimeParseException e) {
+                throw new OmniException("Please provide the date in the format YYYY-MM-DD");
+            }
+            if(date.isBefore(LocalDate.now())){
+                throw new OmniException("Please input a future date.");
+            }
+            dateString = date.toString();
+        }
+        System.out.println("Here are the travel activities for " + dateString);
+        list.listTravelActivities(sort, isDate, date);
         Ui.printLine();
     }
     //@@author EugeneChanJiajun

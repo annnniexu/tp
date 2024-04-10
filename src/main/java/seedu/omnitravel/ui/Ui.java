@@ -63,7 +63,7 @@ public class Ui {
         System.out.println("These are the available commands!");
         System.out.println("");
         System.out.println(
-                "1. list: List out the current list\n" +
+                "1. list <date> <sort>: List out the current list for given date sorted\n" +
                 "2. help: Get all commands for the chatbot\n" +
                 "3. bye: Exit the chatbot\n" +
                 "4. add <travel activity> <date> <duration> <tag>\n" +

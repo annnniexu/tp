@@ -55,6 +55,30 @@ public class CheckParameters {
                     + " or update INDEX /date YYYY-MM-DD /duration DURATION /tag TAG");
         }
     }
+
+    //@@author annnniexu
+    /**
+     * TODO
+     */
+    public static void listExceptions(String[] command, String[] input, String line) throws OmniException {
+        //command is split at spaces, input is split at /date and /sort
+        // list /date 2024-05-15 /sort is [list, /date, 2024-05-15, /sort]
+
+        // /date included, but no date provided
+        boolean case1 = command.length > 1 && command[1].equals("/date") && (command.length < 3 || input.length != 2);
+        // something other than /date or /sort is entered after list
+        boolean case2 = command.length > 1 && !(command[1].equals("/date") || command[1].equals("/sort"));
+        // only /sort tag but command length > 2
+        boolean case3 = command.length > 2 && command[1].equals("/sort");
+        // command length greater than 4
+        boolean case4 = command.length > 4;
+        if (case1 || case2 || case3 || case4) {
+            throw new OmniException("Please check that your list command is in this format:" +
+                    "list [/date YYYY-MM-DD] [/sort]");
+        }
+    }
+
+
     //@@author daryltay415
     /**
      * Checks if a string contains all the words

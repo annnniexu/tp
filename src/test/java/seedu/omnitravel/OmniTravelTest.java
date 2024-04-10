@@ -392,7 +392,7 @@ class OmniTravelTest {
                 "[ ] 10. General: esplanade :19 Mar 2026 :3 hours (concert)" + System.lineSeparator() +
                 "[ ] 11. General: merlion :7 Apr 2026 :2 hours (sightseeing)" + System.lineSeparator() +
                 "[ ] 12. General: chinatown :21 Feb 2025 :5 hours (sightseeing)";
-        travelActivityListNew.listTravelActivities();
+        travelActivityListNew.listTravelActivities(false, false, LocalDate.now());
         assertEquals(capturedOutputStream.toString().trim(), expectedOutput1);
     }
 
