@@ -36,34 +36,53 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Prints line
+     */
     public static void printLine(){
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Prints the OmniException
+     * @param exception The OmniException to be printed
+     */
     public static void printException(OmniException exception){
         printLine();
         System.out.println("Warning! " + exception.getMessage());
         printLine();
     }
 
+    /**
+     * Prints the NoSuchElement Exception
+     * @param exception The exception to be printed
+     */
     public static void printNoSuchElementException(NoSuchElementException exception){
         printLine();
         System.out.println("Warning! " + exception.getMessage());
         printLine();
     }
 
+    /**
+     * Prints the NumberFormatException
+     * @param exception The exception to be printed
+     */
     public static void printNumberTooLargeException(NumberFormatException exception) {
         printLine();
         System.out.println("Warning! " + exception.getMessage() + " number too large!");
         printLine();
     }
+
+    /**
+     * Prints the menu of command options.
+     */
     //@@author ChenKangg
     public static void helpCommand(){
         printLine();
         System.out.println("These are the available commands!");
         System.out.println("");
         System.out.println(
-                "1. list: List out the current list\n" +
+                "1. list <date> <sort>: List out the current list for given date sorted\n" +
                 "2. help: Get all commands for the chatbot\n" +
                 "3. bye: Exit the chatbot\n" +
                 "4. add <travel activity> <date> <duration> <tag>\n" +

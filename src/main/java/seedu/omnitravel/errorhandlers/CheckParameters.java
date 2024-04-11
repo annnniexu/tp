@@ -5,6 +5,14 @@ import java.io.IOException;
 import java.time.DateTimeException;
 import java.util.NoSuchElementException;
 
+/**
+ * The CheckParameters class provides methods to check the user input for various commands.
+ * An OmniException will be thrown if the input violates the structure of the command.
+ * Includes methods that will check parameters for the add command, update command, list command, currency command
+ * as well as helper functions to check the validity of certain strings.
+ *
+ */
+
 public class CheckParameters {
     //@@author EugeneChanJiajun
     /**
@@ -36,6 +44,7 @@ public class CheckParameters {
      * Checks for all possible input errors that users may make when updating and throws the corresponding exceptions
      *
      * @param command Command array that users placed into the chatbot
+     * @param line The line that the user inputs
      * @throws OmniException when any of the corresponding input format is wrong
      */
     public static void updateExceptions(String[] command, String line) throws OmniException {
@@ -55,10 +64,39 @@ public class CheckParameters {
                     + " or update INDEX /date YYYY-MM-DD /duration DURATION /tag TAG");
         }
     }
+
+    //@@author annnniexu
+    /**
+     * Checks for all possible input errors that users may make when using the list command and
+     * throws the corresponding exceptions
+     *
+     * @param command Command array that users placed into the chatbot
+     * @param input Input arrary that is split at /date and /sort
+     * @param line The line that the user inputs
+     * @throws OmniException when any of the corresponding input format is wrong
+     */
+    public static void listExceptions(String[] command, String[] input, String line) throws OmniException {
+        //command is split at spaces, input is split at /date and /sort
+        // /date included, but no date provided
+        boolean case1 = command.length > 1 && command[1].equals("/date") && (command.length < 3 || input.length != 2);
+        // something other than /date or /sort is entered after list
+        boolean case2 = command.length > 1 && !(command[1].equals("/date") || command[1].equals("/sort"));
+        // only /sort tag but command length > 2
+        boolean case3 = command.length > 2 && command[1].equals("/sort");
+        // command length greater than 4
+        boolean case4 = command.length > 4;
+        if (case1 || case2 || case3 || case4) {
+            throw new OmniException("Please check that your list command is in this format:" +
+                    "list [/date YYYY-MM-DD] [/sort]");
+        }
+    }
+
+
     //@@author daryltay415
     /**
      * Checks if a string contains all the words
      * @param input The input String
+     * @throws OmniException if duration is invalid
      */
     public static void containsWords(String input) throws OmniException{
         String[] inputSplit = input.split(" ");
