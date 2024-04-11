@@ -10,7 +10,11 @@ import java.util.Comparator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
+/**
+ * The TravelActivityList class represents the list of travel activities that the user inputs.
+ * Methods include adding, removing, listing, expensing, updating, tagging, and filtering travel activities.
+ *
+ */
 public class TravelActivityList {
     private static Logger logger = Logger.getLogger("TravelActivityListLogger");
     /** Array of travel activity */
@@ -44,8 +48,12 @@ public class TravelActivityList {
 
     /**
      * Prints out all the travel activities.
-     * If sort
-     * TODO ADD PARAM
+     * If sort is enabled, the list will be printed out from oldest to newest date.
+     * If filterDate is enabled and a date is provided, only activities from that date will be printed
+     *
+     * @param sort boolean indicating if list should be sorted
+     * @param filterDate boolean indicating if list should be filtered by date
+     * @param date the date to be filtered by
      */
     public void listTravelActivities(boolean sort, boolean filterDate, LocalDate date){
         ArrayList<TravelActivity> activities = new ArrayList<>();

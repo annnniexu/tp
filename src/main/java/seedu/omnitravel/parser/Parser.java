@@ -15,6 +15,11 @@ import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.logging.Logger;
 
+/**
+ * The Parser class contains methods that handles user command inputs and calls the respective methods
+ * in TravelActivityList.
+ */
+
 public class Parser {
 
     private static Logger logger = Logger.getLogger("ParserLogger");
