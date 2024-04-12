@@ -1,5 +1,27 @@
 # User Guide
-
+* [Introduction](#introduction)
+* [Quick Start](#quick-start)
+* [Features](#features-)
+    * [Adding a general travel activity](#adding-a-general-travel-activity--add)
+    * [Add an accommodation activity type into the list](#add-an-accommodation-activity-type-into-the-list--accommodation)
+    * [Add a food activity type into the list](#add-a-food-activity-type-into-the-list--food)
+    * [Add a landmark activity type into the list](#add-a-landmark-activity-type-into-the-list--landmark)
+    * [Find activity from the list using activity description](#find-activity-from-the-list-using-activity-description--find)
+    * [Deleting a travel activity](#deleting-a-travel-activity--delete)
+    * [Listing all the travel activities](#listing-all-the-travel-activities--list)
+    * [Check a travel activity](#check-a-travel-activity--check)
+    * [Uncheck a travel activity](#uncheck-a-travel-activity--uncheck)
+    * [Updating a travel activity](#updating-a-travel-activity--update)
+    * [Adding a tag](#adding-a-tag-tag)
+    * [Removing a tag](#removing-a-tag-untag)
+    * [Find an activity from the list using activity tag](#find-activity-from-the-list-using-activity-tag-findtag)
+    * [List tags from the list](#list-tags-from-the-list--listtags)
+    * [Find activity from the list using activity type](#find-activity-from-the-list-using-activity-type--findtype)
+    * [Adding an expense amount](#adding-an-expense-amount-expense)
+    * [Removing an expense amount](#removing-an-expense-amount-removeexpense)
+    * [Calculating total expense](#calculating-total-expense-amount-totalexpense)
+    * [Converting a currency](#converting-a-currency--change)
+* [Command summary](#command-summary)
 ## Introduction
 
 OmniTravel is a software that **allows travellers to store their travel plans and expenses in a
@@ -425,7 +447,7 @@ Go to Hong Kong  :25 Aug 2025 :6 hours (with family)
 ____________________________________________________________
 ```
 
-### Adding an expense amount: `totalexpense`
+### Calculating total expense amount: `totalexpense`
 Calculates the total expense for all activities of the given type in the travel activity list.
 
 Format: `totalexpense [/type TYPE]`

@@ -64,7 +64,7 @@ public class TravelActivityList {
                 }
             }
         } else {
-            activities = travelActivities;
+            activities.addAll(travelActivities);
         }
         if (sort) {
             Collections.sort(activities, Comparator.comparing(TravelActivity::getDate));
@@ -104,6 +104,9 @@ public class TravelActivityList {
         assert activityNumber != 0 : "There is not activities in the list";
         int indexOfActivity = activityNumber - 1;
         int initialListSize = noOfActivities;
+        if(activityNumber > noOfActivities){
+            throw new OmniException("I cannot find the travel activity to delete!");
+        }
         TravelActivity removedActivity = travelActivities.get(indexOfActivity);
         travelActivities.remove(indexOfActivity);
         System.out.println("I have removed this activity:");
@@ -113,7 +116,7 @@ public class TravelActivityList {
         assert newSize == initialListSize - 1 : "There is an error with list size!";
     }
 
-    public void removeTravelActivity(String activity) throws OmniException {
+    public void removeTravelActivity(String activity){
         int foundCounter = 0;
         for (int iterator = 0; iterator < travelActivities.size(); iterator += 1) {
             if (travelActivities.get(iterator).getPlan().toLowerCase().contains(activity.toLowerCase())) {
@@ -301,7 +304,9 @@ public class TravelActivityList {
         String oldTravelActivity = updatedTravelActivity.toString();
         updatedTravelActivity.setDate(date);
         updatedTravelActivity.setDuration(duration);
-        updatedTravelActivity.setTag(tag);
+        if(!tag.isBlank()){
+            updatedTravelActivity.setTag(tag);
+        }
         System.out.println("I have updated this task\nfrom: " + oldTravelActivity +
                 "\nto: " + updatedTravelActivity);
     }
@@ -424,7 +429,7 @@ public class TravelActivityList {
         int indexOfTask = taskNumber - 1;
         TravelActivity task = travelActivities.get(indexOfTask);
         if(!(expense.startsWith("$") && CheckParameters.isValidExpense(expense.substring(1)))){
-            throw new OmniException("Please follow format for expense: $50");
+            throw new OmniException("Please follow format for expense: expense $50");
         }
         task.setExpense(expense);
         System.out.println("I have added expense for this task:");

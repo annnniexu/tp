@@ -1,8 +1,38 @@
 # Developer Guide
+* [Acknowledgements](#acknowledgements)
+* [Design & implementation](#design--implementation)
+    * [Save feature](#save-feature)
+    * [Update feature](#update-feature)
+    * [Total expense feature](#total-expense-feature)
+    * [Tag feature](#tag-feature)
+* [Appendix: Requirements](#appendix-requirements)
+    * [Product scope](#product-scope)
+    * [User stories](#user-stories)
+    * [Use cases]
+    * [Non-functional requirements](#non-functional-requirements)
+    * [Glossary](#glossary)
+* [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
+    * [Launch and shutdown](#launch-and-shutdown)
+    * [Adding a travel activity](#adding-a-travel-activity)
+    * [Deleting a travel activity](#deleting-a-travel-activity)
+    * [Updating a travel activity](#updating-a-travel-activity)
+    * [List travel activities](#list-travel-activities)
+    * [Finding a travel activity](#finding-a-travel-activity)
+    * [Finding a travel activity with a tag](#finding-a-travel-activity-with-a-tag)
+    * [Finding a type of travel activity](#finding-a-type-of-travel-activity)
+    * [Adding an expense](#adding-an-expense)
+    * [Deleting an expense](#deleting-an-expense)
+    * [Converting currency](#converting-currency)
+    * [Add tag](#add-tag)
+    * [Remove tag](#remove-tag)
+    * [List tags](#list-tags)
+    * [Checking a travel activtiy](#checking-a-travel-activity)
+    * [Unchecking a travel activity](#unchecking-a-travel-activity)
+    * [Show help](#show-help)
 
 ## Acknowledgements
 
-{list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+Source for currency exchange API: [link](https://github.com/fawazahmed0/exchange-api/blob/main/LICENSE)
 
 ## Design & implementation
 
@@ -11,7 +41,7 @@
 ![Overview.png](Overview.png)
 Given above is a overview of how each classes interact with one another in our software.
 
-#[Proposed] Save feature
+### Save feature
 
 The save feature is facilitated by `FileSave`. It makes calls to the subclasses `Accommodation`, `Food` and `Landmark`
 which are subclasses of the `TravelActivity` class to add each activity saved in the text file.
@@ -39,11 +69,9 @@ a form of save feature when the user exits the bot.
 The above class diagram shows the methods and the respective input and return types that the FileSave class contains. It
 also shows the classes called during the file load sequence.
 
-#[Proposed] Update feature
+### Update feature
 
-Proposed Implementation
-
-The proposed update feature is mainly carried out by `TravelActivityList`. It stores objects with class `TravelActivity`in an array called `travelActivities`
+The update feature is mainly carried out by `TravelActivityList`. It stores objects with class `TravelActivity`in an array called `travelActivities`
 and each `TravelActivity` class object contains a date and duration. The `TravelAcivityList` also contains the following method:
 * `TravelActivityList#updateTravelActivity(travelActivityNumber, date, duration)`-- Updates the date and duration of the specified object of `TravelActivity` class type.
 
@@ -62,11 +90,9 @@ of that travel activity.
 The sequence diagram below shows how an update operation goes through the parser component:
 ![img_1.png](img_1.png)
 
-#[Proposed] Total Expense feature
+### Total Expense feature
 
-Proposed Implementation
-
-The proposed total expense feature is mainly carried out by `TravelActivityList`. It stores objects with class `TravelActivity`in an array called `travelActivities`
+The total expense feature is mainly carried out by `TravelActivityList`. It stores objects with class `TravelActivity`in an array called `travelActivities`
 and each `TravelActivity` class object contains an expense associated with it. The `TravelAcivityList` also contains the following method:
 * `TravelActivityList#totalExpense(type)`-- Returns the total expense of activities in the list with given type.
 
@@ -88,7 +114,7 @@ The tag feature is implemented through the tagCommand method, which allows users
 The sequence diagram depicts the interaction between the user, the tagCommand method, the TravelActivityList instance, and the OmniException instance.
 
 ![TagSequenceDiagram.png](TagSequenceDiagram.png)
-
+## Appendix: Requirements
 ## Product scope
 ### Target user profile
 * Needs to manage multiple travel plans
@@ -130,7 +156,7 @@ functions.
 
 * Mainstream OS: Windows, Linux, MacOS
 
-## Instructions for manual testing
+## Appendix: Instructions for manual testing
 The instructions given below are used for testing the app manually.
 
 
@@ -180,14 +206,19 @@ The instructions given below are used for testing the app manually.
 
 ### Deleting a travel activity
 1. Deleting a travel activity that is present in the list
-    1. Prerequisites: List all the travel activities using the `list` command.
+    1. Prerequisites: Add 2 new activities with description "Go to Paris" and another with
+       description "Go home". List all the travel activities using the `list` command.
 
     2. Test case: `delete 1`
    
        Expected: Deletes the first activity in the list and details of the deleted activity is shown in the terminal
-   
-2. Deleting a travel activity that is not present in the list
-    3. Test case: `delete -1` 
+
+    3. Test case: `delete home`
+
+       Expected: Deletes the activities with the description containing the keyword "home" and the
+       activities deleted will be shown in a list 
+
+    4. Test case: `delete -1` 
 
        Expected: An error message will be shown in the terminal and no activity is deleted.
 
@@ -204,9 +235,8 @@ The instructions given below are used for testing the app manually.
 
        Expected: The second activity in the list will be updated with a new date, duration and tag. The details of the activity
        will be shown.
-   
-2. Updating a travel activity that is not present in the list
-    1. Test case: `update -1 /date 2025-12-12 /duration five days /tag Monday`
+
+    4. Test case: `update -1 /date 2025-12-12 /duration five days /tag Monday`
 
        Expected: No activity will be updated and an error message will be shown
 
@@ -214,7 +244,15 @@ The instructions given below are used for testing the app manually.
 1. To list out the current activity list
     1. Test case: `list`
     
-       Expected: The current activity list will be shown by the chatbot
+       Expected: The current activity list will be shown without any sorting order
+   
+   2. Test case: `list /date 2024-12-12`
+   
+       Expected: All the activities with the date 2024-12-12 will be shown
+   
+   3. Test case: `list /sort`
+   
+       Expected: All the activities will be shown in a list by ascending dates 
 
 ### Finding a travel activity
 1. To find all travel activities with the same keyword
@@ -223,27 +261,46 @@ The instructions given below are used for testing the app manually.
    
     2. Test case: `find paris`
        
-       Expected: The activities with "paris" in the description will be shown in a list.  
+       Expected: The activities with "paris" in the description will be shown in a list.
+
+2. To find all travel activities with the same keyword and with exclusion
+    1. Test case: `find paris /exclude fly`
+    
+       Expected: The activities with the keyword "paris" and excluding "fly" in the description will
+       be shown in a list 
 
 ### Finding a travel activity with a tag
 1. To find all the travel activities with the same tag
-    1. Prerequisites: Add 2 new travel activities with the same tag "Friday".
+    1. Prerequisites: Add 2 new travel activities with the same tag "Friday" and with descriptions
+        "Paris" and "Hong Kong".
 
     2. Test case: `findtag Friday`
 
        Expected: The activities with the tag "Friday" will be shown in a list
 
+2. To find all the travel activities with the same tag with exclusions
+    1. Test case: `findtag Friday /exclude Paris`
+        
+       Expected: The activities with the tag "Friday" and without the keyword "Paris" in the
+        description will be shown in a list.
+
 ### Finding a type of travel activity
 1. To find all travel activities of a certain type
-    1. Prerequisites: Have at least 2 different types of travel activity currently in the list.
-       For example, food and landmark type of travel activity.
+    1. Prerequisites: Create one Food type and one Food type travel activity with the
+        description "Takoyaki" and "Chicken rice".
 
     2. Test case: `findtype Food`
    
        Expected: The activities of food type will be shown in the list
 
-### Adding expense to a travel activity
-1. Adding expense to a activity currently in the list
+2. To find all the travel activities of a certain type with exclusions
+    1. Test case: `findtype Food /exclude Takoyaki`
+
+       Expected: The activities of food type without the keyword "Takoyaki" in their description
+       will be shown in a list. 
+
+### Adding an expense
+1. Adding expense to an activity currently in the list
     1. Prerequisites: List all the travel activities using the `list` command.
 
     2. Test case: `expense 1 $40`
@@ -251,13 +308,13 @@ The instructions given below are used for testing the app manually.
        Expected: An expense of $40 will be added to the first activity in the list and the details
         of the activity will be shown
 
-2. Adding expense to a activity not in the list
+2. Adding expense to an activity not in the list
     1. Test case: `expense 1 $-1`
 
-       Expected: No expense will be added and a error message will be shown
+       Expected: No expense will be added and an error message will be shown.
 
 ### Deleting an expense
-1. Deleting an expense from a activity currently in the list
+1. Deleting an expense from an activity currently in the list
     1. Prerequisites: List all the travel activities using the `list` command.
 
     2. Test case: `removeexpense 1`
@@ -265,10 +322,10 @@ The instructions given below are used for testing the app manually.
        Expected: The expense of the first activity in the list will be removed. The details of the activity will
        be shown
 
-2. Deleting an expense from a activity not in the list
+2. Deleting an expense from an activity not in the list
     1. Test case: `removeexpense 0`
 
-       Expected: No expense is removed and a error message will be shown. 
+       Expected: No expense is removed and an error message will be shown. 
         
 ### Converting currency
 1. Converting a local curreny to a foreign currency
@@ -276,7 +333,7 @@ The instructions given below are used for testing the app manually.
    
        Expected: The conversion of 100 singapore dollars to japanese yen will be shown
 
-### Add tag to a travel activity
+### Add tag
 1. Adding a tag to a travel activity currently in the list
     1. Prerequisites: List all the travel activities using the `list` command.
     
@@ -290,7 +347,7 @@ The instructions given below are used for testing the app manually.
 
        Expected: No tag will be added and a error message will be shown 
 
-### Remove tag from travel activity
+### Remove tag
 1. Removing a tag from a travel activity currently in the list
     1. Prerequisites: List all the travel activities using the `list` command.
    
