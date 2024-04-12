@@ -150,8 +150,8 @@ public class Parser {
             int input = Integer.parseInt(command[1]);
             list.removeTravelActivity(input);
         } catch (NumberFormatException e) {
-            int IndexOfDescription = line.indexOf(command[1]);
-            String description = line.substring(IndexOfDescription);
+            int indexOfDescription = line.indexOf(command[1]);
+            String description = line.substring(indexOfDescription);
             list.removeTravelActivity(description);
         }
     }

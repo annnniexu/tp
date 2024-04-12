@@ -602,4 +602,74 @@ class OmniTravelTest {
     public void testAsciiCheck() throws OmniException {
         CheckParameters.asciiCheck("Valid input");
     }
+
+    @Test
+    public void testGetListMethod() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(accommodationNew1);
+        Parser.getList("list", list);
+    }
+
+    @Test
+    public void testGetListMethodWithSorting() throws OmniException{
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(accommodationNew1);
+        list.addTravelActivity(foodNew2);
+        Parser.getList("list /sort", list);
+    }
+
+    @Test
+    public void testGetListMethodWithDate() throws OmniException{
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(accommodationNew1);
+        list.addTravelActivity(foodNew2);
+        Parser.getList("list /date 2025-12-12 ", list);
+    }
+
+    @Test
+    public void testAddCommandMethod() throws OmniException{
+        TravelActivityList list = new TravelActivityList();
+        // Test case without tags
+        Parser.addCommand("add home /date 2026-12-12 /duration 2 days", list);
+        // Test case with tags
+        Parser.addCommand("add home /date 2026-12-12 /duration 2 days /tag first", list);
+    }
+
+    @Test
+    public void testDeleteCommandMethod() throws OmniException{
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(accommodationNew1);
+        list.addTravelActivity(foodNew2);
+        String[] command1 = {"delete", "1"};
+        String[] command2 = {"delete", "pgpr mala"};
+        Parser.deleteCommand(command1, list, "delete 1");
+        Parser.deleteCommand(command2, list, "delete pgpr mala");
+    }
+
+    @Test
+    public void testCheckCommandMethod() throws OmniException{
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(accommodationNew1);
+        list.addTravelActivity(foodNew2);
+        String[] command = {"check", "1"};
+        Parser.checkCommand(command, list);
+    }
+
+    @Test
+    public void testUncheckCommandMethod() throws OmniException{
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(accommodationNew1);
+        list.addTravelActivity(foodNew2);
+        String[] command = {"uncheck", "1"};
+        Parser.uncheckCommand(command, list);
+    }
+
+    @Test
+    public void testListTagsCommandMethod() throws OmniException{
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(accommodationNew1);
+        list.addTravelActivity(foodNew2);
+        String[] command = {"listtags"};
+        Parser.listTagsCommand(command, list);
+    }
 }

@@ -372,11 +372,12 @@ ____________________________________________________________
 
 Find an activity based on their tag. All activities with the given tag will be listed out.
 
-Format: `findtag TAG`
+Format: `findtag TAG [/exclude KEYWORD]`
 * `TAG` has to match the activity tag exactly to find the activity
 
 Examples of usage: 
 * `findtag spicy`
+* `findtag spicy /exclude mala`
 
 Expected outcome:
 ```
@@ -411,12 +412,13 @@ ____________________________________________________________
 
 Find an activity based on their type. All activities with the given type will be listed out.
 
-Format: `findtype TYPE`
+Format: `findtype TYPE [/exclude KEYWORD]`
 * `TYPE` has to match the activity type exactly to find the activity
 * The different types are `general`, `accommodation`, `food`, `landmark`
 
 Examples of usage: 
 * `findtype general`
+* `findtype general /exclude japan`
 
 Expected outcome:
 ```
