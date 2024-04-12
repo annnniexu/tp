@@ -98,13 +98,11 @@ public class Ui {
                 "14. update <update> <date> <duration> <tag>\n" +
                 "15. findtag <tag name>\n" +
                 "16. findtype <type>\n" +
-                "17. expense <activity number> <expense amount>\n" +
-                "18. removeexpense <activity number>\n" +
-                "19. totalexpense <type>\n" +
-                "20. change <amount> /from <current currency> /to <changed currency>\n" +
-                "21. location <activity number> <location>\n" +
-                "22. removelocation <activity number>\n" +
-                "23. findlocation <location>\n");
+                "17. listtags \n" +
+                "18. expense <activity number> <expense amount>\n" +
+                "19. removeexpense <activity number>\n" +
+                "20. totalexpense <type>\n" +
+                "21. change <amount> /from <current currency> /to <changed currency>\n");
         printLine();
     }
     //@@author daryltay415
