@@ -170,8 +170,9 @@ ____________________________________________________________
 ### Find activity from the list using activity description : `find`
 Find an activity based on their description. All activities with the given description will be listed out.
 
-Format: `find DESCRIPTION`
+Format: `find DESCRIPTION [/exclude KEYWORD]`
 * `DESCRIPTION` has to match the activity description exactly to find the activity
+* `DESCRIPTION` can also be a keyword that is included in the description.
 
 Examples of usage (assuming saizeriya is in list): 
 * `find saizeriya`
@@ -180,7 +181,19 @@ Expected output:
 ```
 ____________________________________________________________
 Here are what you are looking for:
-[ ] 1. Food: saizeriya :14 Mar 2025 :2 hours
+[ ] 1. Food: saizeriya pizza :14 Mar 2025 :2 hours
+[ ] 2. Food: saizeriya pasta :14 Mar 2025 :2 hours
+____________________________________________________________
+```
+
+With `/exclude`:
+* `find saizeriya /exclude pizza`
+
+Expected output:
+```
+____________________________________________________________
+Here are what you are looking for:
+[ ] 1. Food: saizeriya pasta :14 Mar 2025 :2 hours
 ____________________________________________________________
 ```
 
@@ -317,6 +330,10 @@ ____________________________________________________________
 ### Adding a tag: `tag`
 Adds a new tag to an existing travel activity. The tag can be a short description to help a user better organise 
 their travel activities. 
+
+> 📒 Notes about the tag command:
+> * The tag that is included into the input does not remove any whitespaces that users may have accidentally included.
+> This gives users the option to include whitespaces in their tags.
 
 Format: `tag INDEX TAGNAME`
 
