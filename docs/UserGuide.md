@@ -19,7 +19,7 @@
     * [Find activity from the list using activity type](#find-activity-from-the-list-using-activity-type--findtype)
     * [Adding an expense amount](#adding-an-expense-amount-expense)
     * [Removing an expense amount](#removing-an-expense-amount-removeexpense)
-    * [Getting total expense](#adding-an-expense-amount-totalexpense)
+    * [Calculating total expense](#calculating-total-expense-amount-totalexpense)
     * [Converting a currency](#converting-a-currency--change)
 * [Command summary](#command-summary)
 ## Introduction
@@ -447,7 +447,7 @@ Go to Hong Kong  :25 Aug 2025 :6 hours (with family)
 ____________________________________________________________
 ```
 
-### Adding an expense amount: `totalexpense`
+### Calculating total expense amount: `totalexpense`
 Calculates the total expense for all activities of the given type in the travel activity list.
 
 Format: `totalexpense [/type TYPE]`

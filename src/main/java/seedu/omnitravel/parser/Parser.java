@@ -21,9 +21,7 @@ import java.util.logging.Logger;
  */
 
 public class Parser {
-
     private static Logger logger = Logger.getLogger("ParserLogger");
-
     //@@author annnniexu
     /**
      * Obtains the list of travel activities
@@ -61,6 +59,7 @@ public class Parser {
         Ui.printLine();
     }
     //@@author EugeneChanJiajun
+
     /**
      * Handles the case where the add command is given as input
      *
@@ -132,7 +131,7 @@ public class Parser {
         System.out.println(newActivity);
         Ui.printLine();
     }
-    //@@author ChinYanXu
+
     /**
      * Handles the case where the delete command is given as input
      *
@@ -156,7 +155,6 @@ public class Parser {
             list.removeTravelActivity(description);
         }
     }
-
 
     //@@author annnniexu
     /**

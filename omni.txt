@@ -1,5 +1,0 @@
-general / 0 / home  / 2024-12-12 / 3 hours / hello world / $50000000
-general / 0 / go to home  / 2024-12-12 / 5 months / hello / $500000000
-food / 0 / hello world / 2024-12-12 / 3 hours /  / 
-food / 0 / go to home / 2024-12-12 / 3 hours /  / 
-general / 0 / go home  / 2025-12-12 / 5 hours /  / 

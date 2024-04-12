@@ -64,6 +64,10 @@ after using the bye command.
 The above sequence diagram shows how existing save text files will be reloaded back into Omnibots array list to act as
 a form of save feature when the user exits the bot. 
 
+![img_2.png](img_2.png)
+
+The above class diagram shows the methods and the respective input and return types that the FileSave class contains. It
+also shows the classes called during the file load sequence.
 
 ### Update feature
 
