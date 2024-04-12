@@ -32,25 +32,18 @@ providing an easy way to assist a user to view all the commands.
 * Justification: This feature improves the product significantly because a user can add an expense to a travel activity 
   which can help to track their finances and conveniently remove the expense to rectify if required.
 
-#### Added the ability to add and remove location
-* What it does: allows the user to add a location to an existing travel activity and remove a location from an
-  existing travel activity if needed.
-* Justification: This feature improves the product significantly because a user can add a location to a travel activity 
-  which can help to better organise their travel activities to a specific location and conveniently remove the location
-  to rectify if required.
+#### Added the ability to list tags
 
-#### Added the ability to find a location
-* What it does: allows the user to find a location from existing travel activities.
-* Justification: This feature improves the product significantly because a user it allows the user to search for
-  travel activities based on location and sort the travel planner in an organised manner.
+* What it does: allows the user to list out all the tags that have been added.
+* Justification: This feature improves the product significantly because a user may have forgotten what tags they have 
+  given to different travel activities. This feature allows users to view all tags quickly and easily.
 
 #### Documentation:
 * Contributions to the UG:
-Added documentation for the features `help`,`tag`,`untag`,`expense`,`removeexpense`,`location`,
-`removelocation`,`findlocation`.
+Added documentation for the features `help`,`tag`,`untag`,`expense`,`removeexpense`,`findtags`.
 
 * Contributions to the DG: 
 Added description of implementation of `tag` feature + sequence diagram.
 Added documentation instructions for manual testing for the features `help`,`tag`,`untag`,`expense`,
-`removeexpense`,`location`,`removelocation`,`findlocation`.
+`removeexpense`,`findtags`.
 

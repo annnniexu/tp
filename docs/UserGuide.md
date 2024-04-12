@@ -189,17 +189,20 @@ ____________________________________________________________
 ```
 
 ### Listing all the travel activities : `list`
-Shows all the travel activities including their tags and expenses
+Shows all the travel activities for including their tags and expenses. 
+Shows all activities for given date if date is provided.
+Sorts by date if sort is enabled.
 
-Format: `list`
+Format: `list [/date DATE /sort]`
 
 Examples of usage: 
 * `list`
 
 Expected outcome:
+Without date and sort
 ```
 ____________________________________________________________
-Here are the travel activities in your list:
+Here are the travel activities for all dates:
 [ ] 1. General: Go to Japan  :14 Mar 2025 :7 hour
 [ ] 2. General: Go to Hong Kong  :25 Aug 2025 :6 hours (with family)
 [ ] 3. Accommodation: Four Seasons Hotel :14 Mar 2025 :2 weeks
@@ -211,7 +214,30 @@ Here are the travel activities in your list:
 [ ] 9. Food: saizeriya :14 Mar 2025 :2 hours
 ____________________________________________________________
 ```
-
+* `list /date 2025-08-25`
+Expected outcome: With date
+```
+____________________________________________________________
+Here are the travel activities for 2025-08-05:
+[ ] 1. General: Go to Hong Kong  :25 Aug 2025 :6 hours (with family)
+[ ] 4. Accommodation: Four Seasons Hotel :25 Aug 2025 :2 weeks (first hotel)
+____________________________________________________________
+```
+* `list /sort`
+```
+____________________________________________________________
+Here are the travel activities for all dates:
+[ ] 1. General: Go to Japan  :14 Mar 2025 :7 hour
+[ ] 2. Accommodation: Four Seasons Hotel :14 Mar 2025 :2 weeks
+[ ] 3. Food: Mala Hotpot :14 Mar 2025 :2 hours
+[ ] 4. Food: Mala Hotpot :14 Mar 2025 :2 hours (very spicy)
+[ ] 5. Landmark: Eiffel Tower :14 Mar 2025 :2 hours
+[ ] 6. Landmark: Eiffel Tower :14 Mar 2025 :2 hours (go up tower)
+[ ] 7. Food: saizeriya :14 Mar 2025 :2 hours
+[ ] 8. General: Go to Hong Kong  :25 Aug 2025 :6 hours (with family)
+[ ] 9. Accommodation: Four Seasons Hotel :25 Aug 2025 :2 weeks (first hotel)
+____________________________________________________________
+```
 ### Check a travel activity : `check`
 Checks a travel activity as completed.
 
@@ -437,61 +463,6 @@ ____________________________________________________________
 ____________________________________________________________
 ```
 
-### Adding a location: `location`
-Adds a location to an existing travel activity.
-
-Format: `location INDEX LOCATION`
-
-* The `INDEX` must be a valid activity index
-*
-Example of usage:
-
-`location 3 Singapore`
-
-Expected outcome:
-```
-____________________________________________________________
-I have added a location to this task:
-Go to Japan  :14 Dec 2026 :2 hours (Japan)
-____________________________________________________________
-```
-
-### Removing a location amount: `removelocation`
-Removes a location to an existing travel activity.
-
-Format: `removelocation INDEX`
-
-* The `INDEX` must be a valid activity index.
-
-Example of usage:
-
-`removelocation 3`
-
-Expected outcome:
-```
-____________________________________________________________
-Location removed from the task:
-Go to Japan  :14 Dec 2026 :2 hours
-____________________________________________________________
-```
-
-### Find activity from the list using activity location: `findlocation`
-
-Find an activity based on their location. All activities with the given location will be listed out.
-
-Format: `findlocation LOCATION`
-* `LOCATION` has to match the activity location exactly to find the activity
-
-Examples of usage: `findlocation Japan`
-
-Expected outcome:
-```
-____________________________________________________________
-Here are what you are looking for:
-[ ] 1. General: Go to Japan  :14 Dec 2026 :2 hours (Japan)
-____________________________________________________________
-```
-
 Common currency codes:
 * USA: USD
 * EURO: EUR
@@ -530,10 +501,9 @@ same location of your other computer to transfer all the activities.
 * Remove tag `untag INDEX`
 * Find activity using activity tag `findtag TAG`
 * Find activity using activity type `findtype TYPE`
+* Lists out all tags `listtags`
 * Add expense `expense INDEX EXPENSE`
 * Remove expense `removeexpense INDEX`
 * Total expense `totalexpense [/type TYPE]`
 * Check currency exchange `change AMOUNT /from CODE /to CODE`
-* Add location `location INDEX LOCATION`
-* Remove location `removelocation INDEX`
-* Find location `findlocation LOCATION`
+

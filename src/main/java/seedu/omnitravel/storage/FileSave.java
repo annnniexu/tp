@@ -13,6 +13,11 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * The FileSave class is responsible for saving a TravelActivity list to disk and loading
+ * a TravelActivity from disk.
+ *
+ */
 public class FileSave {
     //@@author EugeneChanJiajun
     private static Logger logger = Logger.getLogger("LoadFileLogger");
@@ -22,6 +27,11 @@ public class FileSave {
         this.filePath = path;
     }
 
+    /**
+     * Reads data from file and loads it into a travel activity list
+     * @param list The travel activity list to load data in to
+     * @throws FileNotFoundException If the file does not exist
+     */
     public void loadFileContents(TravelActivityList list) throws FileNotFoundException {
         logger.log(Level.INFO, "loadFileContents");
         java.io.File f = new java.io.File(filePath);
@@ -42,6 +52,18 @@ public class FileSave {
         }
     }
 
+    /**
+     * Initializes a travel activity object based on the given parameters
+     *
+     * @param type The type of travel activity (food, landmark, accommodation, general)
+     * @param description The description of the travel activity
+     * @param date The date of the travel activity
+     * @param duration The duration of the travel activity
+     * @param tag The tag of the travel activity
+     * @param expense The expense of the travel activity
+     * @return The TravelActivity object
+     * @throws FileNotFoundException If the type is not valid
+     */
     public TravelActivity initialiseActivity (String type, String description,
             LocalDate date, String duration, String tag, String expense) throws FileNotFoundException {
         TravelActivity activity;
@@ -64,6 +86,11 @@ public class FileSave {
         return activity;
     }
 
+    /**
+     * Saves the travel activity list to the file specified by the file path
+     * @param list The travel activity list to save to the file
+     * @throws IOException If an I/o error occurs while writing to file
+     */
     public void saveActivityList(TravelActivityList list) throws IOException {
         logger.log(Level.INFO, "saveActivityList");
         FileWriter fw = new FileWriter(filePath);
@@ -87,6 +114,11 @@ public class FileSave {
         fw.close();
     }
 
+    /**
+     * Reads the file and loads information into the provided travel activity list.
+     *
+     * @param list The travel activity list to load the file into
+     */
     public void readFile(TravelActivityList list) {
         logger.log(Level.INFO, "readFile");
         try {
