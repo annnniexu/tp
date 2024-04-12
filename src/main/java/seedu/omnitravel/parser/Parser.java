@@ -21,9 +21,7 @@ import java.util.logging.Logger;
  */
 
 public class Parser {
-
     private static Logger logger = Logger.getLogger("ParserLogger");
-
     //@@author annnniexu
     /**
      * Obtains the list of travel activities
@@ -61,6 +59,7 @@ public class Parser {
         Ui.printLine();
     }
     //@@author EugeneChanJiajun
+
     /**
      * Handles the case where the add command is given as input
      *
@@ -132,7 +131,7 @@ public class Parser {
         System.out.println(newActivity);
         Ui.printLine();
     }
-    //@@author ChinYanXu
+
     /**
      * Handles the case where the delete command is given as input
      *
@@ -140,18 +139,22 @@ public class Parser {
      * @param list List of travel activities
      * @throws OmniException if command.length != 2 && command[1] is not numeric
      */
-    public static void deleteCommand(String[] command, TravelActivityList list) throws OmniException {
+    public static void deleteCommand(String[] command, TravelActivityList list, String line) throws OmniException {
+        if(list.getNoOfTravelActivities() == 0){
+            throw new OmniException("The list is empty!");
+        }
         try {
-            if (command.length != 2) {
+            if (command.length < 2) {
                 throw new OmniException("Please specify which activity index or description to delete");
             }
             int input = Integer.parseInt(command[1]);
             list.removeTravelActivity(input);
         } catch (NumberFormatException e) {
-            list.removeTravelActivity(command[1]);
+            int indexOfDescription = line.indexOf(command[1]);
+            String description = line.substring(indexOfDescription);
+            list.removeTravelActivity(description);
         }
     }
-
 
     //@@author annnniexu
     /**
@@ -268,7 +271,7 @@ public class Parser {
             String exclusion = command[2].trim();
             list.findTag(keyword, exclusion);
         } else {
-            throw new OmniException("Please check that your find tag command is in this format: + " +
+            throw new OmniException("Please check that your find tag command is in this format: " +
                     "findtag <description> " + "or findtag <description> /exclude <exclusion>");
         }
     }
@@ -285,10 +288,12 @@ public class Parser {
         String[] command = line.split("findtype | /exclude");
         if (command.length == 2 && !command[1].isBlank() && !line.contains("/exclude")) {
             String keyword = command[1].trim();
+            keyword = keyword.equalsIgnoreCase("general")? "TravelActivity":keyword;
             list.findType(keyword);
         } else if (command.length == 3 && !command[1].isBlank() && !command[2].isBlank()) {
             String keyword = command[1].trim();
             String exclusion = command[2].trim();
+            keyword = keyword.equalsIgnoreCase("general")? "TravelActivity":keyword;
             list.findType(keyword, exclusion);
         } else {
             throw new OmniException("Please check that your find type command is in this format: + " +

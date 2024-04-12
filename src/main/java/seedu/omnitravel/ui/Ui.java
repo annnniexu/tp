@@ -48,7 +48,6 @@ public class Ui {
      * @param exception The OmniException to be printed
      */
     public static void printException(OmniException exception){
-        printLine();
         System.out.println("Warning! " + exception.getMessage());
         printLine();
     }
@@ -58,7 +57,6 @@ public class Ui {
      * @param exception The exception to be printed
      */
     public static void printNoSuchElementException(NoSuchElementException exception){
-        printLine();
         System.out.println("Warning! " + exception.getMessage());
         printLine();
     }
@@ -68,7 +66,6 @@ public class Ui {
      * @param exception The exception to be printed
      */
     public static void printNumberTooLargeException(NumberFormatException exception) {
-        printLine();
         System.out.println("Warning! " + exception.getMessage() + " number too large!");
         printLine();
     }
@@ -90,14 +87,14 @@ public class Ui {
                 "6. food <travel activity> <date> <duration> <tag>\n" +
                 "7. landmark <travel activity> <date> <duration> <tag>\n" +
                 "8. delete <activity number>\n" +
-                "9. find <keyword>\n" +
+                "9. find <keyword> <exclusion>\n" +
                 "10. check <activity number>\n" +
                 "11. uncheck <activity number>\n" +
                 "12. tag <activity number> <tag name>\n" +
                 "13. untag <activity number>\n" +
                 "14. update <update> <date> <duration> <tag>\n" +
-                "15. findtag <tag name>\n" +
-                "16. findtype <type>\n" +
+                "15. findtag <tag name> <exclusion>\n" +
+                "16. findtype <type> <exclusion>\n" +
                 "17. listtags \n" +
                 "18. expense <activity number> <expense amount>\n" +
                 "19. removeexpense <activity number>\n" +

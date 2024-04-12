@@ -1,5 +1,27 @@
 # User Guide
-
+* [Introduction](#introduction)
+* [Quick Start](#quick-start)
+* [Features](#features-)
+    * [Adding a general travel activity](#adding-a-general-travel-activity--add)
+    * [Add an accommodation activity type into the list](#add-an-accommodation-activity-type-into-the-list--accommodation)
+    * [Add a food activity type into the list](#add-a-food-activity-type-into-the-list--food)
+    * [Add a landmark activity type into the list](#add-a-landmark-activity-type-into-the-list--landmark)
+    * [Find activity from the list using activity description](#find-activity-from-the-list-using-activity-description--find)
+    * [Deleting a travel activity](#deleting-a-travel-activity--delete)
+    * [Listing all the travel activities](#listing-all-the-travel-activities--list)
+    * [Check a travel activity](#check-a-travel-activity--check)
+    * [Uncheck a travel activity](#uncheck-a-travel-activity--uncheck)
+    * [Updating a travel activity](#updating-a-travel-activity--update)
+    * [Adding a tag](#adding-a-tag-tag)
+    * [Removing a tag](#removing-a-tag-untag)
+    * [Find an activity from the list using activity tag](#find-activity-from-the-list-using-activity-tag-findtag)
+    * [List tags from the list](#list-tags-from-the-list--listtags)
+    * [Find activity from the list using activity type](#find-activity-from-the-list-using-activity-type--findtype)
+    * [Adding an expense amount](#adding-an-expense-amount-expense)
+    * [Removing an expense amount](#removing-an-expense-amount-removeexpense)
+    * [Calculating total expense](#calculating-total-expense-amount-totalexpense)
+    * [Converting a currency](#converting-a-currency--change)
+* [Command summary](#command-summary)
 ## Introduction
 
 OmniTravel is a software that **allows travellers to store their travel plans and expenses in a
@@ -148,8 +170,9 @@ ____________________________________________________________
 ### Find activity from the list using activity description : `find`
 Find an activity based on their description. All activities with the given description will be listed out.
 
-Format: `find DESCRIPTION`
+Format: `find DESCRIPTION [/exclude KEYWORD]`
 * `DESCRIPTION` has to match the activity description exactly to find the activity
+* `DESCRIPTION` can also be a keyword that is included in the description.
 
 Examples of usage (assuming saizeriya is in list): 
 * `find saizeriya`
@@ -158,7 +181,19 @@ Expected output:
 ```
 ____________________________________________________________
 Here are what you are looking for:
-[ ] 1. Food: saizeriya :14 Mar 2025 :2 hours
+[ ] 1. Food: saizeriya pizza :14 Mar 2025 :2 hours
+[ ] 2. Food: saizeriya pasta :14 Mar 2025 :2 hours
+____________________________________________________________
+```
+
+With `/exclude`:
+* `find saizeriya /exclude pizza`
+
+Expected output:
+```
+____________________________________________________________
+Here are what you are looking for:
+[ ] 1. Food: saizeriya pasta :14 Mar 2025 :2 hours
 ____________________________________________________________
 ```
 
@@ -296,6 +331,10 @@ ____________________________________________________________
 Adds a new tag to an existing travel activity. The tag can be a short description to help a user better organise 
 their travel activities. 
 
+> 📒 Notes about the tag command:
+> * The tag that is included into the input does not remove any whitespaces that users may have accidentally included.
+> This gives users the option to include whitespaces in their tags.
+
 Format: `tag INDEX TAGNAME`
 
 * The `INDEX` must be a valid activity index.
@@ -333,11 +372,12 @@ ____________________________________________________________
 
 Find an activity based on their tag. All activities with the given tag will be listed out.
 
-Format: `findtag TAG`
+Format: `findtag TAG [/exclude KEYWORD]`
 * `TAG` has to match the activity tag exactly to find the activity
 
 Examples of usage: 
 * `findtag spicy`
+* `findtag spicy /exclude mala`
 
 Expected outcome:
 ```
@@ -372,12 +412,13 @@ ____________________________________________________________
 
 Find an activity based on their type. All activities with the given type will be listed out.
 
-Format: `findtype TYPE`
+Format: `findtype TYPE [/exclude KEYWORD]`
 * `TYPE` has to match the activity type exactly to find the activity
 * The different types are `general`, `accommodation`, `food`, `landmark`
 
 Examples of usage: 
 * `findtype general`
+* `findtype general /exclude japan`
 
 Expected outcome:
 ```
@@ -425,7 +466,7 @@ Go to Hong Kong  :25 Aug 2025 :6 hours (with family)
 ____________________________________________________________
 ```
 
-### Adding an expense amount: `totalexpense`
+### Calculating total expense amount: `totalexpense`
 Calculates the total expense for all activities of the given type in the travel activity list.
 
 Format: `totalexpense [/type TYPE]`

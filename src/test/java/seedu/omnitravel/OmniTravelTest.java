@@ -21,9 +21,15 @@ import java.time.format.DateTimeFormatter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+
+import java.io.IOException;
+import java.time.DateTimeException;
+import java.util.NoSuchElementException;
 
 class OmniTravelTest {
 
@@ -580,11 +586,17 @@ class OmniTravelTest {
     @Test
     public void testContainsWords() throws OmniException {
         CheckParameters.containsWords("2 days");
+        assertThrows(OmniException.class, () -> {
+            CheckParameters.containsWords("£$%");
+        });
     }
 
     @Test
     public void testIsValidExpense() throws OmniException {
         assertTrue(CheckParameters.isValidExpense("50"));
+        assertThrows(OmniException.class, () -> {
+            CheckParameters.isValidExpense("-0");
+        });
     }
 
     @Test
@@ -595,11 +607,108 @@ class OmniTravelTest {
 
     @Test
     public void testHandleException() {
-        CheckParameters.handleException(new OmniException("Test OmniException"));
+        OmniException omniException = new OmniException("Test OmniException");
+        NoSuchElementException noSuchElementException = new NoSuchElementException("Test NoSuchElementException");
+        NumberFormatException numberFormatException = new NumberFormatException("Test NumberFormatException");
+        DateTimeException dateTimeException = new DateTimeException("Test DateTimeException");
+        IOException ioException = new IOException("Test IOException");
+        InterruptedException interruptedException = new InterruptedException("Test InterruptedException");
+
+        assertDoesNotThrow(() -> {
+            CheckParameters.handleException(omniException);
+        });
+        assertDoesNotThrow(() -> {
+            CheckParameters.handleException(noSuchElementException);
+        });
+        assertDoesNotThrow(() -> {
+            CheckParameters.handleException(numberFormatException);
+        });
+        assertDoesNotThrow(() -> {
+            CheckParameters.handleException(dateTimeException);
+        });
+        assertDoesNotThrow(() -> {
+            CheckParameters.handleException(ioException);
+        });
+        assertDoesNotThrow(() -> {
+            CheckParameters.handleException(interruptedException);
+        });
     }
 
     @Test
     public void testAsciiCheck() throws OmniException {
         CheckParameters.asciiCheck("Valid input");
+        assertThrows(OmniException.class, () -> {
+            CheckParameters.asciiCheck(" ©, ®, €, £, µ, ¥,");
+        });
+    }
+
+    @Test
+    public void testGetListMethod() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(accommodationNew1);
+        Parser.getList("list", list);
+    }
+
+    @Test
+    public void testGetListMethodWithSorting() throws OmniException{
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(accommodationNew1);
+        list.addTravelActivity(foodNew2);
+        Parser.getList("list /sort", list);
+    }
+
+    @Test
+    public void testGetListMethodWithDate() throws OmniException{
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(accommodationNew1);
+        list.addTravelActivity(foodNew2);
+        Parser.getList("list /date 2025-12-12 ", list);
+    }
+
+    @Test
+    public void testAddCommandMethod() throws OmniException{
+        TravelActivityList list = new TravelActivityList();
+        // Test case without tags
+        Parser.addCommand("add home /date 2026-12-12 /duration 2 days", list);
+        // Test case with tags
+        Parser.addCommand("add home /date 2026-12-12 /duration 2 days /tag first", list);
+    }
+
+    @Test
+    public void testDeleteCommandMethod() throws OmniException{
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(accommodationNew1);
+        list.addTravelActivity(foodNew2);
+        String[] command1 = {"delete", "1"};
+        String[] command2 = {"delete", "pgpr mala"};
+        Parser.deleteCommand(command1, list, "delete 1");
+        Parser.deleteCommand(command2, list, "delete pgpr mala");
+    }
+
+    @Test
+    public void testCheckCommandMethod() throws OmniException{
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(accommodationNew1);
+        list.addTravelActivity(foodNew2);
+        String[] command = {"check", "1"};
+        Parser.checkCommand(command, list);
+    }
+
+    @Test
+    public void testUncheckCommandMethod() throws OmniException{
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(accommodationNew1);
+        list.addTravelActivity(foodNew2);
+        String[] command = {"uncheck", "1"};
+        Parser.uncheckCommand(command, list);
+    }
+
+    @Test
+    public void testListTagsCommandMethod() throws OmniException{
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(accommodationNew1);
+        list.addTravelActivity(foodNew2);
+        String[] command = {"listtags"};
+        Parser.listTagsCommand(command, list);
     }
 }
