@@ -64,7 +64,7 @@ public class TravelActivityList {
                 }
             }
         } else {
-            activities = travelActivities;
+            activities.addAll(travelActivities);
         }
         if (sort) {
             Collections.sort(activities, Comparator.comparing(TravelActivity::getDate));
