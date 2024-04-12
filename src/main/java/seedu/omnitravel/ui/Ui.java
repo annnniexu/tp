@@ -36,34 +36,53 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Prints line
+     */
     public static void printLine(){
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Prints the OmniException
+     * @param exception The OmniException to be printed
+     */
     public static void printException(OmniException exception){
         printLine();
         System.out.println("Warning! " + exception.getMessage());
         printLine();
     }
 
+    /**
+     * Prints the NoSuchElement Exception
+     * @param exception The exception to be printed
+     */
     public static void printNoSuchElementException(NoSuchElementException exception){
         printLine();
         System.out.println("Warning! " + exception.getMessage());
         printLine();
     }
 
+    /**
+     * Prints the NumberFormatException
+     * @param exception The exception to be printed
+     */
     public static void printNumberTooLargeException(NumberFormatException exception) {
         printLine();
         System.out.println("Warning! " + exception.getMessage() + " number too large!");
         printLine();
     }
+
+    /**
+     * Prints the menu of command options.
+     */
     //@@author ChenKangg
     public static void helpCommand(){
         printLine();
         System.out.println("These are the available commands!");
         System.out.println("");
         System.out.println(
-                "1. list: List out the current list\n" +
+                "1. list <date> <sort>: List out the current list for given date sorted\n" +
                 "2. help: Get all commands for the chatbot\n" +
                 "3. bye: Exit the chatbot\n" +
                 "4. add <travel activity> <date> <duration> <tag>\n" +
@@ -79,13 +98,11 @@ public class Ui {
                 "14. update <update> <date> <duration> <tag>\n" +
                 "15. findtag <tag name>\n" +
                 "16. findtype <type>\n" +
-                "17. expense <activity number> <expense amount>\n" +
-                "18. removeexpense <activity number>\n" +
-                "19. totalexpense <type>\n" +
-                "20. change <amount> /from <current currency> /to <changed currency>\n" +
-                "21. location <activity number> <location>\n" +
-                "22. removelocation <activity number>\n" +
-                "23. findlocation <location>\n");
+                "17. listtags \n" +
+                "18. expense <activity number> <expense amount>\n" +
+                "19. removeexpense <activity number>\n" +
+                "20. totalexpense <type>\n" +
+                "21. change <amount> /from <current currency> /to <changed currency>\n");
         printLine();
     }
     //@@author daryltay415

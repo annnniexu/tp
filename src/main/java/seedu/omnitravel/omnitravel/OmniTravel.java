@@ -36,7 +36,7 @@ public class OmniTravel {
                 logger.log(Level.INFO, command[0]);
                 switch (command[0].toLowerCase()) {
                 case "list":
-                    Parser.getList(command, list);
+                    Parser.getList(line, list);
                     break;
                 case "listtags":
                     Parser.listTagsCommand(command, list);
@@ -64,9 +64,6 @@ public class OmniTravel {
                 case "expense":
                 case "removeexpense":
                 case "totalexpense":
-                case "location":
-                case "removelocation":
-                case "findlocation":
                     invokeCommand(command, line, list);
                     break;
                 case "help":

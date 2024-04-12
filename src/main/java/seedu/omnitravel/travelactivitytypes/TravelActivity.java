@@ -3,6 +3,12 @@ package seedu.omnitravel.travelactivitytypes;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The TravelActivity class represents a single travel activity and has attributes
+ * description, date, duration, tag, expense, and whether or not the activity is completed.
+ *
+ */
+
 public class TravelActivity {
     /** Travel activity description */
     private String travelActivity;
@@ -53,6 +59,10 @@ public class TravelActivity {
         return travelActivity;
     }
 
+    /**
+     * Gets the status of the travel activity
+     * @return boolean representing if activity is done or not
+     */
     public boolean getActivityStatus() {
         return activityIsDone;
     }
@@ -65,42 +75,72 @@ public class TravelActivity {
         return tag;
     }
 
+    /**
+     * Sets the tag of the travel activity
+     * @param tag The tag to be set
+     */
     public void setTag(String tag) {
         this.tag = tag;
     }
 
+    /**
+     * Removes the tag of the travel activity.
+     */
     public void removeTag() {
         this.tag = "";
     }
 
+    /**
+     * Sets the date of the travel activity
+     * @param date the date to be set
+     */
     public void setDate(LocalDate date){
         this.date = date;
     }
 
+    /**
+     * Gets the date of the travel activity.
+     * @return the date of the travel activity
+     */
     public LocalDate getDate(){
         return date;
     }
 
+    /**
+     * Sets the duration of the travel activity.
+     * @param duration the duration to be set
+     */
     public void setDuration(String duration){
         this.duration = duration;
     }
 
+    /**
+     * Gets the duration of the travel activity
+     * @return the duration of the travel activity
+     */
     public String getDuration(){
         return duration;
     }
 
     /**
      * Gets the expense of the travel activity
-     * @return The tag of the travel activity
+     * @return The expense of the travel activity
      */
     public String getExpense() {
         return expense;
     }
 
+    /**
+     * Sets the expense of the travel activity
+     * @param expense The expense of the travel activity
+     */
     public void setExpense(String expense) {
         this.expense = expense;
     }
 
+    /**
+     * Removes the expense of the travel activity.
+     */
     public void removeExpense() {
         this.expense = "";
     }

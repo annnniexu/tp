@@ -11,24 +11,51 @@ import seedu.omnitravel.ui.Ui;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.logging.Logger;
 
+/**
+ * The Parser class contains methods that handles user command inputs and calls the respective methods
+ * in TravelActivityList.
+ */
+
 public class Parser {
     private static Logger logger = Logger.getLogger("ParserLogger");
+    //@@author annnniexu
     /**
      * Obtains the list of travel activities
      *
+     * @param line Line that the user inputs into the chatbot
      * @param list List of travel activities.
      */
-    public static void getList(String[] command, TravelActivityList list) throws OmniException {
+    public static void getList(String line, TravelActivityList list) throws OmniException {
         Ui.printLine();
-        if (command.length == 1) {
-            System.out.println("Here are the travel activities in your list:");
-            list.listTravelActivities();
-        } else {
-            throw new OmniException("Do you mean the command list?");
+        String[] command = line.split(" ");
+        String delimiter = "/date | /sort ";
+        String[] input = line.split(delimiter);
+        CheckParameters.listExceptions(command, input, line);
+        boolean sort = false;
+        boolean isDate = false;
+        LocalDate date = LocalDate.now();
+        String dateString = "all dates";
+        if (command.length == 2 || command.length == 4) {
+            sort = true;
         }
+        if (command.length == 3 || command.length == 4) {
+            isDate = true;
+            try {
+                date = LocalDate.parse(command[2].trim());
+            } catch (DateTimeParseException e) {
+                throw new OmniException("Please provide the date in the format YYYY-MM-DD");
+            }
+            if(date.isBefore(LocalDate.now())){
+                throw new OmniException("Please input a future date.");
+            }
+            dateString = date.toString();
+        }
+        System.out.println("Here are the travel activities for " + dateString);
+        list.listTravelActivities(sort, isDate, date);
         Ui.printLine();
     }
     //@@author EugeneChanJiajun
@@ -113,10 +140,14 @@ public class Parser {
      * @throws OmniException if command.length != 2 && command[1] is not numeric
      */
     public static void deleteCommand(String[] command, TravelActivityList list) throws OmniException {
-        if (command.length == 2){
+        try {
+            if (command.length != 2) {
+                throw new OmniException("Please specify which activity index or description to delete");
+            }
+            int input = Integer.parseInt(command[1]);
+            list.removeTravelActivity(input);
+        } catch (NumberFormatException e) {
             list.removeTravelActivity(command[1]);
-        } else {
-            throw new OmniException("Please specify which activity index to delete");
         }
     }
 
@@ -226,11 +257,17 @@ public class Parser {
      */
 
     public static void findTagCommand(String line, TravelActivityList list) throws OmniException {
-        String[] command = line.split("findtag");
-        if (command.length > 1) {
-            list.findTag(command[1].trim());
+        String[] command = line.split("findtag | /exclude");
+        if (command.length == 2 && !command[1].isBlank() && !line.contains("/exclude")) {
+            String keyword = command[1].trim();
+            list.findTag(keyword);
+        } else if (command.length == 3 && !command[1].isBlank() && !command[2].isBlank()) {
+            String keyword = command[1].trim();
+            String exclusion = command[2].trim();
+            list.findTag(keyword, exclusion);
         } else {
-            throw new OmniException("Please check that your update command is in this format: findtag <tag>");
+            throw new OmniException("Please check that your find tag command is in this format: + " +
+                    "findtag <description> " + "or findtag <description> /exclude <exclusion>");
         }
     }
 
@@ -243,13 +280,17 @@ public class Parser {
      */
 
     public static void findTypeCommand(String line, TravelActivityList list) throws OmniException {
-        String[] command = line.split("findtype");
-        if (command.length < 1) {
-            throw new OmniException("Please check that your find type command is in this format: findtype <type>");
-        } else if (command[1].trim().equalsIgnoreCase("general")){
-            list.findType("TravelActivity");
+        String[] command = line.split("findtype | /exclude");
+        if (command.length == 2 && !command[1].isBlank() && !line.contains("/exclude")) {
+            String keyword = command[1].trim();
+            list.findType(keyword);
+        } else if (command.length == 3 && !command[1].isBlank() && !command[2].isBlank()) {
+            String keyword = command[1].trim();
+            String exclusion = command[2].trim();
+            list.findType(keyword, exclusion);
         } else {
-            list.findType(command[1].trim());
+            throw new OmniException("Please check that your find type command is in this format: + " +
+                    "findtype <description> " + "or findtype <description> /exclude <exclusion>");
         }
     }
 
@@ -261,12 +302,17 @@ public class Parser {
      * @throws OmniException if command.length != 2
      */
     public static void findCommand(String line, TravelActivityList list) throws OmniException {
-        String[] command = line.split("find");
-        if (command.length > 1 && !command[1].isBlank()) {
+        String[] command = line.split("find | /exclude");
+        if (command.length == 2 && !command[1].isBlank() && !line.contains("/exclude")) {
             String keyword = command[1].trim();
             list.searchKeyword(keyword);
+        } else if (command.length == 3 && !command[1].isBlank() && !command[2].isBlank()) {
+            String keyword = command[1].trim();
+            String exclusion = command[2].trim();
+            list.searchKeyword(keyword, exclusion);
         } else {
-            throw new OmniException("Please check that your find type command is in this format: find <description>");
+            throw new OmniException("Please check that your find command is in this format: + " +
+                    "find <description> " + "or find <description> /exclude <exclusion>");
         }
     }
 
