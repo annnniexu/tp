@@ -189,17 +189,20 @@ ____________________________________________________________
 ```
 
 ### Listing all the travel activities : `list`
-Shows all the travel activities including their tags and expenses
+Shows all the travel activities for including their tags and expenses. 
+Shows all activities for given date if date is provided.
+Sorts by date if sort is enabled.
 
-Format: `list`
+Format: `list [/date DATE /sort]`
 
 Examples of usage: 
 * `list`
 
 Expected outcome:
+Without date and sort
 ```
 ____________________________________________________________
-Here are the travel activities in your list:
+Here are the travel activities for all dates:
 [ ] 1. General: Go to Japan  :14 Mar 2025 :7 hour
 [ ] 2. General: Go to Hong Kong  :25 Aug 2025 :6 hours (with family)
 [ ] 3. Accommodation: Four Seasons Hotel :14 Mar 2025 :2 weeks
@@ -211,7 +214,30 @@ Here are the travel activities in your list:
 [ ] 9. Food: saizeriya :14 Mar 2025 :2 hours
 ____________________________________________________________
 ```
-
+* `list /date 2025-08-25`
+Expected outcome: With date
+```
+____________________________________________________________
+Here are the travel activities for 2025-08-05:
+[ ] 1. General: Go to Hong Kong  :25 Aug 2025 :6 hours (with family)
+[ ] 4. Accommodation: Four Seasons Hotel :25 Aug 2025 :2 weeks (first hotel)
+____________________________________________________________
+```
+* `list /sort`
+```
+____________________________________________________________
+Here are the travel activities for all dates:
+[ ] 1. General: Go to Japan  :14 Mar 2025 :7 hour
+[ ] 2. Accommodation: Four Seasons Hotel :14 Mar 2025 :2 weeks
+[ ] 3. Food: Mala Hotpot :14 Mar 2025 :2 hours
+[ ] 4. Food: Mala Hotpot :14 Mar 2025 :2 hours (very spicy)
+[ ] 5. Landmark: Eiffel Tower :14 Mar 2025 :2 hours
+[ ] 6. Landmark: Eiffel Tower :14 Mar 2025 :2 hours (go up tower)
+[ ] 7. Food: saizeriya :14 Mar 2025 :2 hours
+[ ] 8. General: Go to Hong Kong  :25 Aug 2025 :6 hours (with family)
+[ ] 9. Accommodation: Four Seasons Hotel :25 Aug 2025 :2 weeks (first hotel)
+____________________________________________________________
+```
 ### Check a travel activity : `check`
 Checks a travel activity as completed.
 
