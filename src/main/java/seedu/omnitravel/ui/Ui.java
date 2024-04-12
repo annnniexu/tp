@@ -57,12 +57,13 @@ public class Ui {
         System.out.println("Warning! " + exception.getMessage() + " number too large!");
         printLine();
     }
-
+    //@@author ChenKangg
     public static void helpCommand(){
         printLine();
         System.out.println("These are the available commands!");
         System.out.println("");
-        System.out.println("1. list: List out the current list\n" +
+        System.out.println(
+                "1. list: List out the current list\n" +
                 "2. help: Get all commands for the chatbot\n" +
                 "3. bye: Exit the chatbot\n" +
                 "4. add <travel activity> <date> <duration> <tag>\n" +
@@ -81,10 +82,13 @@ public class Ui {
                 "17. expense <activity number> <expense amount>\n" +
                 "18. removeexpense <activity number>\n" +
                 "19. totalexpense <type>\n" +
-                "20. change <amount> /from <current currency> /to <changed currency> ");
+                "20. change <amount> /from <current currency> /to <changed currency>\n" +
+                "21. location <activity number> <location>\n" +
+                "22. removelocation <activity number>\n" +
+                "23. findlocation <location>\n");
         printLine();
     }
-
+    //@@author daryltay415
     public static void printDateTimeExceptionError(){
         System.out.println("Invalid date, please input the date in the following order: YYYY-MM-DD");
     }
@@ -103,7 +107,6 @@ public class Ui {
      * @param activityIndex The index of the activity
      */
     public static void printActivity(TravelActivity activity, int activityIndex) {
-
         String checked = activity.getActivityStatus()? "[X]" : "[ ]";
         System.out.print(checked + " " + activityIndex + ". ");
         if (activity.getClass().getSimpleName().equals("TravelActivity")){
@@ -113,6 +116,7 @@ public class Ui {
         if(activity.getExpense() != null && !activity.getExpense().isEmpty()){
             System.out.print(" (" + activity.getExpense() + ")");
         }
+
         System.out.println();
     }
 

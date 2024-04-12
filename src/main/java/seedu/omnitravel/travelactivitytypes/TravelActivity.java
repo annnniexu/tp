@@ -18,6 +18,7 @@ public class TravelActivity {
     private String expense;
 
 
+
     public TravelActivity(String description, LocalDate date, String duration, String tag, String expense){
         travelActivity = description;
         this.date = date;
@@ -103,6 +104,7 @@ public class TravelActivity {
     public void removeExpense() {
         this.expense = "";
     }
+
 
 }
 

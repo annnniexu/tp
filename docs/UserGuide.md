@@ -41,24 +41,11 @@ ____________________________________________________________
 > * Words that are in square brackets such as `[/tag TAG]` indicates that it is
 > optional to include in the command.
 > * Users should not use any `/` into their input descriptions unless using for input command format
- 
 
-
-### Display Commands : `help`
-Displays the features of OmniTravel
-
-Format: `help`
-
-Example of usage:
-
-`help`
-
-Expected outcome:
-
-{chenkang to include}
 
 ### Adding a general travel activity : `add`
 Adds a general travel activity into the travel activity list
+* This is for activities that do not fall under the other activity types. EG. visiting a country.
 
 Format: `add DESCRIPTION /date YYYY-MM-DD /duration DURATION [/tag TAG]`
 
@@ -178,17 +165,26 @@ ____________________________________________________________
 ### Deleting a travel activity : `delete`
 Deletes a travel activity from the travel activity list
 
-Format: `delete INDEX`
-* `INDEX` has to be a number that is shown in the list of travel activities
+Format: `delete ACTIVITY`
+* `ACTIVITY` can be an index of an activity or a keyword found in the description of an activity in the list of travel 
+* activities. If the user writes a number only the activity in that particular index on the list gets deleted. 
+* If the user writes a keyword then every activity with that keyword in its description gets deleted.
 
 Examples of usage: 
 * `delete 1`
+* `delete Eiffel`
 
 Expected output:
 ```
 ____________________________________________________________
 I have removed this activity:
 Accommodation: Four Seasons Hotel :14 Mar 2025 :2 days
+____________________________________________________________
+```
+```
+____________________________________________________________
+I have removed this activity:
+1. Landmark: Eiffel Tower :14 Mar 2025 :2 hours (go up tower)
 ____________________________________________________________
 ```
 
@@ -271,7 +267,8 @@ ____________________________________________________________
 ```
 
 ### Adding a tag: `tag`
-Adds a new tag to an existing travel activity.
+Adds a new tag to an existing travel activity. The tag can be a short description to help a user better organise 
+their travel activities. 
 
 Format: `tag INDEX TAGNAME`
 
@@ -440,6 +437,61 @@ ____________________________________________________________
 ____________________________________________________________
 ```
 
+### Adding a location: `location`
+Adds a location to an existing travel activity.
+
+Format: `location INDEX LOCATION`
+
+* The `INDEX` must be a valid activity index
+*
+Example of usage:
+
+`location 3 Singapore`
+
+Expected outcome:
+```
+____________________________________________________________
+I have added a location to this task:
+Go to Japan  :14 Dec 2026 :2 hours (Japan)
+____________________________________________________________
+```
+
+### Removing a location amount: `removelocation`
+Removes a location to an existing travel activity.
+
+Format: `removelocation INDEX`
+
+* The `INDEX` must be a valid activity index.
+
+Example of usage:
+
+`removelocation 3`
+
+Expected outcome:
+```
+____________________________________________________________
+Location removed from the task:
+Go to Japan  :14 Dec 2026 :2 hours
+____________________________________________________________
+```
+
+### Find activity from the list using activity location: `findlocation`
+
+Find an activity based on their location. All activities with the given location will be listed out.
+
+Format: `findlocation LOCATION`
+* `LOCATION` has to match the activity location exactly to find the activity
+
+Examples of usage: `findlocation Japan`
+
+Expected outcome:
+```
+____________________________________________________________
+Here are what you are looking for:
+[ ] 1. General: Go to Japan  :14 Dec 2026 :2 hours (Japan)
+____________________________________________________________
+```
+
 Common currency codes:
 * USA: USD
 * EURO: EUR
@@ -482,3 +534,6 @@ same location of your other computer to transfer all the activities.
 * Remove expense `removeexpense INDEX`
 * Total expense `totalexpense [/type TYPE]`
 * Check currency exchange `change AMOUNT /from CODE /to CODE`
+* Add location `location INDEX LOCATION`
+* Remove location `removelocation INDEX`
+* Find location `findlocation LOCATION`
