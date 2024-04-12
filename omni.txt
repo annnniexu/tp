@@ -1,5 +1,0 @@
-general / 0 / paris  / 2025-12-12 / 1 week / tag this activiyu / $12125
-landmark / 0 / landmark of landmark / 2025-12-12 / 1 week / 1 / $2147483647
-accommodation / 0 / some dumb accommodation / 2025-12-12 / 1 week /  / 
-accommodation / 1 / some dumb accommodation / 2025-12-12 / 1 week / some tag / 
-food / 1 / some food / 2025-12-12 / 1 week / some tag / 
