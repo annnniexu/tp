@@ -21,9 +21,15 @@ import java.time.format.DateTimeFormatter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+
+import java.io.IOException;
+import java.time.DateTimeException;
+import java.util.NoSuchElementException;
 
 class OmniTravelTest {
 
@@ -580,11 +586,17 @@ class OmniTravelTest {
     @Test
     public void testContainsWords() throws OmniException {
         CheckParameters.containsWords("2 days");
+        assertThrows(OmniException.class, () -> {
+            CheckParameters.containsWords("£$%");
+        });
     }
 
     @Test
     public void testIsValidExpense() throws OmniException {
         assertTrue(CheckParameters.isValidExpense("50"));
+        assertThrows(OmniException.class, () -> {
+            CheckParameters.isValidExpense("-0");
+        });
     }
 
     @Test
@@ -595,12 +607,39 @@ class OmniTravelTest {
 
     @Test
     public void testHandleException() {
-        CheckParameters.handleException(new OmniException("Test OmniException"));
+        OmniException omniException = new OmniException("Test OmniException");
+        NoSuchElementException noSuchElementException = new NoSuchElementException("Test NoSuchElementException");
+        NumberFormatException numberFormatException = new NumberFormatException("Test NumberFormatException");
+        DateTimeException dateTimeException = new DateTimeException("Test DateTimeException");
+        IOException ioException = new IOException("Test IOException");
+        InterruptedException interruptedException = new InterruptedException("Test InterruptedException");
+
+        assertDoesNotThrow(() -> {
+            CheckParameters.handleException(omniException);
+        });
+        assertDoesNotThrow(() -> {
+            CheckParameters.handleException(noSuchElementException);
+        });
+        assertDoesNotThrow(() -> {
+            CheckParameters.handleException(numberFormatException);
+        });
+        assertDoesNotThrow(() -> {
+            CheckParameters.handleException(dateTimeException);
+        });
+        assertDoesNotThrow(() -> {
+            CheckParameters.handleException(ioException);
+        });
+        assertDoesNotThrow(() -> {
+            CheckParameters.handleException(interruptedException);
+        });
     }
 
     @Test
     public void testAsciiCheck() throws OmniException {
         CheckParameters.asciiCheck("Valid input");
+        assertThrows(OmniException.class, () -> {
+            CheckParameters.asciiCheck(" ©, ®, €, £, µ, ¥,");
+        });
     }
 
     @Test
