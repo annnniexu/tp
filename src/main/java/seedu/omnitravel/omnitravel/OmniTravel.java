@@ -102,7 +102,7 @@ public class OmniTravel {
         Ui.printLine();
         switch (command[0].toLowerCase()) {
         case "delete":
-            Parser.deleteCommand(command, list);
+            Parser.deleteCommand(command, list, line);
             break;
         case "check":
             Parser.checkCommand(command, list);
