@@ -71,7 +71,7 @@ public class Ui {
     }
 
     /**
-     * Prints the menu of command options.
+     * Prints out all available commands
      */
     //@@author ChenKangg
     public static void helpCommand(){
@@ -80,28 +80,29 @@ public class Ui {
         System.out.println("");
         System.out.println(
                 "1. list <date> <sort>: List out the current list for given date sorted\n" +
-                "2. help: Get all commands for the chatbot\n" +
-                "3. bye: Exit the chatbot\n" +
-                "4. add <travel activity> <date> <duration> <tag>\n" +
-                "5. accommodation <travel activity> <date> <duration> <tag>\n" +
-                "6. food <travel activity> <date> <duration> <tag>\n" +
-                "7. landmark <travel activity> <date> <duration> <tag>\n" +
-                "8. delete <activity number>\n" +
-                "9. find <keyword> <exclusion>\n" +
-                "10. check <activity number>\n" +
-                "11. uncheck <activity number>\n" +
-                "12. tag <activity number> <tag name>\n" +
-                "13. untag <activity number>\n" +
-                "14. update <update> <date> <duration> <tag>\n" +
-                "15. findtag <tag name> <exclusion>\n" +
-                "16. findtype <type> <exclusion>\n" +
-                "17. listtags \n" +
-                "18. expense <activity number> <expense amount>\n" +
-                "19. removeexpense <activity number>\n" +
-                "20. totalexpense <type>\n" +
-                "21. change <amount> /from <current currency> /to <changed currency>\n");
+                        "2. help: Get all commands for the chatbot\n" +
+                        "3. bye: Exit the chatbot\n" +
+                        "4. add <travel activity> <date> <duration> <tag>\n" +
+                        "5. accommodation <travel activity> <date> <duration> <tag>\n" +
+                        "6. food <travel activity> <date> <duration> <tag>\n" +
+                        "7. landmark <travel activity> <date> <duration> <tag>\n" +
+                        "8. delete <activity number>\n" +
+                        "9. find <keyword> <exclusion>\n" +
+                        "10. check <activity number>\n" +
+                        "11. uncheck <activity number>\n" +
+                        "12. tag <activity number> <tag name>\n" +
+                        "13. untag <activity number>\n" +
+                        "14. update <update> <date> <duration> <tag>\n" +
+                        "15. findtag <tag name> <exclusion>\n" +
+                        "16. findtype <type> <exclusion>\n" +
+                        "17. listtags \n" +
+                        "18. expense <activity number> <expense amount>\n" +
+                        "19. removeexpense <activity number>\n" +
+                        "20. totalexpense <type>\n" +
+                        "21. change <amount> /from <current currency> /to <changed currency>\n");
         printLine();
     }
+
     //@@author daryltay415
     public static void printDateTimeExceptionError(){
         System.out.println("Invalid date, please input the date in the following order: YYYY-MM-DD");

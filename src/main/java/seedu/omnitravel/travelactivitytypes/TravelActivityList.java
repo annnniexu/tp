@@ -254,6 +254,7 @@ public class TravelActivityList {
      *
      * @param taskNumber The travel activity number on the list
      * @param tag The tag of travel activity
+     * @throws OmniException Thrown if the index of the travel activity cannot be found
      */
     public void tagActivity(int taskNumber, String tag) throws OmniException {
         assert taskNumber != 0 : "There is no tasks in the list";
@@ -271,6 +272,7 @@ public class TravelActivityList {
      * Removes the tag on a travel activity
      *
      * @param taskNumber The travel activity number on the list
+     * @throws OmniException Thrown if the index of the travel activity cannot be found
      */
     public void removeTag(int taskNumber) throws OmniException {
         assert taskNumber != 0 : "There is no task in the list";
@@ -396,6 +398,7 @@ public class TravelActivityList {
      *
      * @param type The type of tasks that the user wants to find
      * @param exclude The keyword that the user uses to remove unwanted results from the search
+     *
      */
     public void findType(String type, String exclude){
         int foundCounter = 0;
@@ -420,6 +423,7 @@ public class TravelActivityList {
      *
      * @param taskNumber The travel activity number on the list
      * @param expense  The expense of travel activity
+     * @throws OmniException Thrown if the index of the travel activity cannot be found
      */
     public void expenseActivity(int taskNumber, String expense) throws OmniException {
         assert taskNumber != 0 : "There is no tasks in the list";
@@ -440,6 +444,7 @@ public class TravelActivityList {
      * Removes the expense on a travel activity
      *
      * @param taskNumber The travel activity number on the list
+     * @throws OmniException Thrown if the index of the travel activity cannot be found
      */
     public void removeExpense(int taskNumber) throws OmniException {
         assert taskNumber != 0 : "There is no task in the list";

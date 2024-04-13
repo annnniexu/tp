@@ -68,29 +68,6 @@ public class TravelActivity {
     }
 
     /**
-     * Gets the tag of the travel activity
-     * @return The tag of the travel activity
-     */
-    public String getTag() {
-        return tag;
-    }
-
-    /**
-     * Sets the tag of the travel activity
-     * @param tag The tag to be set
-     */
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
-    /**
-     * Removes the tag of the travel activity.
-     */
-    public void removeTag() {
-        this.tag = "";
-    }
-
-    /**
      * Sets the date of the travel activity
      * @param date the date to be set
      */
@@ -123,7 +100,30 @@ public class TravelActivity {
     }
 
     /**
-     * Gets the expense of the travel activity
+     * Get the tag of the travel activity
+     * @return The tag of the travel activity
+     */
+    public String getTag() {
+        return tag;
+    }
+
+    /**
+     * Set the tag of the travel activity
+     * @param tag The tag to be set
+     */
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    /**
+     * Remove the tag of the travel activity
+     */
+    public void removeTag() {
+        this.tag = "";
+    }
+
+    /**
+     * Get the expense of the travel activity
      * @return The expense of the travel activity
      */
     public String getExpense() {
@@ -131,7 +131,8 @@ public class TravelActivity {
     }
 
     /**
-     * Sets the expense of the travel activity
+     * Set the expense of the travel activity
+     * 
      * @param expense The expense of the travel activity
      */
     public void setExpense(String expense) {
@@ -139,7 +140,7 @@ public class TravelActivity {
     }
 
     /**
-     * Removes the expense of the travel activity.
+     * Remove the expense of the travel activity
      */
     public void removeExpense() {
         this.expense = "";
