@@ -247,8 +247,8 @@ public class TravelActivityList {
             System.out.println("This activity is already unchecked!");
         }
     }
-    //@@author ChenKangg
 
+    //@@author ChenKangg
     /**
      * Adds a tag to travel activity
      *
@@ -258,9 +258,13 @@ public class TravelActivityList {
      */
     public void tagActivity(int taskNumber, String tag) throws OmniException {
         assert taskNumber != 0 : "There is no tasks in the list";
+        logger.log(Level.INFO, "Tagging activity: taskNumber = " + taskNumber + ", tag = " + tag);
+
         if (taskNumber > travelActivities.size() || (taskNumber <= 0)) {
+            logger.log(Level.WARNING, "Invalid taskNumber provided: " + taskNumber);
             throw new OmniException("Travel activity cannot be found");
         }
+
         int indexOfTask = taskNumber - 1;
         TravelActivity taggedTask = travelActivities.get(indexOfTask);
         taggedTask.setTag(tag);
@@ -276,9 +280,13 @@ public class TravelActivityList {
      */
     public void removeTag(int taskNumber) throws OmniException {
         assert taskNumber != 0 : "There is no task in the list";
+        logger.log(Level.INFO, "Removing tag from activity: taskNumber = " + taskNumber);
+
         if (taskNumber > travelActivities.size() || (taskNumber <= 0)) {
+            logger.log(Level.WARNING, "Invalid taskNumber provided: " + taskNumber);
             throw new OmniException("Travel activity cannot be found");
         }
+
         int indexOfTask = taskNumber - 1;
         TravelActivity taggedTask = travelActivities.get(indexOfTask);
         taggedTask.removeTag();
@@ -400,21 +408,29 @@ public class TravelActivityList {
      * @param exclude The keyword that the user uses to remove unwanted results from the search
      *
      */
-    public void findType(String type, String exclude){
+    public void findType(String type, String exclude) {
         int foundCounter = 0;
+        assert type != null && !type.isEmpty() : "Type parameter should not be null or empty";
+        assert exclude != null && !exclude.isEmpty() : "Exclude parameter should not be null or empty";
 
-        for (TravelActivity activity: travelActivities){
-            assert !(foundCounter > travelActivities.size()) : "Error: There is more activities found than possible";
-            if(activity.getClass().getSimpleName().equalsIgnoreCase(type) && !activity.getPlan().contains(exclude)){
-                foundCounter += 1;
+        logger.log(Level.INFO, "Finding type: " + type + ", excluding: " + exclude);
+
+        for (TravelActivity activity : travelActivities) {
+            assert !(foundCounter > travelActivities.size()) : "Error: There are more activities found than possible";
+
+            if (activity.getClass().getSimpleName().equalsIgnoreCase(type) && !activity.getPlan().contains(exclude)) {
+                foundCounter++;
                 if (foundCounter == 1) {
+                    logger.log(Level.INFO, "Found matching activities:");
                     System.out.println("Here are what you are looking for:");
                 }
                 Ui.printActivity(activity, foundCounter);
             }
         }
+
         if (foundCounter == 0) {
-            System.out.println("Sorry I could not find what you are looking for.");
+            logger.log(Level.INFO, "No matching activities found");
+            System.out.println("Sorry, I could not find what you are looking for.");
         }
     }
 
@@ -427,17 +443,26 @@ public class TravelActivityList {
      */
     public void expenseActivity(int taskNumber, String expense) throws OmniException {
         assert taskNumber != 0 : "There is no tasks in the list";
+        logger.log(Level.INFO, "Adding expense to activity: taskNumber = " + taskNumber + ", expense = " + expense);
+
         if (taskNumber > travelActivities.size() || (taskNumber <= 0)) {
+            logger.log(Level.WARNING, "Invalid taskNumber provided: " + taskNumber);
             throw new OmniException("Travel activity cannot be found");
         }
+
         int indexOfTask = taskNumber - 1;
         TravelActivity task = travelActivities.get(indexOfTask);
-        if(!(expense.startsWith("$") && CheckParameters.isValidExpense(expense.substring(1)))){
+
+        if (!(expense.startsWith("$") && CheckParameters.isValidExpense(expense.substring(1)))) {
+            logger.log(Level.WARNING, "Invalid expense format: " + expense);
             throw new OmniException("Please follow format for expense: expense $50");
         }
+
         task.setExpense(expense);
+
         System.out.println("I have added expense for this task:");
-        System.out.println(task + " (" + expense + ")");
+        System.out.printf("%s (%s)\n", task, expense);
+
     }
 
     /**
@@ -448,9 +473,13 @@ public class TravelActivityList {
      */
     public void removeExpense(int taskNumber) throws OmniException {
         assert taskNumber != 0 : "There is no task in the list";
+        logger.log(Level.INFO, "Removing expense from activity: taskNumber = " + taskNumber);
+
         if (taskNumber > travelActivities.size() || (taskNumber <= 0)) {
+            logger.log(Level.WARNING, "Invalid taskNumber provided: " + taskNumber);
             throw new OmniException("Travel activity cannot be found");
         }
+
         int indexOfTask = taskNumber - 1;
         TravelActivity task = travelActivities.get(indexOfTask);
         task.removeExpense();
@@ -492,24 +521,29 @@ public class TravelActivityList {
     /**
      * Lists out all the tags currently in the travel activity list
      */
-    public void listTags(){
-        for (TravelActivity travelActivity: travelActivities){
-            if(travelActivity == null){
-                break;
-            }
+    public void listTags() {
+        assert travelActivities != null : "Travel activities list should not be null";
+
+        logger.log(Level.INFO, "Listing tags");
+
+        for (TravelActivity travelActivity : travelActivities) {
+            assert travelActivity != null : "Travel activity should not be null";
+
             String tag = travelActivity.getTag();
-            if(!travelActivityTags.contains(tag) && !tag.isBlank() ){
+            if (!travelActivityTags.contains(tag) && !tag.isBlank()) {
                 travelActivityTags.add(tag);
             }
         }
+
         Collections.sort(travelActivityTags);
+
         int tagCount = 1;
-        for (String tag: travelActivityTags){
-            if(tag == null){
-                break;
-            }
+        for (String tag : travelActivityTags) {
+            assert tag != null : "Tag should not be null";
+
             System.out.println(tagCount + ". " + tag);
             tagCount++;
         }
     }
+
 }

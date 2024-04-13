@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Arrays;
 import java.util.logging.Logger;
+import java.util.logging.Level;
 
 /**
  * The Parser class contains methods that handles user command inputs and calls the respective methods
@@ -200,17 +201,24 @@ public class Parser {
      * @throws OmniException if command.length == 1
      */
     public static void tagCommand(String line, TravelActivityList list) throws OmniException {
+        assert line != null && !line.isEmpty() : "Command line should not be null or empty";
+        assert list != null : "TravelActivityList should not be null";
+
+        logger.log(Level.INFO, "Tagging command: " + line);
+
         String[] command = line.split(" ");
-        if (command.length >= 3 && CheckParameters.isNumeric(command[1])){
+        if (command.length >= 3 && CheckParameters.isNumeric(command[1])) {
             int listNumber = Integer.parseInt(command[1]);
-            // Extract tags starting from the third element onwards
             String[] tagArray = Arrays.copyOfRange(command, 2, command.length);
-            // Join the tags into a single string
             String tags = String.join(" ", tagArray);
             list.tagActivity(listNumber, tags);
+
         } else if (command.length == 2) {
+            logger.log(Level.WARNING, "No tag name specified in the command: " + line);
             throw new OmniException("Please specify a tag name");
+
         } else {
+            logger.log(Level.WARNING, "No task specified in the command: " + line);
             throw new OmniException("Please specify which task to tag");
         }
     }
@@ -223,10 +231,17 @@ public class Parser {
      * @throws OmniException if command.length != 2 && command[1] is not numeric
      */
     public static void removeTagCommand(String[] command, TravelActivityList list) throws OmniException {
+        assert command != null && command.length >= 2 : "Command array should not be null or empty";
+        assert list != null : "TravelActivityList should not be null";
+
+        logger.log(Level.INFO, "Remove tag command: " + Arrays.toString(command));
+
         if (command.length == 2 && CheckParameters.isNumeric(command[1])) {
             int listNumber = Integer.parseInt(command[1]);
             list.removeTag(listNumber);
+
         } else {
+            logger.log(Level.WARNING, "Invalid command format: " + Arrays.toString(command));
             throw new OmniException("Please specify which task to remove tag");
         }
     }
@@ -333,14 +348,21 @@ public class Parser {
      * @throws OmniException if command.length == 1
      */
     public static void expenseCommand(String line, TravelActivityList list) throws OmniException {
+        assert line != null && !line.isEmpty() : "Command line should not be null or empty";
+        assert list != null : "TravelActivityList should not be null";
+
+        logger.log(Level.INFO, "Expense command: " + line);
+
         String[] command = line.split(" ");
-        if (command.length == 3 && CheckParameters.isNumeric(command[1])){
+        if (command.length == 3 && CheckParameters.isNumeric(command[1])) {
             int listNumber = Integer.parseInt(command[1]);
             String expense = command[2];
             list.expenseActivity(listNumber, expense);
         } else if (command.length == 2) {
+            logger.log(Level.WARNING, "No expense amount specified in the command: " + line);
             throw new OmniException("Please specify expense amount");
         } else {
+            logger.log(Level.WARNING, "No task specified in the command: " + line);
             throw new OmniException("Please specify which task to add expense");
         }
     }
@@ -353,10 +375,16 @@ public class Parser {
      * @throws OmniException if command.length != 2 && command[1] is not numeric
      */
     public static void removeExpenseCommand(String[] command, TravelActivityList list) throws OmniException {
+        assert command != null && command.length >= 2 : "Command array should not be null or empty";
+        assert list != null : "TravelActivityList should not be null";
+
+        logger.log(Level.INFO, "Remove expense command: " + Arrays.toString(command));
+
         if (command.length == 2 && CheckParameters.isNumeric(command[1])) {
             int listNumber = Integer.parseInt(command[1]);
             list.removeExpense(listNumber);
         } else {
+            logger.log(Level.WARNING, "Invalid command format: " + Arrays.toString(command));
             throw new OmniException("Please follow the format: removeexpense INDEX");
         }
     }
@@ -392,18 +420,25 @@ public class Parser {
      * @param list The travel activity list
      * @throws OmniException Throws an exception when the command is in an invalid format
      */
-    public static void listTagsCommand(String[] command, TravelActivityList list) throws OmniException{
+    public static void listTagsCommand(String[] command, TravelActivityList list) throws OmniException {
+        assert command != null && command.length >= 1 : "Command array should not be null or empty";
+        assert list != null : "TravelActivityList should not be null";
+
+        logger.log(Level.INFO, "List tags command: " + Arrays.toString(command));
+
         Ui.printLine();
         if (command.length == 1) {
+            logger.log(Level.INFO, "Listing tags");
             System.out.println("These are the tags in your list: ");
             list.listTags();
         } else {
+            logger.log(Level.WARNING, "Unknown command format: " + Arrays.toString(command));
             throw new OmniException("Do you mean the command listtags?");
         }
         Ui.printLine();
     }
-    //@@author daryltay415
 
+    //@@author daryltay415
     /**
      * Handles the case whereby the command is change
      * @param line The input given by the user
