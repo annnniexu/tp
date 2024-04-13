@@ -209,7 +209,9 @@ public class Parser {
         String[] command = line.split(" ");
         if (command.length >= 3 && CheckParameters.isNumeric(command[1])) {
             int listNumber = Integer.parseInt(command[1]);
+            // Extract tags starting from the third element onwards
             String[] tagArray = Arrays.copyOfRange(command, 2, command.length);
+            // Join the tags into a single string
             String tags = String.join(" ", tagArray);
             list.tagActivity(listNumber, tags);
 

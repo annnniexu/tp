@@ -461,7 +461,7 @@ public class TravelActivityList {
         task.setExpense(expense);
 
         System.out.println("I have added expense for this task:");
-        System.out.printf("%s (%s)\n", task, expense);
+        System.out.println(task + " (" + expense + ")");
 
     }
 
