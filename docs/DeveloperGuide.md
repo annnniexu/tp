@@ -1,6 +1,13 @@
 # Developer Guide
 * [Acknowledgements](#acknowledgements)
-* [Design & implementation](#design--implementation)
+* [Design](#design)
+    * [Architecture](#architecture)
+    * [Storage component](#storage-component)
+    * [Parser component](#parser-component)
+    * [TravelActivityTypes component](#travelactivitytypes-component)
+    * [Ui component](#ui-component)
+    * [Errorhandlers component](#errorhandlers-component)
+* [Implementation](#implementation)
     * [Save feature](#save-feature)
     * [Update feature](#update-feature)
     * [Total expense feature](#total-expense-feature)
@@ -34,12 +41,80 @@
 
 Source for currency exchange API: [link](https://github.com/fawazahmed0/exchange-api/blob/main/LICENSE)
 
-## Design & implementation
+## Design
+
+### Architecture
+![ArchitectureDiagram.png](ArchitectureDiagram.png)
+
+The architecture diagram above describes the high level design of the OmniTravel app.
+
+**Main components of the architecture**
+
+`omnitravel` which consists of the class `OmniTravel` has the responsibility of launching the app and shutting down.
+* When the app launches, it initializes the other components in the app.
+* When it shuts down, it will also shut down the other components.
+
+The main components of the system are as follows:
+* `storage`: It reads data from the folder omni.txt and writes data to it.
+* `parser`: It filters the commands and executes them.
+* `travelactivitytypes`: It holds the data of the app in memory.
+* `ui`: The UI of the app.
+* `errorhandlers`: It handles all the exceptions and checks for any errors in the app.
+
+### Storage component
+The Storage component only consists of one class `FileSave`. 
+
+The storage component,
+* saves the data of the different travel activity types, including their tags, expenses, type and
+description.
+* it listens to the `omnitravel` component to know when to save and load the file from omni.txt into the app.
+* it retrieves travel activity objects from the `travelactivitytype` component to save.
+
+### Parser component
+The parser component only consists of one class `Parser`. 
+
+The parser component,
+* handles all the command inputs by the user
+  and carries out the appropriate actions depending on the command given.
+* uses the `ui` component to print responses to the user
+* sends commands to the `exchangerateapi` and `travelactivitytype` components to execute.
+* receives data from the `omnitravel` component.
 
 
-### Overview
-![Overview.png](Overview.png)
-Given above is a overview of how each classes interact with one another in our software.
+### TravelActivityTypes component
+
+![TravelActivityTypeClassDiagram.png](TravelActivityTypeClassDiagram.png)
+The TravelActivityTypes component consists of a few different classes:
+* `Accommodation`: A subclass of travel activity related to accommodation
+* `Food`: A subclass of travel activity related to food
+* `Landmark`: A subclass of travel activity related to landmark
+* `TravelActivtiy`: The parent class of `Accommodation`, `Food` and `Landmark`
+* `TravelActivityList`: An array consisting of travel activity type objects
+
+The `TravelActivityTypes` component,
+* stores all the travel activity type objects in an array.
+* listens to the `parser` component for any commands to execute.
+
+### Ui component
+The Ui component only consists of one class `Ui`.
+
+The Ui component, 
+* listens to the `omnitravel`, `parser` and `travelactivitytypes` component to print out
+the responses to the user.
+* contains all the responses to each of the user's input command
+* takes in exceptions as parameters and prints out the error message.
+
+### Errorhandlers component
+![Errorhandlers.png](Errorhandler.png)
+The Errorhandler component consists of two classes `CheckParameters` and `OmniException`.
+`OmniException` is a subclass of the parent class `Exception`.
+
+The Errorhandler component,
+* checks the parameters of the commands given by the user.
+* handles all the exceptions and errors in the app.
+* keeps a reference to `ui` component to print error messages.
+
+## Implementation
 
 ### Save feature
 
@@ -86,6 +161,9 @@ in the travel activity list. The `update` command calls the `Parser#updateComman
 
 Step 3. The method will then find the travel activity with the corresponding travel activity number in the `travelActivities` and then set the new date and duration
 of that travel activity.
+
+The class diagram below shows the main relationship between the classes in the update feature:
+![UpdateFeatureClassDiagrma.png](UpdateFeatureClassDiagram.png)
 
 The sequence diagram below shows how an update operation goes through the parser component:
 ![img_1.png](img_1.png)
