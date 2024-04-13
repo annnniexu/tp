@@ -413,6 +413,7 @@ public class Parser {
             list.totalExpense(command[1].trim());
         }
     }
+    
     //@@author ChenKangg
     /**
      * Handles the case whereby the command is listtags

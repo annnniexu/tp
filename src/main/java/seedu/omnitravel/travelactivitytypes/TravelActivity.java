@@ -101,6 +101,7 @@ public class TravelActivity {
 
     /**
      * Get the tag of the travel activity
+     *
      * @return The tag of the travel activity
      */
     public String getTag() {
@@ -109,6 +110,7 @@ public class TravelActivity {
 
     /**
      * Set the tag of the travel activity
+     *
      * @param tag The tag to be set
      */
     public void setTag(String tag) {
@@ -124,6 +126,7 @@ public class TravelActivity {
 
     /**
      * Get the expense of the travel activity
+     *
      * @return The expense of the travel activity
      */
     public String getExpense() {
@@ -132,7 +135,7 @@ public class TravelActivity {
 
     /**
      * Set the expense of the travel activity
-     * 
+     *
      * @param expense The expense of the travel activity
      */
     public void setExpense(String expense) {
