@@ -71,7 +71,7 @@ public class Ui {
     }
 
     /**
-     * Prints the menu of command options.
+     * Prints out all available commands when the help command is given as input
      */
     //@@author ChenKangg
     public static void helpCommand(){
@@ -102,6 +102,7 @@ public class Ui {
                 "21. change <amount> /from <current currency> /to <changed currency>\n");
         printLine();
     }
+
     //@@author daryltay415
     public static void printDateTimeExceptionError(){
         System.out.println("Invalid date, please input the date in the following order: YYYY-MM-DD");

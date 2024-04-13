@@ -20,6 +20,8 @@ Given below are my contributions to the project.
 #### Handled input parsing for the chatbot.
   * What it does: The parser class handles all the input made by the user into the chatbot an accurately parses the
   command to execute the appropriate tasks.
+  * Justification: This feature ensures that all command features implemented by the team is handled properly and the 
+  appropriate output is produced
 
 #### Code contributed: [RepoSense link](https://nus-cs2113-ay2324s2.github.io/tp-dashboard/?search=eugene&sort=groupTitle&sortWithin=title&timeframe=commit&mergegroup=&groupSelect=groupByRepos&breakdown=true&checkedFileTypes=docs~functional-code~test-code~other&since=2024-02-23&tabOpen=true&tabType=authorship&tabAuthor=EugeneChanJiajun&tabRepo=AY2324S2-CS2113-T12-4%2Ftp%5Bmaster%5D&authorshipIsMergeGroup=false&authorshipFileTypes=docs~functional-code~test-code~other&authorshipIsBinaryFileTypeChecked=false&authorshipIsIgnoredFilesChecked=false)
 
@@ -27,6 +29,8 @@ Given below are my contributions to the project.
  * Managed releases `v2.0` on GitHub
 
 #### Enhancement to existing features
+ * Added additional tests for existing features to increase coverage (Pull request [#197]()https://github.com/AY2324S2-CS2113-T12-4/tp/pull/197 and [#225](https://github.com/AY2324S2-CS2113-T12-4/tp/pull/225))
+ * Created new class to handle all exceptions thrown (Pull request [#114](https://github.com/AY2324S2-CS2113-T12-4/tp/pull/114)
 
 
 #### Documentation
@@ -37,5 +41,6 @@ Given below are my contributions to the project.
 * Developer Guide:
   * Added implementation details for the `save` feature.
   * Added sequence diagram for the `save` feature.
+  * Added class diagram for the `save` feature.
 
 
