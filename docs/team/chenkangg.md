@@ -13,7 +13,8 @@ Given below are my contributions to the project.
 [RepoSense link]
 (https://nus-cs2113-ay2324s2.github.io/tp-dashboard/?search=chenkangg&breakdown=true&sort=groupTitle%20dsc&sortWithin=title&since=2024-02-23&timeframe=commit&mergegroup=&groupSelect=groupByRepos&checkedFileTypes=docs~functional-code~test-code~other)
 
-### New features: 
+### New features:
+
 #### Added the ability to get help 
 * What it does: allows the user to view a list of available commands for the app
 * Justification: This feature is important as a new user may not be familiar with how to use the Omnitravel app, thus 
@@ -40,10 +41,10 @@ providing an easy way to assist a user to view all the commands.
 
 #### Documentation:
 * Contributions to the UG:
-Added documentation for the features `help`,`tag`,`untag`,`expense`,`removeexpense`,`findtags`.
+Added documentation for the features `help`,`tag`,`untag`,`expense`,`removeexpense`,`listtags`.
 
 * Contributions to the DG: 
 Added description of implementation of `tag` feature + sequence diagram.
 Added documentation instructions for manual testing for the features `help`,`tag`,`untag`,`expense`,
-`removeexpense`,`findtags`.
+`removeexpense`,`listtags`.
 
