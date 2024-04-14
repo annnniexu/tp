@@ -324,11 +324,11 @@ The instructions given below are used for testing the app manually.
     
        Expected: The current activity list will be shown without any sorting order
    
-   2. Test case: `list /date 2024-12-12`
+    2. Test case: `list /date 2024-12-12`
    
        Expected: All the activities with the date 2024-12-12 will be shown
    
-   3. Test case: `list /sort`
+    3. Test case: `list /sort`
    
        Expected: All the activities will be shown in a list by ascending dates 
 
@@ -406,7 +406,7 @@ The instructions given below are used for testing the app manually.
        Expected: No expense is removed and an error message will be shown. 
         
 ### Converting currency
-1. Converting a local curreny to a foreign currency
+1. Converting a local currency to a foreign currency
     1. Test case: `change 100 /from sgd /to jyp`
    
        Expected: The conversion of 100 singapore dollars to japanese yen will be shown
@@ -477,4 +477,4 @@ The instructions given below are used for testing the app manually.
 1. Shows all the commands the user can input
     1. Test case: `help`
 
-       Expected: All the commands and their format will be shown 
+       Expected: All the commands will be shown 

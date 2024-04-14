@@ -110,7 +110,7 @@ public class CheckParameters {
             }
         }
         throw new OmniException("Your duration is invalid. Please input in terms of \"1 " +
-                "day, week, month, year, hour, minutue or second\"");
+                "day/s, week/s, month/s, year/s, hour/s, minutue/s or second/s\"");
     }
 
     /**
