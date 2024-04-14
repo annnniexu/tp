@@ -105,10 +105,10 @@ public class OmniTravel {
             Parser.deleteCommand(command, list, line);
             break;
         case "check":
-            Parser.checkCommand(command, list);
+            Parser.checkCommand(command, list, line);
             break;
         case "uncheck":
-            Parser.uncheckCommand(command, list);
+            Parser.uncheckCommand(command, list, line);
             break;
         case "find":
             Parser.findCommand(line, list);
