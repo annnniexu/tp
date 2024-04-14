@@ -567,9 +567,6 @@ class OmniTravelTest {
         assertEquals(capturedOutputStream.toString(), input);
     }
 
-
-
-
     @Test
     public void testCurrencyExchangeCommand() throws OmniException {
         Parser.currencyExchangeCommand("change 100 /from USD /to EUR");
@@ -711,4 +708,67 @@ class OmniTravelTest {
         String[] command = {"listtags"};
         Parser.listTagsCommand(command, list);
     }
+
+    @Test
+    public void testPrintDateTimeExceptionError() {
+        String input = "Invalid date, please input the date in the following order: YYYY-MM-DD"
+                + System.lineSeparator();
+        Ui.printDateTimeExceptionError();
+        assertEquals(input, capturedOutputStream.toString());
+    }
+
+    @Test
+    public void testHelpCommand() {
+        String input = "____________________________________________________________" + System.lineSeparator() +
+                "These are the available commands!" + System.lineSeparator() + System.lineSeparator() +
+                "1. list <date> <sort>: List out the current list for given date sorted\n" +
+                "2. help: Get all commands for the chatbot\n" +
+                "3. bye: Exit the chatbot\n" +
+                "4. add <travel activity> <date> <duration> <tag>\n" +
+                "5. accommodation <travel activity> <date> <duration> <tag>\n" +
+                "6. food <travel activity> <date> <duration> <tag>\n" +
+                "7. landmark <travel activity> <date> <duration> <tag>\n" +
+                "8. delete <activity number>\n" +
+                "9. find <keyword> <exclusion>\n" +
+                "10. check <activity number>\n" +
+                "11. uncheck <activity number>\n" +
+                "12. tag <activity number> <tag name>\n" +
+                "13. untag <activity number>\n" +
+                "14. update <update> <date> <duration> <tag>\n" +
+                "15. findtag <tag name> <exclusion>\n" +
+                "16. findtype <type> <exclusion>\n" +
+                "17. listtags \n" +
+                "18. expense <activity number> <expense amount>\n" +
+                "19. removeexpense <activity number>\n" +
+                "20. totalexpense <type>\n" +
+                "21. change <amount> /from <current currency> /to <changed currency>\n" + System.lineSeparator() +
+                "____________________________________________________________";
+        Ui.helpCommand();
+        assertEquals(capturedOutputStream.toString().trim(), input);
+    }
+
+    @Test
+    public void testPrintBye() {
+        String input = "____________________________________________________________" + System.lineSeparator() +
+                "Thank you for using Omnitravel" + System.lineSeparator() +
+                "We hope to see you again! Goodbye!" + System.lineSeparator() +
+                "____________________________________________________________";
+        Ui.printBye();
+        assertEquals(capturedOutputStream.toString().trim(), input);
+    }
+
+    @Test
+    public void testPrintGreeting() {
+        String input = "____________________________________________________________" + System.lineSeparator() +
+                " ____  _      _      _  _____  ____  ____  _     _____ _\n" +
+                "/  _ \\/ \\__/|/ \\  /|/ \\/__ __\\/  __\\/  _ \\/ \\ |\\/  __// \\\n" +
+                "| / \\|| |\\/||| |\\ ||| |  / \\  |  \\/|| / \\|| | //|  \\  | |\n" +
+                "| \\_/|| |  ||| | \\||| |  | |  |    /| |-||| \\// |  /_ | |_/\\\n" +
+                "\\____/\\_/  \\|\\_/  \\|\\_/  \\_/  \\_/\\_\\\\_/ \\|\\__/  \\____\\\\____/)" +
+                System.lineSeparator() + "Hello" + System.lineSeparator() + "How may I assist you?" +
+                System.lineSeparator() + "____________________________________________________________";
+        Ui.printGreeting();
+        assertEquals(capturedOutputStream.toString().trim(), input);
+    }
+
 }
