@@ -15,7 +15,6 @@
 * [Appendix: Requirements](#appendix-requirements)
     * [Product scope](#product-scope)
     * [User stories](#user-stories)
-    * [Use cases]
     * [Non-functional requirements](#non-functional-requirements)
     * [Glossary](#glossary)
 * [Appendix: Instructions for manual testing](#appendix-instructions-for-manual-testing)
@@ -84,6 +83,7 @@ The parser component,
 ### TravelActivityTypes component
 
 ![TravelActivityTypeClassDiagram.png](TravelActivityTypeClassDiagram.png)
+
 The TravelActivityTypes component consists of a few different classes:
 * `Accommodation`: A subclass of travel activity related to accommodation
 * `Food`: A subclass of travel activity related to food
@@ -106,6 +106,7 @@ the responses to the user.
 
 ### Errorhandlers component
 ![Errorhandlers.png](Errorhandler.png)
+
 The Errorhandler component consists of two classes `CheckParameters` and `OmniException`.
 `OmniException` is a subclass of the parent class `Exception`.
 
@@ -139,7 +140,7 @@ after using the bye command.
 The above sequence diagram shows how existing save text files will be reloaded back into Omnibots array list to act as
 a form of save feature when the user exits the bot. 
 
-![img_2.png](img_2.png)
+![img_3.png](img_3.png)
 
 The above class diagram shows the methods and the respective input and return types that the FileSave class contains. It
 also shows the classes called during the file load sequence.
@@ -151,7 +152,7 @@ and each `TravelActivity` class object contains a date and duration. The `Travel
 * `TravelActivityList#updateTravelActivity(travelActivityNumber, date, duration)`-- Updates the date and duration of the specified object of `TravelActivity` class type.
 
 Step 1. When the user launches the app for the first time, there will be no objects of type `TravelActivity` in `travelActivities`.
-Thus any attempts to call the command `update INDEX`
+Thus, any attempts to call the command `update INDEX`
 will result in an output telling the user that no travel activity can be found.
 
 Step 2. After the user has added new travel activities into the `travelActivityList`, the user can execute
@@ -223,20 +224,24 @@ functions.
 | v2.0    | user     | have some form of QOL considerations like warning messages     | know what are the errors that I have made in the inputs                                   |
 | v2.1    | user     | be able to convert from one currency to another                | know how much of a currency I need to convert for usage                                   |
 | v2.1    | user     | be able to list all the tags I have given to the activities    | easily see what are the tags I currently have in the list                                 |
+| v2.1    | user     | be able to sort out the list of activities based on dates      | easily view the entire flow of my travel plan                                             |
+| v2.1    | user     | be able to group and delete similar activities                 | easily manage and delete similar plans in one go                                          |
 
 
 ## Non-Functional Requirements
 
 1. The program should be able to run on any mainstream OS with java 11 installed
-2. Users should be able to
+2. Users should be able to hold all travel plans in a typical travel period.
+3. A user with above average typing speed for regular English text should be able to accomplish most of the tasks faster
+using commands than using the mouse.
 
 ## Glossary
 
 * Mainstream OS: Windows, Linux, MacOS
 
 ## Appendix: Instructions for manual testing
-The instructions given below are used for testing the app manually.
 
+The instructions given below are used for testing the app manually.
 
 ### Launch and shutdown
 1. Initial launch
@@ -244,6 +249,8 @@ The instructions given below are used for testing the app manually.
     2. Open a terminal in that empty folder and type java-jar Omnitravel.jar into the terminal.
 2. Shutdown
     1. When the app is running, type `bye` into the terminal to close the app.
+
+More info can be found in the user guide [here](https://ay2324s2-cs2113-t12-4.github.io/tp/UserGuide.html).
 
 ### Adding a travel activity
 1. Adding a general travel activity
@@ -255,7 +262,7 @@ The instructions given below are used for testing the app manually.
 
        Expected: A new general activity is added with a tag and the details of the activity is shown
 
-2. Adding a accommodation activity into the list
+2. Adding an accommodation activity into the list
     1. Test case: `accommodation hotel /date 2024-12-12 /duration one month`
 
        Expected: A new accommodation activity type is added and the details of the activity is shown
@@ -477,4 +484,4 @@ The instructions given below are used for testing the app manually.
 1. Shows all the commands the user can input
     1. Test case: `help`
 
-       Expected: All the commands and their format will be shown 
+       Expected: All the commands and their format will be shown
