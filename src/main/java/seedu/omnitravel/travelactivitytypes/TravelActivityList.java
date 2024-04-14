@@ -95,10 +95,10 @@ public class TravelActivityList {
 
     //@@author ChinYanXu
     /**
-     * Removes travel activity from the travel activity list
-     * @param activityNumber The travel activity index number or description on the list
+     * Removes travel activity from the travel activity list using the travel activity index number
+     *
+     * @param activityNumber The index number of the travel activity that the user wants to remove
      */
-  
 
     public void removeTravelActivity(int activityNumber) throws OmniException {
         assert activityNumber != 0 : "There is not activities in the list";
@@ -115,6 +115,13 @@ public class TravelActivityList {
         int newSize = noOfActivities;
         assert newSize == initialListSize - 1 : "There is an error with list size!";
     }
+
+    /**
+     * Overloaded version of removeTravelActivity function to enable user to remove travel activities from the travel
+     * activity list using the travel activity description
+     *
+     * @param activity The description of travel activity that the user wants to remove
+     */
 
     public void removeTravelActivity(String activity){
         int foundCounter = 0;
@@ -153,13 +160,11 @@ public class TravelActivityList {
     }
     //@@author ChinYanXu
     /**
-     * Finds all activities in the TravelActivity list that contains a keyword specified
-     * by the user.
+     * Finds all activities in the TravelActivity list that contains a keyword specified by the user.
      *
-     * @param activityName keyword specified by the user to find activities in the TravelActivity list
-     *                 related to the keyword.
+     * @param activityName keyword specified by the user to find travel activities in the TravelActivity list
+     *                 with description related to the keyword.
      */
-
 
     public void searchKeyword (String activityName) {
         int foundCounter = 0;
@@ -180,10 +185,11 @@ public class TravelActivityList {
     }
 
     /**
-     * Overloaded version of searchKeyword function to enable user to exclude certain activities from their search
+     * Overloaded version of searchKeyword function to enable user to exclude certain travel activities from their
+     * search
      *
-     * @param activityName The description of tasks that the user wants to find
-     * @param exclusion The keyword that the user uses to remove unwanted results from the search
+     * @param activityName The description of the travel activities that the user wants to find
+     * @param exclusion The keyword that the travel activities uses to remove unwanted results from the search
      */
 
     public void searchKeyword (String activityName, String exclusion) {
@@ -328,9 +334,9 @@ public class TravelActivityList {
 
     //@@author ChinYanXu
     /**
-     * Find all the tasks with a particular tag and prints them out
+     * Find all the travel activities with a particular tag and prints them out
      *
-     * @param tag The tag of tasks that the user wants to find
+     * @param tag The tag of travel activities that the user wants to find
      */
 
     public void findTag(String tag){
@@ -352,9 +358,9 @@ public class TravelActivityList {
     }
 
     /**
-     * Overloaded version of findtag function to enable user to exclude certain activities from their search
+     * Overloaded version of findtag function to enable user to exclude certain travel activities from their search
      *
-     * @param tag The tag of tasks that the user wants to find
+     * @param tag The tag of the travel activities that the user wants to find
      * @param exclude The keyword that the user uses to remove unwanted results from the search
      */
 
@@ -377,9 +383,9 @@ public class TravelActivityList {
     }
 
     /**
-     * Find all the tasks of a particular type and prints them out
+     * Find all the travel activities of a particular type and prints them out
      *
-     * @param type The type of tasks that the user wants to find
+     * @param type The type of travel activities that the user wants to find
      */
 
     public void findType(String type){
@@ -404,7 +410,7 @@ public class TravelActivityList {
     /**
      * Overloaded version of findtype to enable user to exclude certain activities from their search
      *
-     * @param type The type of tasks that the user wants to find
+     * @param type The type of travel activities that the user wants to find
      * @param exclude The keyword that the user uses to remove unwanted results from the search
      *
      */

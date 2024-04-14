@@ -103,14 +103,26 @@ public class Ui {
         printLine();
     }
 
+    /**
+     * Prints out the error message for when the user inputs the date in the wrong format
+     */
+
     //@@author daryltay415
     public static void printDateTimeExceptionError(){
         System.out.println("Invalid date, please input the date in the following order: YYYY-MM-DD");
     }
 
+    /**
+     * Prints out the error message for when there is an error when saving the file
+     */
+
     public static void printSavingError(){
         System.out.println("Something went wrong when saving the file");
     }
+
+    /**
+     * Prints out the error message for when InterruptedException is thrown
+     */
 
     public static void printInterruptedError(){
         System.out.println("Warning Website might be down!");
