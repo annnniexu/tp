@@ -168,16 +168,19 @@ ____________________________________________________________
 ```
 
 ### Find activity from the list using activity description : `find`
-Find an activity based on their description. All activities with the given description will be listed out.
+Find activities based on their description. All activities with the given description will be listed out.
 
 Format: `find DESCRIPTION [/exclude KEYWORD]`
-* `DESCRIPTION` has to match the activity description exactly to find the activity
-* `DESCRIPTION` can also be a keyword that is included in the description.
+* `DESCRIPTION` has to be a word, a phrase or a segment of the activity description to find the activity
+* `KEYWORD` has to be a word, a phrase or a segment of the activity description to exclude the activity
 
-Examples of usage (assuming saizeriya is in list): 
+Examples of usage (assuming saizeriya is in list):
 * `find saizeriya`
+* `find saizeriya /exclude pizza`
 
-Expected output:
+Expected outcome:
+Without `/exclude`
+
 ```
 ____________________________________________________________
 Here are what you are looking for:
@@ -187,9 +190,7 @@ ____________________________________________________________
 ```
 
 With `/exclude`:
-* `find saizeriya /exclude pizza`
 
-Expected output:
 ```
 ____________________________________________________________
 Here are what you are looking for:
@@ -209,17 +210,22 @@ Examples of usage:
 * `delete 1`
 * `delete Eiffel`
 
-Expected output:
+Expected outcome:
+When ACTIVITY is a number
 ```
 ____________________________________________________________
 I have removed this activity:
-Accommodation: Four Seasons Hotel :14 Mar 2025 :2 days
+1. Accommodation: Four Seasons Hotel :14 Mar 2025 :2 days
 ____________________________________________________________
 ```
+
+When ACTIVITY is a keyword
 ```
 ____________________________________________________________
 I have removed this activity:
 1. Landmark: Eiffel Tower :14 Mar 2025 :2 hours (go up tower)
+2. Landmark: Eiffel Tower Food Stand :14 Mar 2025 :1 hours (dinner)
+3. Accommodation: Hotel beside Eiffel Tower :14 Mar 2025 :2 days (rest)
 ____________________________________________________________
 ```
 
@@ -373,17 +379,28 @@ ____________________________________________________________
 Find an activity based on their tag. All activities with the given tag will be listed out.
 
 Format: `findtag TAG [/exclude KEYWORD]`
-* `TAG` has to match the activity tag exactly to find the activity
+* `TAG` has to be a word, a phrase or a segment of the activity description to find the activity
+* `KEYWORD` has to be a word, a phrase or a segment of the activity description to exclude the activity
 
 Examples of usage: 
 * `findtag spicy`
 * `findtag spicy /exclude mala`
 
 Expected outcome:
+Without `/exclude`
 ```
 ____________________________________________________________
 Here are what you are looking for:
 [ ] 1. Food: Mala Hotpot :14 Mar 2025 :2 hours (very spicy)
+[ ] 2. Food: McSpicy :16 Mar 2025 :1 hour (very spicy)
+____________________________________________________________
+```
+
+With `/exclude`
+```
+____________________________________________________________
+Here are what you are looking for:
+[ ] 1. Food: McSpicy :16 Mar 2025 :1 hour (very spicy)
 ____________________________________________________________
 ```
 
@@ -413,7 +430,8 @@ ____________________________________________________________
 Find an activity based on their type. All activities with the given type will be listed out.
 
 Format: `findtype TYPE [/exclude KEYWORD]`
-* `TYPE` has to match the activity type exactly to find the activity
+* `TYPE` has to be a word, a phrase or a segment of the activity description to find the activity
+* `KEYWORD` has to be a word, a phrase or a segment of the activity description to exclude the activity
 * The different types are `general`, `accommodation`, `food`, `landmark`
 
 Examples of usage: 
@@ -421,6 +439,8 @@ Examples of usage:
 * `findtype general /exclude japan`
 
 Expected outcome:
+
+Without `/exclude`
 ```
 ____________________________________________________________
 Here are what you are looking for:
@@ -428,6 +448,15 @@ Here are what you are looking for:
 [ ] 2. General: Go to Hong Kong  :25 Aug 2025 :6 hours (with family)
 ____________________________________________________________
 ```
+
+With `/exclude`
+```
+____________________________________________________________
+Here are what you are looking for:
+[ ] 1. General: Go to Hong Kong  :25 Aug 2025 :6 hours (with family)
+____________________________________________________________
+```
+
 
 ### Adding an expense amount: `expense`
 Adds an expense amount to an existing travel activity.
