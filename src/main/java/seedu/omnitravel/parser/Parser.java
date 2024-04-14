@@ -233,7 +233,8 @@ public class Parser {
      * @throws OmniException if command.length != 2 && command[1] is not numeric
      */
     public static void removeTagCommand(String[] command, TravelActivityList list) throws OmniException {
-        assert command != null && command.length >= 2 : "Command array should not be null or empty";
+        assert command != null && command.length >= 2 : "Command array should not be null, empty or longer than " +
+                "length 2";
         assert list != null : "TravelActivityList should not be null";
 
         logger.log(Level.INFO, "Remove tag command: " + Arrays.toString(command));
