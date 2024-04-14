@@ -188,10 +188,13 @@ public class TravelActivityList {
 
     public void searchKeyword (String activityName, String exclusion) {
         int foundCounter = 0;
+        String lowerCaseActivityName = activityName.toLowerCase();
+        String lowerCaseExclusion = exclusion.toLowerCase();
         for (TravelActivity travelActivity : travelActivities) {
             assert !(foundCounter > travelActivities.size()) : "Error: There is more activities found than possible";
-            if (travelActivity.getPlan().contains(activityName) && !travelActivity.getPlan().contains(exclusion) &&
-                    !travelActivity.getPlan().isEmpty()) {
+            if (travelActivity.getPlan().toLowerCase().contains(lowerCaseActivityName)
+                    && !travelActivity.getPlan().toLowerCase().contains(lowerCaseExclusion)
+                    && !travelActivity.getPlan().isEmpty()) {
                 foundCounter += 1;
                 if (foundCounter == 1) {
                     System.out.println("Here are what you are looking for:");
@@ -289,6 +292,9 @@ public class TravelActivityList {
 
         int indexOfTask = taskNumber - 1;
         TravelActivity taggedTask = travelActivities.get(indexOfTask);
+        if (taggedTask.getTag().isBlank()){
+            throw new OmniException("Travel activity does not have a tag!");
+        }
         taggedTask.removeTag();
         System.out.println("Tag removed from the task:");
         System.out.println(taggedTask);
@@ -360,10 +366,11 @@ public class TravelActivityList {
 
     public void findTag(String tag, String exclude){
         int foundCounter = 0;
+        String lowerCaseExclude = exclude.toLowerCase();
         for (TravelActivity travelActivity : travelActivities) {
             assert !(foundCounter > travelActivities.size()) : "Error: There is more activities found than possible";
             if (travelActivity.getTag().contains(tag) && !travelActivity.getTag().isEmpty() &&
-                    !travelActivity.getPlan().contains(exclude)) {
+                    !travelActivity.getPlan().toLowerCase().contains(lowerCaseExclude)) {
                 foundCounter += 1;
                 if (foundCounter == 1) {
                     System.out.println("Here are what you are looking for:");
@@ -414,11 +421,12 @@ public class TravelActivityList {
         assert exclude != null && !exclude.isEmpty() : "Exclude parameter should not be null or empty";
 
         logger.log(Level.INFO, "Finding type: " + type + ", excluding: " + exclude);
-
+        String lowerCaseExclude = exclude.toLowerCase();
         for (TravelActivity activity : travelActivities) {
             assert !(foundCounter > travelActivities.size()) : "Error: There are more activities found than possible";
 
-            if (activity.getClass().getSimpleName().equalsIgnoreCase(type) && !activity.getPlan().contains(exclude)) {
+            if (activity.getClass().getSimpleName().equalsIgnoreCase(type)
+                    && !activity.getPlan().toLowerCase().contains(lowerCaseExclude)) {
                 foundCounter++;
                 if (foundCounter == 1) {
                     logger.log(Level.INFO, "Found matching activities:");
@@ -482,6 +490,9 @@ public class TravelActivityList {
 
         int indexOfTask = taskNumber - 1;
         TravelActivity task = travelActivities.get(indexOfTask);
+        if (task.getExpense().isBlank()){
+            throw new OmniException("Travel activity does not have a expense!");
+        }
         task.removeExpense();
         System.out.println("Expense removed from the task:");
         System.out.println(task);
@@ -513,6 +524,9 @@ public class TravelActivityList {
                     logger.log(Level.INFO, String.valueOf(tot));
                 }
             }
+        }
+        if(type.equalsIgnoreCase("travelactivity")){
+            type = "General";
         }
         System.out.println("The total expense for " + type + " travel activities is: $" + tot);
     }

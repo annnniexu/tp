@@ -34,9 +34,10 @@ public class CheckParameters {
             throw new OmniException("The tag cannot be empty!");
         } else if (input.length < 3 || input[2].contains("/tag") || !command[1].contains("date")
                 || !command[2].contains("duration")){
-            throw new OmniException("Please check that your add command is in this format: add DESCRIPTION " +
-                    "/date YYYY-MM-DD /duration DURATION"
-                    + " or add DESCRIPTION /date YYYY-MM-DD /duration DURATION /tag TAG");
+            throw new OmniException("Please check that your " + commandType + " command is in this format: \n" +
+                    commandType + " DESCRIPTION " +
+                    "/date YYYY-MM-DD /duration DURATION\n"
+                    + "or " + commandType + " DESCRIPTION /date YYYY-MM-DD /duration DURATION /tag TAG");
         }
     }
 
@@ -49,8 +50,9 @@ public class CheckParameters {
      */
     public static void updateExceptions(String[] command, String line) throws OmniException {
         String[] lineSplit = line.split("/");
-        if (command.length >= 4 && (command[1].isBlank() || !isNumeric(command[1]))) {
-            throw new OmniException("The update index cannot be empty or non numerical!");
+        if (command.length >= 4 && (command[1].isBlank() || !isNumeric(command[1].trim()))) {
+            throw new OmniException("The update index cannot be empty or non numerical!\n" +
+                    "It must be a single number");
         } else if (command.length >= 4 && command[2].isBlank()) {
             throw new OmniException("The date cannot be empty!");
         } else if (command.length >= 4 && command[3].isBlank()) {
@@ -59,9 +61,9 @@ public class CheckParameters {
             throw new OmniException("The tag cannot be empty!");
         } else if (command.length < 4 || command[3].contains("/tag") || !lineSplit[1].contains("date")
                 || !lineSplit[2].contains("duration")) {
-            throw new OmniException("Please check that your update command is in this format: update INDEX " +
-                    "/date YYYY-MM-DD /duration DURATION"
-                    + " or update INDEX /date YYYY-MM-DD /duration DURATION /tag TAG");
+            throw new OmniException("Please check that your update command is in this format: \nupdate INDEX " +
+                    "/date YYYY-MM-DD /duration DURATION\n"
+                    + "or update INDEX /date YYYY-MM-DD /duration DURATION /tag TAG");
         }
     }
 
@@ -86,7 +88,7 @@ public class CheckParameters {
         // command length greater than 4
         boolean case4 = command.length > 4;
         if (case1 || case2 || case3 || case4) {
-            throw new OmniException("Please check that your list command is in this format:" +
+            throw new OmniException("Please check that your list command is in this format:\n" +
                     "list [/date YYYY-MM-DD] [/sort]");
         }
     }
@@ -109,8 +111,8 @@ public class CheckParameters {
                 }
             }
         }
-        throw new OmniException("Your duration is invalid. Please input in terms of \"1 " +
-                "day, week, month, year, hour, minutue or second\"");
+        throw new OmniException("Your duration is invalid. Please input in terms of \n\"1 " +
+                "day/s, week/s, month/s, year/s, hour/s, minutue/s or second/s\"");
     }
 
     /**
@@ -136,7 +138,7 @@ public class CheckParameters {
      */
     public static boolean isValidExpense(String str) throws OmniException{
         if(isNumeric(str)){
-            int expense = Integer.parseInt(str);
+            float expense = Float.parseFloat(str);
             if(expense <= 0){
                 throw new OmniException("Your expense cannot be less than $0");
             }
@@ -162,7 +164,7 @@ public class CheckParameters {
         } else if(command.length == 4 && command[2].trim().equalsIgnoreCase(command[3].trim())){
             throw new OmniException("The 2 currencies cannot be the same!");
         } else if(command.length < 4 || !lineSplit[1].contains("from")){
-            throw new OmniException("Please check that your format is correct:" +
+            throw new OmniException("Please check that your format is correct:\n" +
                                     "change AMOUNT /from CURRENCY /to CURRENCY");
         }
 

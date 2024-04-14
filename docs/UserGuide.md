@@ -58,7 +58,7 @@ ____________________________________________________________
 > 📒 Notes about the command format :
 > * The words that are in `UPPER_CASE` represents the parameters that the users are required to input
 > e.g. `delete INDEX`, `INDEX` is a parameter which can be used as `delete 1`.
-> * Commands such as `help`, `list` and `bye` do not require additional parameters. Hence, any extra parameters will be ignored. 
+> * Commands such as `help` and `bye` do not require additional parameters. Hence, any extra parameters will be ignored. 
 > e.g. `help 123` will just be intepreted as `help`.
 > * Words that are in square brackets such as `[/tag TAG]` indicates that it is
 > optional to include in the command.
@@ -341,6 +341,7 @@ their travel activities.
 Format: `tag INDEX TAGNAME`
 
 * The `INDEX` must be a valid activity index.
+* There must not be any trailing spaces in `INDEX`.
 
 Example of usage:
 * `tag 1 activity 1`
@@ -359,6 +360,7 @@ Removes a tag from an existing travel activity.
 Format: `untag INDEX`
 
 * The `INDEX` must be a valid activity index.
+* * There must not be any trailing spaces in `INDEX`.
 
 Example of usage:
 * `untag 1 `
