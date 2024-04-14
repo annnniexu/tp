@@ -29,9 +29,9 @@ list via a Command Line Interface**.
 
 ## Quick Start
 
-1. Ensure you have Java 11 or above installed in your Computer.
+1. Ensure you have Java 11 installed in your Computer.
 
-2. Download the latest omni.jar from here.
+2. Download the latest omni.jar from [here](https://github.com/AY2324S2-CS2113-T12-4/tp/releases/tag/tpv2.1).
 
 3. Copy the file to the folder you want to use as the home folder for your chatbot.
 
@@ -58,15 +58,15 @@ ____________________________________________________________
 > 📒 Notes about the command format :
 > * The words that are in `UPPER_CASE` represents the parameters that the users are required to input
 > e.g. `delete INDEX`, `INDEX` is a parameter which can be used as `delete 1`.
-> * Commands such as `help`, `list` and `bye` do not require additional parameters. Hence, any extra parameters will be ignored. 
+> * Commands such as `help` and `bye` do not require additional parameters. Hence, any extra parameters will be ignored. 
 > e.g. `help 123` will just be intepreted as `help`.
 > * Words that are in square brackets such as `[/tag TAG]` indicates that it is
 > optional to include in the command.
-> * Users should not use any `/` into their input descriptions unless using for input command format
+> * Users should not use any `/` into their input descriptions unless using for input command format.
 
 
 ### Adding a general travel activity : `add`
-Adds a general travel activity into the travel activity list
+Adds a general travel activity into the travel activity list.
 * This is for activities that do not fall under the other activity types. EG. visiting a country.
 
 Format: `add DESCRIPTION /date YYYY-MM-DD /duration DURATION [/tag TAG]`
@@ -92,7 +92,7 @@ ____________________________________________________________
 ```
 
 ### Add an accommodation activity type into the list : `accommodation`
-Adds an accommodation type travel activity into the travel activity list
+Adds an accommodation type travel activity into the travel activity list.
 
 Format: `accommodation DESCRIPTION /date YYYY-MM-DD /duration DURATION [/tag TAG]`
 
@@ -171,8 +171,10 @@ ____________________________________________________________
 Find activities based on their description. All activities with the given description will be listed out.
 
 Format: `find DESCRIPTION [/exclude KEYWORD]`
+
 * `DESCRIPTION` has to be a word, a phrase or a segment of the activity description to find the activity
 * `KEYWORD` has to be a word, a phrase or a segment of the activity description to exclude the activity
+* `/exclude KEYWORD` will exclude any activity with `KEYWORD` found in the **description** of the activity
 
 Examples of usage (assuming saizeriya is in list):
 * `find saizeriya`
@@ -235,6 +237,8 @@ Shows all activities for given date if date is provided.
 Sorts by date if sort is enabled.
 
 Format: `list [/date DATE /sort]`
+* Using `list` with `/date DATE` will show all the activities with date `DATE`.
+* Using `list` with `/sort` will show the list sorted by date.
 
 Examples of usage: 
 * `list`
@@ -344,6 +348,7 @@ their travel activities.
 Format: `tag INDEX TAGNAME`
 
 * The `INDEX` must be a valid activity index.
+* There must not be any trailing spaces in `INDEX`.
 
 Example of usage:
 * `tag 1 activity 1`
@@ -362,6 +367,7 @@ Removes a tag from an existing travel activity.
 Format: `untag INDEX`
 
 * The `INDEX` must be a valid activity index.
+* * There must not be any trailing spaces in `INDEX`.
 
 Example of usage:
 * `untag 1 `
@@ -379,8 +385,10 @@ ____________________________________________________________
 Find an activity based on their tag. All activities with the given tag will be listed out.
 
 Format: `findtag TAG [/exclude KEYWORD]`
+
 * `TAG` has to be a word, a phrase or a segment of the activity description to find the activity
 * `KEYWORD` has to be a word, a phrase or a segment of the activity description to exclude the activity
+* `/exclude KEYWORD` will exclude any activity with `KEYWORD` found in the **description** of the activity
 
 Examples of usage: 
 * `findtag spicy`
@@ -433,6 +441,7 @@ Format: `findtype TYPE [/exclude KEYWORD]`
 * `TYPE` has to be a word, a phrase or a segment of the activity description to find the activity
 * `KEYWORD` has to be a word, a phrase or a segment of the activity description to exclude the activity
 * The different types are `general`, `accommodation`, `food`, `landmark`
+* `/exclude KEYWORD` will exclude any activity with `KEYWORD` found in the **description** of the activity
 
 Examples of usage: 
 * `findtype general`
@@ -459,6 +468,7 @@ ____________________________________________________________
 
 
 ### Adding an expense amount: `expense`
+
 Adds an expense amount to an existing travel activity.
 
 Format: `expense INDEX EXPENSE`
@@ -515,7 +525,7 @@ ____________________________________________________________
 
 ### Converting a currency : `change`
 
-Converts the currency from one currency to another
+Converts the currency from one currency to another. (currency rates are adjusted in real time)
 
 Format: `change AMOUNT /from CURRENCY1 /to CURRENCY2`
 * `CURRENCY1` and `CURRENCY2` cannot be the same currency
@@ -555,22 +565,22 @@ same location of your other computer to transfer all the activities.
 
 ## Command Summary
 
-* Get activity list `list`
+* Get activity list `list [/date DATE /sort]`
 * Get commands `help`
 * Exit chatbot `bye`
 * Add general travel activity `add DESCRIPTION /date YYYY-MM-DD /duration DURATION [/tag TAG]`
 * Add accommodation type `accommodation DESCRIPTION /date YYYY-MM-DD /duration DURATION [/tag TAG]`
 * Add Food type `food DESCRIPTION /date YYYY-MM-DD /duration DURATION [/tag TAG]`
 * Add Landmark type `landmark DESCRIPTION /date YYYY-MM-DD /duration DURATION [/tag TAG]`
-* Find activity using activity description `find DESCRIPTION`
-* Delete travel activity `delete INDEX`
+* Find activity using activity description `find DESCRIPTION [/exclude KEYWORD]`
+* Delete travel activity `delete INDEX/ACTIVITY`
 * Check activity as done `check INDEX`
 * Uncheck activity as not done `uncheck INDEX`
 * Update travel activity `update INDEX /date YYYY-MM-DD /duration DURATION [/tag TAG]`
 * Add tag `tag INDEX TAGNAME`
 * Remove tag `untag INDEX`
-* Find activity using activity tag `findtag TAG`
-* Find activity using activity type `findtype TYPE`
+* Find activity using activity tag `findtag TAG [/exclude KEYWORD]`
+* Find activity using activity type `findtype TYPE [/exclude KEYWORD]`
 * Lists out all tags `listtags`
 * Add expense `expense INDEX EXPENSE`
 * Remove expense `removeexpense INDEX`

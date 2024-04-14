@@ -555,11 +555,11 @@ class OmniTravelTest {
     @Test
     public void testActivityCommandAccommodation() throws OmniException {
         TravelActivityList list = new TravelActivityList();
-        String expectedOutput4 = "____________________________________________________________" +
+        String expectedOutput4 = "_______________________________________________________________________________" +
                 System.lineSeparator() +
                 "I added a new accommodation" + System.lineSeparator() +
                 "Accommodation: description :4 Oct 2024 :2 days (test)" + System.lineSeparator() +
-                "____________________________________________________________";
+                "_______________________________________________________________________________";
         Parser.activityCommand("accommodation description /date 2024-10-04 /duration 2 days /tag test", list);
         assertEquals(capturedOutputStream.toString().trim(), expectedOutput4);
     }
@@ -943,7 +943,7 @@ class OmniTravelTest {
         list.addTravelActivity(accommodationNew1);
         list.addTravelActivity(foodNew2);
         String[] command = {"check", "1"};
-        Parser.checkCommand(command, list);
+        Parser.checkCommand(command, list, "check 1");
     }
 
     @Test
@@ -954,7 +954,7 @@ class OmniTravelTest {
         list.addTravelActivity(accommodationNew1);
         list.addTravelActivity(foodNew2);
         String[] command = {"uncheck", "1"};
-        Parser.uncheckCommand(command, list);
+        Parser.uncheckCommand(command, list, "uncheck 1");
     }
 
     @Test

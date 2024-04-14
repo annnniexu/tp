@@ -40,7 +40,7 @@ public class Ui {
      * Prints line
      */
     public static void printLine(){
-        System.out.println("____________________________________________________________");
+        System.out.println("_______________________________________________________________________________");
     }
 
     /**
@@ -66,7 +66,8 @@ public class Ui {
      * @param exception The exception to be printed
      */
     public static void printNumberTooLargeException(NumberFormatException exception) {
-        System.out.println("Warning! " + exception.getMessage() + " number too large!");
+        System.out.println("Warning! " + exception.getMessage() + " number too large!\n" +
+                "or number format is wrong!");
         printLine();
     }
 

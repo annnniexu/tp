@@ -8,6 +8,10 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+/**
+ * Represents the currency exchange api
+ * It contains methods that uses the currency exchange api to exchange one currency to another
+ */
 public class CurrencyRate {
     //@@author daryltay415
     /**
