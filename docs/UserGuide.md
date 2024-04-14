@@ -31,7 +31,7 @@ list via a Command Line Interface**.
 
 1. Ensure you have Java 11 installed in your Computer.
 
-2. Download the latest omni.jar from [here]().
+2. Download the latest omni.jar from [here](https://github.com/AY2324S2-CS2113-T12-4/tp/releases/tag/tpv2.1).
 
 3. Copy the file to the folder you want to use as the home folder for your chatbot.
 
