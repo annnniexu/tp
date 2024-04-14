@@ -101,7 +101,7 @@ public class TravelActivityList {
      */
 
     public void removeTravelActivity(int activityNumber) throws OmniException {
-        assert activityNumber != 0 : "There is not activities in the list";
+        assert activityNumber != 0 : "There is no activities in the list";
         int indexOfActivity = activityNumber - 1;
         int initialListSize = noOfActivities;
         if(activityNumber > noOfActivities){
@@ -402,7 +402,7 @@ public class TravelActivityList {
             }
         }
         if (foundCounter == 0) {
-            System.out.println("Sorry I could not find what you are looking for.");
+            System.out.println("Sorry, I could not find what you are looking for.");
         }
     }
 

@@ -105,6 +105,16 @@ class OmniTravelTest {
     }
 
     @Test
+    public void deleteTestWhenInputIsGreaterThanNumberOfActivityInList() throws OmniException {
+        TravelActivityList travelActivityList = new TravelActivityList();
+        travelActivityList.addTravelActivity(new TravelActivity("visit museum",
+                LocalDate.parse("2019-05-12"),"2hours", "Sightseeing", ""));
+        travelActivityList.addTravelActivity(new TravelActivity("visit home",
+                LocalDate.parse("2019-12-14"), "5hours", "Sightseeing", "$50"));
+        assertThrows(OmniException.class, () -> travelActivityList.removeTravelActivity(3));
+    }
+
+    @Test
     public void deleteTest() throws OmniException {
         //add the plan
         TravelActivityList travelActivityList = new TravelActivityList();
@@ -113,8 +123,8 @@ class OmniTravelTest {
         travelActivityList.addTravelActivity(travelActivity);
         assertEquals("visit museum", travelActivityList.getDescription("visit museum"));
         //delete the plan
-        travelActivityList.removeTravelActivity("1");
-        assertEquals("visit museum", travelActivityList.getDescription("visit museum"));
+        travelActivityList.removeTravelActivity(1);
+        assertEquals("cant be found", travelActivityList.getDescription("visit museum"));
         //testing the keyword delete enhancement
         TravelActivity travelActivity2 = new TravelActivity("visit home",
                 LocalDate.parse("2019-12-14"), "5hours", "Sightseeing", "$50");
@@ -143,16 +153,31 @@ class OmniTravelTest {
         //check number of activities
         assertEquals(3, travelActivityList.getNoOfTravelActivities());
         //delete the first plan
-        travelActivityList.removeTravelActivity("1");
-        assertEquals("visit museum", travelActivityList.getDescription("visit museum"));
+        travelActivityList.removeTravelActivity(1);
+        assertEquals("cant be found", travelActivityList.getDescription("visit museum"));
         //check number of activities
-        assertEquals(3, travelActivityList.getNoOfTravelActivities());
+        assertEquals(2, travelActivityList.getNoOfTravelActivities());
+    }
+
+    @Test
+    public void checkWhenTravelActivityIsAlreadyCheckedTest() throws OmniException {
+        TravelActivityList travelActivityList = new TravelActivityList();
+        TravelActivity travelActivity1 = new TravelActivity("visit museum",
+                LocalDate.parse("2019-05-12"),"2hours", "Sightseeing", "$50");
+        travelActivityList.addTravelActivity(travelActivity1);
+        travelActivityList.checkTravelActivity(1);
+        travelActivityList.checkTravelActivity(1);
+        String result = "I have checked this activity:" + System.lineSeparator() +
+                "[X] 1. General: visit museum :12 May 2019 :2hours (Sightseeing) ($50)" + System.lineSeparator() +
+                "This activity is already done!" + System.lineSeparator();
+        assertEquals(capturedOutputStream.toString(), result);
     }
 
     @Test
     public void checkTest() throws OmniException {
         //add the first plan
         TravelActivityList travelActivityList = new TravelActivityList();
+        assertThrows(OmniException.class, () -> travelActivityList.checkTravelActivity(1));
         TravelActivity travelActivity1 = new TravelActivity("visit museum",
                 LocalDate.parse("2019-05-12"),"2hours", "Sightseeing", "$50");
         travelActivityList.addTravelActivity(travelActivity1);
@@ -167,6 +192,7 @@ class OmniTravelTest {
     public void uncheckTest() throws OmniException {
         //add the first plan
         TravelActivityList travelActivityList = new TravelActivityList();
+        assertThrows(OmniException.class, () -> travelActivityList.uncheckTravelActivity(1));
         TravelActivity travelActivity1 = new TravelActivity("visit museum",
                 LocalDate.parse("2019-05-12"),"2hours", "Sightseeing", "$50");
         travelActivityList.addTravelActivity(travelActivity1);
@@ -183,6 +209,22 @@ class OmniTravelTest {
     @Test
     public void trueTest(){
         assertTrue(true);
+    }
+
+    @Test
+    public void findWithoutExclusionWhenListIsEmptyTest () {
+        TravelActivityList travelActivityListNew = new TravelActivityList();
+        String result = "Sorry I could not find what you are looking for." + System.lineSeparator();
+        travelActivityListNew.searchKeyword("anything");
+        assertEquals(capturedOutputStream.toString(), result);
+    }
+
+    @Test
+    public void findWithExclusionWhenListIsEmptyTest () {
+        TravelActivityList travelActivityListNew = new TravelActivityList();
+        String result = "Sorry I could not find what you are looking for." + System.lineSeparator();
+        travelActivityListNew.searchKeyword("anything", "nothing");
+        assertEquals(capturedOutputStream.toString(), result);
     }
 
     @Test
@@ -204,6 +246,23 @@ class OmniTravelTest {
         travelActivityListNew.searchKeyword("mala", "utown");
         assertEquals(capturedOutputStream.toString(), findExpectedOutput);
     }
+
+    @Test
+    public void findTagWithoutExclusionAndTagIsNotInListTest () {
+        TravelActivityList travelActivityListNew = new TravelActivityList();
+        String result = "Sorry I could not find what you are looking for." + System.lineSeparator();
+        travelActivityListNew.findTag("sightseeing");
+        assertEquals(capturedOutputStream.toString(), result);
+    }
+
+    @Test
+    public void findTagWithExclusionAndTagIsNotInListTest () {
+        TravelActivityList travelActivityListNew = new TravelActivityList();
+        String result = "Sorry I could not find what you are looking for." + System.lineSeparator();
+        travelActivityListNew.findTag("sightseeing", "holiday");
+        assertEquals(capturedOutputStream.toString(), result);
+    }
+
     @Test
     //basic test for searchKeyword function
     public void findTagWithoutExclusionTest () {
@@ -223,6 +282,23 @@ class OmniTravelTest {
         travelActivityListNew.findTag("sightseeing", "merlion");
         assertEquals(capturedOutputStream.toString(), findExpectedOutput2);
     }
+
+    @Test
+    public void findTypeWithoutExclusionTestAndActivityIsNotFound () {
+        TravelActivityList travelActivityListNew = new TravelActivityList();
+        String result = "Sorry, I could not find what you are looking for." + System.lineSeparator();
+        travelActivityListNew.findType("accommodation");
+        assertEquals(capturedOutputStream.toString(), result);
+    }
+
+    @Test
+    public void findTypeWithExclusionTestAndActivityIsNotFound () {
+        TravelActivityList travelActivityListNew = new TravelActivityList();
+        String result = "Sorry, I could not find what you are looking for." + System.lineSeparator();
+        travelActivityListNew.findType("accommodation", "waffle");
+        assertEquals(capturedOutputStream.toString(), result);
+    }
+
     @Test
     public void findTypeWithExclusionTest () {
         try {
@@ -238,7 +314,6 @@ class OmniTravelTest {
         }
     }
 
-
     @Test
     public void findTypeWithoutExclusionTest () {
         try {
@@ -251,6 +326,12 @@ class OmniTravelTest {
         } catch (OmniException exception) {
             Ui.printException(exception);
         }
+    }
+
+    @Test
+    public void testTagActivityWhenTaskNumberIsGreaterThanListSize() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        assertThrows(OmniException.class, () -> list.tagActivity(1, "activity 1"));
     }
 
     @Test
@@ -278,6 +359,14 @@ class OmniTravelTest {
         // Remove an existing tag
         list.removeTag(1);
         assertEquals("visit museum", list.getDescription("visit museum"));
+        assertThrows(OmniException.class, () -> list.removeTag(3));
+    }
+
+    @Test
+    public void testUpdateActivityWhenActivityIndexIsGreaterThanListSize() throws OmniException{
+        TravelActivityList travelActivityList = new TravelActivityList();
+        assertThrows(OmniException.class, () -> travelActivityList.updateTravelActivity(1,
+                LocalDate.parse("2020-12-10"), "3hours", "misc"));
     }
 
     @Test
@@ -297,6 +386,20 @@ class OmniTravelTest {
     }
 
     @Test
+    public void testExpenseActivityAndTaskNumberIsGreaterThanListSize() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        assertThrows(OmniException.class, () -> list.expenseActivity(1, "$10"));
+    }
+
+    @Test
+    public void testExpenseActivityAndExpenseDontStartWithDollarSign() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(new TravelActivity("visit museum",
+                LocalDate.parse("2019-05-12"),"2hours", "Sightseeing", "$30"));
+        assertThrows(OmniException.class, () -> list.expenseActivity(1, "10"));
+    }
+
+    @Test
     public void testExpenseActivity() throws OmniException {
         TravelActivityList list = new TravelActivityList();
         list.addTravelActivity(new TravelActivity("visit museum",
@@ -306,6 +409,12 @@ class OmniTravelTest {
         list.expenseActivity(1, "$50");
         TravelActivity travelActivity = list.getTravelActivities().get(0);
         assertEquals("$50", travelActivity.getExpense());
+    }
+
+    @Test
+    public void testRemoveExpenseAndTaskNumberIsGreaterThanListSize() throws OmniException {
+        TravelActivityList list = new TravelActivityList();
+        assertThrows(OmniException.class, () -> list.removeExpense(1));
     }
 
     @Test
@@ -321,6 +430,14 @@ class OmniTravelTest {
         // Remove an existing expense
         list.removeExpense(1);
         assertEquals("visit museum", list.getDescription("visit museum"));
+    }
+
+    @Test
+    public void testTotalExpanseAndTypeIsInvalid() throws OmniException{
+        TravelActivityList list = new TravelActivityList();
+        list.addTravelActivity(new TravelActivity("visit museum",
+                LocalDate.parse("2019-05-12"),"2hours", "Sightseeing", "$20"));
+        assertThrows(OmniException.class, () -> list.totalExpense("NA"));
     }
 
     @Test
@@ -397,6 +514,21 @@ class OmniTravelTest {
     public void testIsNumeric() {
         assertTrue(CheckParameters.isNumeric("123"));
         assertFalse(CheckParameters.isNumeric("abc"));
+    }
+
+    @Test
+    public void testGetListWhenActivityIsNull() throws OmniException {
+        TravelActivityList travelActivityListNew = new TravelActivityList();
+        travelActivityListNew.addTravelActivity(null);
+        travelActivityListNew.listTravelActivities(false, false, LocalDate.now());
+        assertEquals(capturedOutputStream.toString().trim(), "There are no activities to list");
+    }
+
+    @Test
+    public void testGetListWhenEmpty() throws OmniException {
+        TravelActivityList travelActivityListNew = new TravelActivityList();
+        travelActivityListNew.listTravelActivities(false, false, LocalDate.now());
+        assertEquals(capturedOutputStream.toString().trim(), "There are no activities to list");
     }
 
     @Test
@@ -534,6 +666,7 @@ class OmniTravelTest {
         Parser.removeExpenseCommand(input, list);
         assertEquals(capturedOutputStream.toString(), expectedOutput5);
     }
+
     @Test
     public void testFindCommandWithoutExclusion() throws OmniException {
         try {
@@ -562,9 +695,9 @@ class OmniTravelTest {
     @Test
     public void testTotalExpenseCommand() throws OmniException {
         TravelActivityList list = new TravelActivityList();
-        String input = "The total expense for all travel activities is: $0.0" + System.lineSeparator();
+        String result = "The total expense for all travel activities is: $0.0" + System.lineSeparator();
         Parser.totalExpenseCommand("totalexpense", list);
-        assertEquals(capturedOutputStream.toString(), input);
+        assertEquals(capturedOutputStream.toString(), result);
     }
 
     @Test
@@ -711,15 +844,15 @@ class OmniTravelTest {
 
     @Test
     public void testPrintDateTimeExceptionError() {
-        String input = "Invalid date, please input the date in the following order: YYYY-MM-DD"
+        String result = "Invalid date, please input the date in the following order: YYYY-MM-DD"
                 + System.lineSeparator();
         Ui.printDateTimeExceptionError();
-        assertEquals(input, capturedOutputStream.toString());
+        assertEquals(result, capturedOutputStream.toString());
     }
 
     @Test
     public void testHelpCommand() {
-        String input = "____________________________________________________________" + System.lineSeparator() +
+        String result = "____________________________________________________________" + System.lineSeparator() +
                 "These are the available commands!" + System.lineSeparator() + System.lineSeparator() +
                 "1. list <date> <sort>: List out the current list for given date sorted\n" +
                 "2. help: Get all commands for the chatbot\n" +
@@ -744,22 +877,22 @@ class OmniTravelTest {
                 "21. change <amount> /from <current currency> /to <changed currency>\n" + System.lineSeparator() +
                 "____________________________________________________________";
         Ui.helpCommand();
-        assertEquals(capturedOutputStream.toString().trim(), input);
+        assertEquals(capturedOutputStream.toString().trim(), result);
     }
 
     @Test
     public void testPrintBye() {
-        String input = "____________________________________________________________" + System.lineSeparator() +
+        String result = "____________________________________________________________" + System.lineSeparator() +
                 "Thank you for using Omnitravel" + System.lineSeparator() +
                 "We hope to see you again! Goodbye!" + System.lineSeparator() +
                 "____________________________________________________________";
         Ui.printBye();
-        assertEquals(capturedOutputStream.toString().trim(), input);
+        assertEquals(capturedOutputStream.toString().trim(), result);
     }
 
     @Test
     public void testPrintGreeting() {
-        String input = "____________________________________________________________" + System.lineSeparator() +
+        String result = "____________________________________________________________" + System.lineSeparator() +
                 " ____  _      _      _  _____  ____  ____  _     _____ _\n" +
                 "/  _ \\/ \\__/|/ \\  /|/ \\/__ __\\/  __\\/  _ \\/ \\ |\\/  __// \\\n" +
                 "| / \\|| |\\/||| |\\ ||| |  / \\  |  \\/|| / \\|| | //|  \\  | |\n" +
@@ -768,7 +901,7 @@ class OmniTravelTest {
                 System.lineSeparator() + "Hello" + System.lineSeparator() + "How may I assist you?" +
                 System.lineSeparator() + "____________________________________________________________";
         Ui.printGreeting();
-        assertEquals(capturedOutputStream.toString().trim(), input);
+        assertEquals(capturedOutputStream.toString().trim(), result);
     }
 
 }
