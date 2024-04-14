@@ -434,7 +434,7 @@ class OmniTravelTest {
     }
 
     @Test
-    public void testTotalExpanseAndTypeIsInvalid() throws OmniException{
+    public void testTotalExpenseAndTypeIsInvalid() throws OmniException{
         TravelActivityList list = new TravelActivityList();
         list.addTravelActivity(new TravelActivity("visit museum",
                 LocalDate.parse("2019-05-12"),"2hours", "Sightseeing", "$20"));
@@ -442,7 +442,7 @@ class OmniTravelTest {
     }
 
     @Test
-    public void testTotalExpanseAll() throws OmniException{
+    public void testTotalExpenseAll() throws OmniException{
         TravelActivityList list = new TravelActivityList();
         list.addTravelActivity(new TravelActivity("visit museum",
                 LocalDate.parse("2019-05-12"),"2hours", "Sightseeing", "$20"));
@@ -453,7 +453,7 @@ class OmniTravelTest {
     }
 
     @Test
-    public void testTotalExpanseAccommodation() throws OmniException{
+    public void testTotalExpenseAccommodation() throws OmniException{
         TravelActivityList list = new TravelActivityList();
         list.addTravelActivity(new Accommodation("RVRC", LocalDate.parse("2022-07-12"), "3hours",
                 "hostel", "$70"));
@@ -463,7 +463,7 @@ class OmniTravelTest {
     }
 
     @Test
-    public void testTotalExpanseFood() throws OmniException{
+    public void testTotalExpenseFood() throws OmniException{
         TravelActivityList list = new TravelActivityList();
         list.addTravelActivity(new Food("UTOWN Flavours", LocalDate.parse("2028-05-12"), "1 hours",
                 "lunch", "$10"));
@@ -473,7 +473,7 @@ class OmniTravelTest {
     }
 
     @Test
-    public void testTotalExpanseLandmark() throws OmniException{
+    public void testTotalExpenseLandmark() throws OmniException{
         TravelActivityList list = new TravelActivityList();
         list.addTravelActivity(new Landmark("Berlin Wall", LocalDate.parse("2027-08-14"), "1 hours",
                 "sightseeig", "$5"));
@@ -567,11 +567,11 @@ class OmniTravelTest {
     @Test
     public void testActivityCommandFood() throws OmniException {
         TravelActivityList list = new TravelActivityList();
-        String expectedOutput4 = "____________________________________________________________" +
+        String expectedOutput4 = "_______________________________________________________________________________" +
                 System.lineSeparator() +
                 "I added a new food activity" + System.lineSeparator() +
                 "Food: description :4 Oct 2024 :2 days (test)" + System.lineSeparator() +
-                "____________________________________________________________";
+                "_______________________________________________________________________________";
         Parser.activityCommand("food description /date 2024-10-04 /duration 2 days /tag test", list);
         assertEquals(capturedOutputStream.toString().trim(), expectedOutput4);
     }
@@ -579,11 +579,11 @@ class OmniTravelTest {
     @Test
     public void testActivityCommandLandmark() throws OmniException {
         TravelActivityList list = new TravelActivityList();
-        String expectedOutput4 = "____________________________________________________________" +
+        String expectedOutput4 = "_______________________________________________________________________________" +
                 System.lineSeparator() +
                 "I added a new landmark" + System.lineSeparator() +
                 "Landmark: description :4 Oct 2024 :2 days (test)" + System.lineSeparator() +
-                "____________________________________________________________";
+                "_______________________________________________________________________________";
         Parser.activityCommand("landmark description /date 2024-10-04 /duration 2 days /tag test", list);
         assertEquals(capturedOutputStream.toString().trim(), expectedOutput4);
     }
@@ -766,10 +766,10 @@ class OmniTravelTest {
         TravelActivityList newList = initialiseTestTravelActivityList();
         Parser.totalExpenseCommand("totalexpense /type general", list);
         String result1 = "The total expense for all travel activities is: $0.0" + System.lineSeparator() +
-                "The total expense for TravelActivity travel activities is: $0.0" + System.lineSeparator();
+                "The total expense for General travel activities is: $0.0" + System.lineSeparator();
         assertEquals(capturedOutputStream.toString(), result1);
         String result2 = "The total expense for all travel activities is: $0.0" + System.lineSeparator() +
-                "The total expense for TravelActivity travel activities is: $0.0" + System.lineSeparator() +
+                "The total expense for General travel activities is: $0.0" + System.lineSeparator() +
                 "The total expense for accommodation travel activities is: $0.0" + System.lineSeparator();
         Parser.totalExpenseCommand("totalexpense /type accommodation", list);
         assertEquals(capturedOutputStream.toString(), result2);
@@ -939,7 +939,7 @@ class OmniTravelTest {
     public void testCheckCommandMethod() throws OmniException{
         TravelActivityList list = new TravelActivityList();
         String[] command1 = {"check"};
-        assertThrows(OmniException.class, () -> Parser.checkCommand(command1, list));
+        assertThrows(OmniException.class, () -> Parser.checkCommand(command1, list, "check 1"));
         list.addTravelActivity(accommodationNew1);
         list.addTravelActivity(foodNew2);
         String[] command = {"check", "1"};
@@ -950,7 +950,7 @@ class OmniTravelTest {
     public void testUncheckCommandMethod() throws OmniException{
         TravelActivityList list = new TravelActivityList();
         String[] command1 = {"check"};
-        assertThrows(OmniException.class, () -> Parser.uncheckCommand(command1, list));
+        assertThrows(OmniException.class, () -> Parser.uncheckCommand(command1, list, "uncheck 1"));
         list.addTravelActivity(accommodationNew1);
         list.addTravelActivity(foodNew2);
         String[] command = {"uncheck", "1"};
@@ -978,7 +978,8 @@ class OmniTravelTest {
 
     @Test
     public void testHelpCommand() {
-        String result = "____________________________________________________________" + System.lineSeparator() +
+        String result = "_______________________________________________________________________________" +
+                System.lineSeparator() +
                 "These are the available commands!" + System.lineSeparator() + System.lineSeparator() +
                 "1. list <date> <sort>: List out the current list for given date sorted\n" +
                 "2. help: Get all commands for the chatbot\n" +
@@ -1001,31 +1002,34 @@ class OmniTravelTest {
                 "19. removeexpense <activity number>\n" +
                 "20. totalexpense <type>\n" +
                 "21. change <amount> /from <current currency> /to <changed currency>\n" + System.lineSeparator() +
-                "____________________________________________________________";
+                "_______________________________________________________________________________";
         Ui.helpCommand();
         assertEquals(capturedOutputStream.toString().trim(), result);
     }
 
     @Test
     public void testPrintBye() {
-        String result = "____________________________________________________________" + System.lineSeparator() +
+        String result = "_______________________________________________________________________________" +
+                System.lineSeparator() +
                 "Thank you for using Omnitravel" + System.lineSeparator() +
                 "We hope to see you again! Goodbye!" + System.lineSeparator() +
-                "____________________________________________________________";
+                "_______________________________________________________________________________";
         Ui.printBye();
         assertEquals(capturedOutputStream.toString().trim(), result);
     }
 
     @Test
     public void testPrintGreeting() {
-        String result = "____________________________________________________________" + System.lineSeparator() +
+        String result = "_______________________________________________________________________________" +
+                System.lineSeparator() +
                 " ____  _      _      _  _____  ____  ____  _     _____ _\n" +
                 "/  _ \\/ \\__/|/ \\  /|/ \\/__ __\\/  __\\/  _ \\/ \\ |\\/  __// \\\n" +
                 "| / \\|| |\\/||| |\\ ||| |  / \\  |  \\/|| / \\|| | //|  \\  | |\n" +
                 "| \\_/|| |  ||| | \\||| |  | |  |    /| |-||| \\// |  /_ | |_/\\\n" +
                 "\\____/\\_/  \\|\\_/  \\|\\_/  \\_/  \\_/\\_\\\\_/ \\|\\__/  \\____\\\\____/)" +
                 System.lineSeparator() + "Hello" + System.lineSeparator() + "How may I assist you?" +
-                System.lineSeparator() + "____________________________________________________________";
+                System.lineSeparator() +
+                "_______________________________________________________________________________";
         Ui.printGreeting();
         assertEquals(capturedOutputStream.toString().trim(), result);
     }
