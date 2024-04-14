@@ -43,7 +43,7 @@ Source for currency exchange API: [link](https://github.com/fawazahmed0/exchange
 ## Design
 
 ### Architecture
-![ArchitectureDiagram.png](ArchitectureDiagram.png)
+![ArchitectureDiagram.png](DiagramImages/ArchitectureDiagram.png)
 
 The architecture diagram above describes the high level design of the OmniTravel app.
 
@@ -82,7 +82,7 @@ The parser component,
 
 ### TravelActivityTypes component
 
-![TravelActivityTypeClassDiagram.png](TravelActivityTypeClassDiagram.png)
+![TravelActivityTypeClassDiagram.png](DiagramImages/TravelActivityTypeClassDiagram.png)
 
 The TravelActivityTypes component consists of a few different classes:
 * `Accommodation`: A subclass of travel activity related to accommodation
@@ -105,7 +105,7 @@ the responses to the user.
 * takes in exceptions as parameters and prints out the error message.
 
 ### Errorhandlers component
-![Errorhandlers.png](Errorhandler.png)
+![Errorhandlers.png](DiagramImages/Errorhandler.png)
 
 The Errorhandler component consists of two classes `CheckParameters` and `OmniException`.
 `OmniException` is a subclass of the parent class `Exception`.
@@ -135,12 +135,12 @@ the respective activity types and its contents with `/` as the delimiter.
 The Sequence Diagram below shows how the save file feature is being implemented when the user re-enters the chatbot
 after using the bye command.
 
-![img.png](img.png)
+![img.png](DiagramImages/img.png)
 
 The above sequence diagram shows how existing save text files will be reloaded back into Omnibots array list to act as
 a form of save feature when the user exits the bot. 
 
-![img_3.png](img_3.png)
+![img_3.png](DiagramImages/img_3.png)
 
 The above class diagram shows the methods and the respective input and return types that the FileSave class contains. It
 also shows the classes called during the file load sequence.
@@ -164,10 +164,10 @@ Step 3. The method will then find the travel activity with the corresponding tra
 of that travel activity.
 
 The class diagram below shows the main relationship between the classes in the update feature:
-![UpdateFeatureClassDiagrma.png](UpdateFeatureClassDiagram.png)
+![UpdateFeatureClassDiagrma.png](DiagramImages/UpdateFeatureClassDiagram.png)
 
 The sequence diagram below shows how an update operation goes through the parser component:
-![img_1.png](img_1.png)
+![img_1.png](DiagramImages/img_1.png)
 
 ### Total Expense feature
 
@@ -184,7 +184,7 @@ Step 2. After the user has added new travel activities into the `travelActivityL
 
 Step 3. The method will loop through each activity in `travelActivities` and add up all the expenses for the given type. If no type is provided, it will default to TravelActivity type.
 
-![totalexpense.png](totalexpense.png)
+![totalexpense.png](DiagramImages/totalexpense.png)
 
 ### Tag feature
 
@@ -192,7 +192,7 @@ The tag feature is implemented through the tagCommand method, which allows users
 
 The sequence diagram depicts the interaction between the user, the tagCommand method, the TravelActivityList instance, and the OmniException instance.
 
-![TagSequenceDiagram.png](TagSequenceDiagram.png)
+![TagSequenceDiagram.png](DiagramImages/TagSequenceDiagram.png)
 ## Appendix: Requirements
 ## Product scope
 ### Target user profile
@@ -483,7 +483,6 @@ More info can be found in the user guide [here](https://ay2324s2-cs2113-t12-4.gi
 ### Show help
 1. Shows all the commands the user can input
     1. Test case: `help`
-
 
        Expected: All the commands will be shown 
 

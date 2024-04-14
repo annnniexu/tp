@@ -1,0 +1,30 @@
+@startuml
+skinparam classAttributeIconSize 0
+class User
+class FileSave {
+    + readFile(): void
+    - loadFileContents(list: TravelActivityList): void
+    - initialiseActivity(type: String, description: String, date: LocalDate, duration: String, tag: String, expense: String): TravelActivity
+    - saveActivityList(list: TravelActivityList): void
+    - readFile(list: TravelActivityList): void
+}
+class TravelActivityList {
+    - travelActivities: List<TravelActivity>
+    + addTravelActivity(activity: TravelActivity): void
+    + getTravelActivities(): List<TravelActivity>
+}
+class Scanner
+class Accommodation
+class Food
+class Landmark
+class SetActivityStatus
+
+User --> "1" FileSave: readFile()
+FileSave --> "1" TravelActivityList: loadFileContents(list)
+FileSave --> "1" Scanner: hasNext()
+FileSave --> "*" Accommodation: initialiseActivity()
+FileSave --> "*" Food: initialiseActivity()
+FileSave --> "*" Landmark: initialiseActivity()
+FileSave --> "*" SetActivityStatus: setActivityStatus()
+
+@enduml

@@ -1,0 +1,67 @@
+@startuml
+alt first word of user command is "find"
+   OmniTravel -> Parser : findCommand()
+   Parser -> TravelActivityList : searchKeyword()
+   loop size of travelActivities ArrayList
+      alt activity description matches the keyword user inputted
+         TravelActivityList -> TravelActivityList : foundCounter += 1
+         TravelActivityList -> System.out : println("Here are what you are looking for:")
+         TravelActivityList -> Ui : printActivity(travelActivity, foundCounter);
+         Ui -> System.out : print(checked + " " + activityIndex + ". " + activity)
+         alt Activity has a tag
+            Ui -> System.out : print(" (" + activity.getTag() + ")")
+
+         else activity have no tag
+            Ui -> System.out : print(" (" + activity.getExpense() + ")")
+         end
+         Ui -> System.out : println()
+      end
+   end
+   alt no activity description matches the keyword user inputted
+      TravelActivityList -> System.out : println("Sorry I could not find what you are looking for.")
+   end
+end
+
+alt first word of user command is "findtag"
+   OmniTravel -> Parser : findTagCommand()
+   Parser -> TravelActivityList : findTag()
+   loop size of travelActivities ArrayList
+      alt activity tag matches the keyword user inputted
+         TravelActivityList -> TravelActivityList : foundCounter += 1
+         TravelActivityList -> System.out : println("Here are what you are looking for:")
+         TravelActivityList -> Ui : printActivity(travelActivity, foundCounter);
+         Ui -> System.out : print(checked + " " + activityIndex + ". " + activity)
+         alt Activity has a tag
+            Ui -> System.out : print(" (" + activity.getTag() + ")")
+         else activity have no tag
+            Ui -> System.out : print(" (" + activity.getExpense() + ")")
+         end
+         Ui -> System.out : println()
+      end
+   end
+   alt no activity tag matches the keyword user inputted
+      TravelActivityList -> System.out : println("Sorry I could not find what you are looking for.")
+   end
+end
+alt first word of user command is "findtype"
+   OmniTravel -> Parser : findTypeCommand()
+   Parser -> TravelActivityList : findType()
+   loop size of travelActivities ArrayList
+   alt activity tag matches the keyword user inputted
+         TravelActivityList -> TravelActivityList : foundCounter += 1
+         TravelActivityList -> System.out : println("Here are what you are looking for:")
+         TravelActivityList -> Ui : printActivity(travelActivity, foundCounter);
+         Ui -> System.out : print(checked + " " + activityIndex + ". " + activity)
+         alt Activity has a tag
+            Ui -> System.out : print(" (" + activity.getTag() + ")")
+         else activity have no tag
+            Ui -> System.out : print(" (" + activity.getExpense() + ")")
+         end
+         Ui -> System.out : println()
+      end
+   end
+   alt no activity type matches the keyword user inputted
+      TravelActivityList -> System.out : println("Sorry I could not find what you are looking for.")
+   end
+end
+@enduml
