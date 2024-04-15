@@ -22,8 +22,7 @@ Given below are the contributions I made to this project:
 
 
 #### Code contribution:
-[RepoSense link]
-(https://nus-cs2113-ay2324s2.github.io/tp-dashboard/?search=annnniexu&breakdown=true)
+[RepoSense link](https://nus-cs2113-ay2324s2.github.io/tp-dashboard/?search=annnniexu&breakdown=true)
 
 #### Documentation:
 * User guide
