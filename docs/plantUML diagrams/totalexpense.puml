@@ -4,17 +4,26 @@
 autonumber
 actor User
 User -> OmniTravel : "totalexpense /type Food"
+activate OmniTravel
 OmniTravel -> Parser : totalExpenseCommand(line, list)
+activate Parser
    Parser -> TravelActivityList : totalExpense(type)
+   activate TravelActivityList
    loop size of travelActivities ArrayList
       opt activity type matches the type the user inputed
          TravelActivityList -> TravelActivity: getExpense()
+         activate TravelActivity
          TravelActivity --> TravelActivityList:
+         deactivate TravelActivity
          TravelActivityList -> TravelActivityList: total += expense
 
       end
    end
+
 TravelActivityList --> Parser
+deactivate TravelActivityList
 Parser --> OmniTravel
+deactivate Parser
 OmniTravel --> User
+deactivate OmniTravel
 @enduml

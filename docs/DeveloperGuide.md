@@ -184,7 +184,7 @@ Step 2. After the user has added new travel activities into the `travelActivityL
 
 Step 3. The method will loop through each activity in `travelActivities` and add up all the expenses for the given type. If no type is provided, it will default to TravelActivity type.
 
-![totalexpense.png](DiagramImages/totalexpense.png)
+![TotalExpenseDiagram.png](DiagramImages/TotalExpenseDiagram.png)
 
 ### Tag feature
 
